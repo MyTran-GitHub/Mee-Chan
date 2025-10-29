@@ -12,7 +12,7 @@
 
 - 🤝 I’m looking for help with [API integration in Mapbox](https://github.com/MyTran-GitHub/Girlwhocode-Hackathon)
 
-- 💬 My strength is **Pay attention to the right detail**
+- 💬 My strength is **Intentional at being creative**
 
 - ⚡ Fun fact **I love duck and dancing**
 
