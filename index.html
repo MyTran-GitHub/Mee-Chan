@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tran - Remote Sensing Portfolio</title>
+
+    <!-- Styles -->
+    <style>
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; margin:0; padding:0; background:#f8f9fa; color:#333; }
+        header { background:#2c3e50; color:white; padding:60px 20px; text-align:center; }
+        header img { border-radius:10px; max-width:300px; margin-top:20px; }
+        section { padding:60px 20px; max-width:1000px; margin:auto; }
+        h2 { color:#2c3e50; margin-bottom:20px; }
+        .card { background:white; padding:20px; margin:20px 0; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+        .tab { display:flex; cursor:pointer; margin-bottom:10px; }
+        .tab div { padding:10px 20px; background:#ddd; margin-right:5px; border-radius:5px; }
+        .tab div.active { background:#2c3e50; color:white; }
+        .tab-content { display:none; background:#f1f1f1; padding:20px; border-radius:5px; }
+        .tab-content.active { display:block; }
+        a { color:#2980b9; text-decoration:none; }
+        .section-title { text-align:center; margin-bottom:40px; }
+    </style>
+
+    <!-- Scripts -->
+    <script>
+        function showTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) { tabcontent[i].classList.remove("active"); }
+            tablinks = document.querySelectorAll(".tab div");
+            for (i = 0; i < tablinks.length; i++) { tablinks[i].classList.remove("active"); }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</head>
+<body>
+
+<!-- Header / Landing Page -->
+<header>
+    <h1>Hi 👋, I'm My Tran</h1>
+    <h3>Remote Sensing Data Scientist | Agriculture & Causal Inference</h3>
+    <img src="https://images-cdn.exchange.art/qshqgr0cjqmr5phD1tK-3gnohYWmfcXwx6VWnk27o38?ext=fastly&optimize=medium" alt="My Tran">
+</header>
+
+<!-- AWD Research Landing -->
+<section id="awd">
+    <h2 class="section-title">Alternative Wetting and Drying (AWD) Research</h2>
+    <div class="card">
+        <p><strong>Problem:</strong> Traditional rice irrigation is water-intensive and spatially inefficient.</p>
+        <p><strong>Objective:</strong> Identify suitable areas for AWD irrigation using remote sensing and modeling.</p>
+        <p><strong>Method:</strong> Fused CHIRPS precipitation, MODIS ET, SoilGrids soil attributes, NASADEM elevation, and SMAP soil moisture to build AWD suitability maps. Corrected overestimation of traditional water balance models (~200%). Simulated rice yield and water productivity with AQUAWAT.</p>
+        <p><strong>Impact:</strong> Provided actionable recommendations for sustainable irrigation and optimized water allocation across Japan.</p>
+    </div>
+</section>
+
+<!-- Research Workflow Tabs -->
+<section id="research-process">
+    <h2 class="section-title">Research Workflow</h2>
+    <div class="tab">
+        <div class="active" onclick="showTab(event, 'data')">Data Curation</div>
+        <div onclick="showTab(event, 'modeling')">Modeling</div>
+        <div onclick="showTab(event, 'visualization')">Visualization & Analysis</div>
+    </div>
+    <div id="data" class="tab-content active">
+        <p>Curated and preprocessed pre-treatment Landsat 5 imagery. Extracted embeddings using Panopticon, and benchmarked against CNN and Vision Transformer (ViT) embeddings to validate spatial heterogeneity analysis.</p>
+    </div>
+    <div id="modeling" class="tab-content">
+        <p>Applied CausalImages to generate treatment effect (CATE) maps for Georgia's water conservation policy. Built AWD suitability maps and simulated rice yield using AQUAWAT and Cellular Automata–Markov Chain models.</p>
+    </div>
+    <div id="visualization" class="tab-content">
+        <p>Created cluster-level and pixel-level visualizations of treatment effect heterogeneity. Built interactive platforms for reforestation and Google Earth Engine apps integrating AlphaEarth embeddings for landscape connectivity analysis.</p>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects">
+    <h2 class="section-title">Selected Projects</h2>
+    <div class="card">
+        <h3>Land-Water Monitoring</h3>
+        <p>Built Sentinel-2 segmentation models (CNN, ResNet, ViT, UNET) to delineate land-water bodies for monitoring and land use change simulations under different agricultural scenarios.</p>
+    </div>
+    <div class="card">
+        <h3>Disaster Response Mapping</h3>
+        <p>Co-registered and normalized optical-SAR imagery pairs to generate post-earthquake building damage maps in Turkey using the BRIGHT model.</p>
+    </div>
+    <div class="card">
+        <h3>Decision Support Tools</h3>
+        <p>Developed random forest and genetic algorithm models to recommend companion crops for farmers, with a chatbox interface powered by OpenAI API.</p>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills">
+    <h2 class="section-title">Skills & Tools</h2>
+    <p>Python, R, SQL, TensorFlow, PyTorch, Scikit-learn, Google Earth Engine, GDAL, OpenCV, QGIS, Sentinel-1/2, Landsat, MODIS, SMAP, CHIRPS, AQUAWAT, CausalImages, Random Forest, XGBoost, UNET, Vision Transformer</p>
+</section>
+
+</body>
+</html>
