@@ -44,13 +44,13 @@
 
         // Threshold click-through gallery
         const awdImages = [
-            {src:"/assets/awd-thresh-25.png", label:"-25mm"},
-            {src:"/assets/awd-thresh-50.png", label:"-50mm"},
-            {src:"/assets/awd-thresh-70.png", label:"-70mm"},
-            {src:"/assets/awd-thresh-90.png", label:"-90mm"},
-            {src:"/assets/awd-thresh-110.png", label:"-110mm"},
-            {src:"/assets/awd-thresh-130.png", label:"-130mm"},
-            {src:"/assets/awd-thresh-150.png", label:"-150mm"}
+            {src:"assets/awd-thresh-25.png", label:"-25mm"},
+            {src:"assets/awd-thresh-50.png", label:"-50mm"},
+            {src:"assets/awd-thresh-70.png", label:"-70mm"},
+            {src:"assets/awd-thresh-90.png", label:"-90mm"},
+            {src:"assets/awd-thresh-110.png", label:"-110mm"},
+            {src:"assets/awd-thresh-130.png", label:"-130mm"},
+            {src:"assets/awd-thresh-150.png", label:"-150mm"}
         ];
         function selectAWDThreshold(idx) {
             var imgElem = document.getElementById("awd-threshold-image");
@@ -71,7 +71,7 @@
     <header>
         <h1>Hi 👋, I'm My Tran</h1>
         <h2 style="font-size:1.2rem; font-weight:400">Remote Sensing Data Scientist | Sustainable Agriculture & Causal Inference</h2>
-        <img src="/assets/mytran-headshot.png" alt="My Tran">
+        <img src="assets/mytran-headshot.png" alt="My Tran">
         <p style="margin-top:18px; max-width:600px; margin:auto;"><b>A glimpse through my AWD irrigation research and side projects.</b></p>
     </header>
 
@@ -118,13 +118,13 @@
                 <button onclick="selectAWDThreshold(1)" class="active">-50mm</button>
                 <button onclick="selectAWDThreshold(2)">-70mm</button>
                 <button onclick="selectAWDThreshold(3)">-90mm</button>
-                <button onclick="selectAWDThreshold(4)">-100mm</button>
+                <button onclick="selectAWDThreshold(4)">-110mm</button>
                 <button onclick="selectAWDThreshold(5)">-130mm</button>
                 <button onclick="selectAWDThreshold(6)">-150mm</button>
             </div>
             <div style="text-align:center; margin-bottom:17px;">
                 <span id="awd-threshold-label" style="font-weight:600; color:#30567b; display:block; margin-bottom:9px;">-50mm Threshold</span>
-                <img id="awd-threshold-image" src="/assets/awd-thresh-50.png" class="thumb-map" alt="AWD Suitability Map">
+                <img id="awd-threshold-image" src="assets/awd-thresh-50.png" class="thumb-map" alt="AWD Suitability Map">
             </div>
             <p>
               <b>Why choose -50mm?</b><br>
@@ -132,12 +132,12 @@
             </p>
             <p>
                 <b>Biophysical constraints:</b><br>
-                <img src="/assets/awd-biophysical-map.png" alt="Biophysical Map" style="width:220px; border-radius:7px; margin-bottom:12px;"><br>
+                <img src="assets/awd-biophysical-map.png" alt="Biophysical Map" style="width:220px; border-radius:7px; margin-bottom:12px;"><br>
                 Local soil texture, pH, drainage, moisture, and terrain slope harmonized to create a biophysical suitability layer.
             </p>
             <p>
               <b>Final Composite Map:</b> Overlaying the <em>-50mm suitability map</em> with <em>biophysical constraints</em> yields the actionable AWD irrigation target areas:<br>
-              <img src="/assets/awd-composite-map.png" alt="AWD Final Composite Map" style="width:350px; border-radius:10px;">
+              <img src="assets/awd-composite-map.png" alt="AWD Final Composite Map" style="width:350px; border-radius:10px;">
             </p>
         </div>
     </section>
