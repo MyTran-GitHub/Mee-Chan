@@ -3,99 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Tran - Remote Sensing Portfolio</title>
-
-    <!-- Styles -->
+    <title>My Tran | Remote Sensing Portfolio</title>
     <style>
-        body { font-family: 'Arial', sans-serif; line-height: 1.6; margin:0; padding:0; background:#f8f9fa; color:#333; }
-        header { background:#2c3e50; color:white; padding:60px 20px; text-align:center; }
-        header img { border-radius:10px; max-width:300px; margin-top:20px; }
-        section { padding:60px 20px; max-width:1000px; margin:auto; }
-        h2 { color:#2c3e50; margin-bottom:20px; }
-        .card { background:white; padding:20px; margin:20px 0; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
-        .tab { display:flex; cursor:pointer; margin-bottom:10px; }
-        .tab div { padding:10px 20px; background:#ddd; margin-right:5px; border-radius:5px; }
-        .tab div.active { background:#2c3e50; color:white; }
-        .tab-content { display:none; background:#f1f1f1; padding:20px; border-radius:5px; }
-        .tab-content.active { display:block; }
-        a { color:#2980b9; text-decoration:none; }
-        .section-title { text-align:center; margin-bottom:40px; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin:0; padding:0; background:#f4f6f8; color:#25314b; }
+        header { background:#30567b; color:white; padding:50px 20px; text-align:center; }
+        header img { border-radius:10px; max-width:180px; margin-top:20px; box-shadow:0 2px 12px rgba(60,88,136,0.14); }
+        .section { padding:42px 18px; max-width:950px; margin:auto;}
+        h2 { color:#30567b; margin-bottom:19px; font-size:2rem;}
+        .card { background:white; padding:23px; margin:18px 0; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.09);}
+        .tab-row { display:flex;gap:7px; margin-bottom:14px; }
+        .tab-row div { background:#e4e9ef; color:#30567b; padding:11px 21px; border-radius:5px; cursor:pointer; font-weight:500; }
+        .tab-row div.active { background:#30567b; color:white; }
+        .tab-panel { display:none; background:#eef1f6; padding:21px; border-radius:6px;}
+        .tab-panel.active { display:block;}
+        .thumb-btns { display:flex; gap:8px; margin-bottom:16px;}
+        .thumb-btns button { padding:7px 14px; border-radius:6px; border:1px solid #ecedf5; background:#e4e9ef; color:#30567b; font-weight:500; cursor:pointer;}
+        .thumb-btns button.active { background:#30567b; color:white; border:1px solid #30567b;}
+        .thumb-map { width:250px; max-width:90vw; border-radius:7px; box-shadow:0 1px 7px rgba(80,110,200,0.09); }
+        .project-cards { display:flex; flex-wrap:wrap; gap:24px;}
+        .project-card { flex:1 1 260px; background:white; border-radius:9px; box-shadow:0 2px 6px rgba(50,86,123,.09); padding:18px; margin-bottom:18px; }
+        .project-card h3 { margin-top:0;margin-bottom:9px;}
+        ul.skills {display:flex; flex-wrap:wrap; list-style:none; padding:0;}
+        ul.skills li { background:#e6ecf2; margin:6px; padding:8px 15px; border-radius:5px; font-size:1rem;}
+        a { color:#1758a8; text-decoration:none;}
+        @media(max-width: 800px) {
+          .project-cards { flex-direction:column;}
+          .section { padding:30px 7px;}
+        }
     </style>
-
-    <!-- Scripts -->
     <script>
         function showTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) { tabcontent[i].classList.remove("active"); }
-            tablinks = document.querySelectorAll(".tab div");
-            for (i = 0; i < tablinks.length; i++) { tablinks[i].classList.remove("active"); }
+            var i, tabpanels, tablinks;
+            tabpanels = document.getElementsByClassName("tab-panel");
+            for (i = 0; i < tabpanels.length; i++) tabpanels[i].classList.remove("active");
+            tablinks = document.querySelectorAll(".tab-row div");
+            for (i = 0; i < tablinks.length; i++) tablinks[i].classList.remove("active");
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
+
+        // Threshold click-through gallery
+        const awdImages = [
+            {src:"/assets/awd-thresh-25.jpg", label:"-25mm"},
+            {src:"/assets/awd-thresh-50.jpg", label:"-50mm"},
+            {src:"/assets/awd-thresh-70.jpg", label:"-70mm"},
+            {src:"/assets/awd-thresh-90.jpg", label:"-90mm"},
+            {src:"/assets/awd-thresh-100.jpg", label:"-100mm"},
+            {src:"/assets/awd-thresh-130.jpg", label:"-130mm"}
+        ];
+        function selectAWDThreshold(idx) {
+            var imgElem = document.getElementById("awd-threshold-image");
+            var labElem = document.getElementById("awd-threshold-label");
+            imgElem.src = awdImages[idx].src;
+            labElem.innerText = awdImages[idx].label + " Threshold";
+            // Update active button
+            var btns = document.querySelectorAll('.thumb-btns button');
+            btns.forEach((b,i)=>b.classList.toggle('active',i===idx));
+        }
+        document.addEventListener("DOMContentLoaded",function(){
+            var thumbBtns = document.getElementsByClassName("thumb-btns")[0];
+            if(thumbBtns) selectAWDThreshold(1); // default -50mm, idx=1
+        });
     </script>
 </head>
 <body>
+    <header>
+        <h1>Hi 👋, I'm My Tran</h1>
+        <h2 style="font-size:1.2rem; font-weight:400">Remote Sensing Data Scientist | Sustainable Agriculture & Causal Inference</h2>
+        <img src="/assets/mytran-headshot.jpg" alt="My Tran">
+        <p style="margin-top:18px; max-width:600px; margin:auto;"><b>A glimpse through my AWD irrigation research and side projects.</b></p>
+    </header>
 
-<!-- Header / Landing Page -->
-<header>
-    <h1>Hi 👋, I'm My Tran</h1>
-    <h3>Remote Sensing Data Scientist | Agriculture & Causal Inference</h3>
-    <img src="https://images-cdn.exchange.art/qshqgr0cjqmr5phD1tK-3gnohYWmfcXwx6VWnk27o38?ext=fastly&optimize=medium" alt="My Tran">
-</header>
+    <section class="section" id="awd">
+        <h2>AWD (Alternative Wetting and Drying) Research</h2>
+        <div class="card">
+            <p><b>Problem:</b> Traditional rice irrigation consumes large amounts of water and is accountable for up to 10% of global methane emissions.</p>
+            <p><b>Objective:</b> Create an AWD suitability map using satellite data and water balance modeling.</p>
+            <p><b>Method:</b> Correct the overestimation of traditional water balance model by integrating biophysical constraints (soil, terrain).</p>
+            <p><b>Impact:</b> Provided recommendations for sustainable irrigation for improved food security in Japan.</p>
+        </div>
+    </section>
 
-<!-- AWD Research Landing -->
-<section id="awd">
-    <h2 class="section-title">Alternative Wetting and Drying (AWD) Research</h2>
-    <div class="card">
-        <p><strong>Problem:</strong> Traditional rice irrigation is water-intensive and spatially inefficient.</p>
-        <p><strong>Objective:</strong> Identify suitable areas for AWD irrigation using remote sensing and modeling.</p>
-        <p><strong>Method:</strong> Fused CHIRPS precipitation, MODIS ET, SoilGrids soil attributes, NASADEM elevation, and SMAP soil moisture to build AWD suitability maps. Corrected overestimation of traditional water balance models (~200%). Simulated rice yield and water productivity with AQUAWAT.</p>
-        <p><strong>Impact:</strong> Provided actionable recommendations for sustainable irrigation and optimized water allocation across Japan.</p>
-    </div>
-</section>
+    <section class="section" id="research-process">
+        <h2>Research Workflow</h2>
+        <div class="tab-row">
+            <div class="active" onclick="showTab(event, 'data')">Data Curation</div>
+            <div onclick="showTab(event, 'modeling')">Modeling</div>
+            <div onclick="showTab(event, 'visualization')">Visualization</div>
+        </div>
+        <div id="data" class="tab-panel active">
+            <h3>AWD Data & Curation</h3>
+            <p>
+              <b>Satellite & field data:</b> Daily rainfall (CHIRPS), MODIS ET, SMAP soil moisture, SoilGrids attributes, NASADEM elevation.<br>
+              <b>Processing steps:</b> We aligned all datasets to a common 500m grid for Japan rice-growing area and aggregated into dekadal (10-day) intervals.
+            </p>
+        </div>
+        <div id="modeling" class="tab-panel">
+            <h3>Water Balance Modeling</h3>
+            <p>
+              <b>Classic model:</b> “Water in vs. Water out” approach: Rainfall adds water to the soil, while evaporation and percolation remove it. <br>
+              <b>Critical gap:</b> <span style="color:red;">AWD is safe only if the soil doesn’t get too dry. If rainfall is too low relative to evapotranspiration, water deficit drops too far, crops will experience water stress and make AWD risky.</span><br>
+              <b>Improvement:</b> Impose a water deficit threshold for safe AWD implementation + Integrate spatial soil/terrain layer for realistic suitability assessment.
+            </p>
+        </div>
+        <div id="visualization" class="tab-panel">
+            <h3>Threshold Visualization & Composite Mapping</h3>
+            <p>
+              <b>AWD suitability by water deficit threshold:</b><br>
+              <em>Click a threshold below to view its suitability map:</em>
+            </p>
+            <div class="thumb-btns">
+                <button onclick="selectAWDThreshold(0)">-25mm</button>
+                <button onclick="selectAWDThreshold(1)" class="active">-50mm</button>
+                <button onclick="selectAWDThreshold(2)">-70mm</button>
+                <button onclick="selectAWDThreshold(3)">-90mm</button>
+                <button onclick="selectAWDThreshold(4)">-100mm</button>
+                <button onclick="selectAWDThreshold(5)">-130mm</button>
+            </div>
+            <div style="text-align:center; margin-bottom:17px;">
+                <span id="awd-threshold-label" style="font-weight:600; color:#30567b; display:block; margin-bottom:9px;">-50mm Threshold</span>
+                <img id="awd-threshold-image" src="/assets/awd-thresh-50.jpg" class="thumb-map" alt="AWD Suitability Map">
+            </div>
+            <p>
+              <b>Why choose -50mm?</b><br>
+              -50mm threshold best aligns with the biophysical suitability layer.
+            </p>
+            <p>
+                <b>Biophysical constraints:</b><br>
+                <img src="/assets/awd-biophysical-map.jpg" alt="Biophysical Map" style="width:220px; border-radius:7px; margin-bottom:12px;"><br>
+                Local soil texture, pH, drainage, moisture, and terrain slope harmonized to create a biophysical suitability layer.
+            </p>
+            <p>
+              <b>Final Composite Map:</b> Overlaying the <em>-50mm suitability map</em> with <em>biophysical constraints</em> yields the actionable AWD irrigation target areas:<br>
+              <img src="/assets/awd-composite-map.jpg" alt="AWD Final Composite Map" style="width:350px; border-radius:10px;">
+            </p>
+        </div>
+    </section>
 
-<!-- Research Workflow Tabs -->
-<section id="research-process">
-    <h2 class="section-title">Research Workflow</h2>
-    <div class="tab">
-        <div class="active" onclick="showTab(event, 'data')">Data Curation</div>
-        <div onclick="showTab(event, 'modeling')">Modeling</div>
-        <div onclick="showTab(event, 'visualization')">Visualization & Analysis</div>
-    </div>
-    <div id="data" class="tab-content active">
-        <p>Curated and preprocessed pre-treatment Landsat 5 imagery. Extracted embeddings using Panopticon, and benchmarked against CNN and Vision Transformer (ViT) embeddings to validate spatial heterogeneity analysis.</p>
-    </div>
-    <div id="modeling" class="tab-content">
-        <p>Applied CausalImages to generate treatment effect (CATE) maps for Georgia's water conservation policy. Built AWD suitability maps and simulated rice yield using AQUAWAT and Cellular Automata–Markov Chain models.</p>
-    </div>
-    <div id="visualization" class="tab-content">
-        <p>Created cluster-level and pixel-level visualizations of treatment effect heterogeneity. Built interactive platforms for reforestation and Google Earth Engine apps integrating AlphaEarth embeddings for landscape connectivity analysis.</p>
-    </div>
-</section>
+    <section class="section" id="projects">
+        <h2>Selected Side Projects</h2>
+        <div class="project-cards">
+            <div class="project-card">
+                <h3>Land-Water Segmentation</h3>
+                <p>Built Sentinel-2 image segmentation models (CNN, ResNet, ViT, UNET) to delineate land–water bodies.</p>
+            </div>
+            <div class="project-card">
+                <h3>Land Use Change Simulation</h3>
+                <p>Simulated land use change under different agricultural scenarios using Cellular Automata–Markov Chain.</p>
+            </div>
+            <div class="project-card">
+                <h3>Earthquake Damage Mapping (BRIGHT)</h3>
+                <p>Co-registered and normalized optical-SAR imagery pairs to generate post-earthquake building damage maps in Turkey using the BRIGHT building damage detection model.</p>
+            </div>
+            <div class="project-card">
+                <h3>Landscape Connectivity Explorer</h3>
+                <p>Developed a Google Earth Engine app integrating AlphaEarth Embeddings for similarity-based retrieval and unsupervised change detection, facilitating landscape connectivity analysis at scale.</p>
+            </div>
+            <div class="project-card">
+                <h3>Crop Recommendation & Decision Support</h3>
+                <p>Developed random forest classification and genetic algorithm models to identify companion crops for specific environmental conditions, with a chatbox interface for farmers using OpenAI API.</p>
+            </div>
+        </div>
+    </section>
 
-<!-- Projects Section -->
-<section id="projects">
-    <h2 class="section-title">Selected Projects</h2>
-    <div class="card">
-        <h3>Land-Water Monitoring</h3>
-        <p>Built Sentinel-2 segmentation models (CNN, ResNet, ViT, UNET) to delineate land-water bodies for monitoring and land use change simulations under different agricultural scenarios.</p>
-    </div>
-    <div class="card">
-        <h3>Disaster Response Mapping</h3>
-        <p>Co-registered and normalized optical-SAR imagery pairs to generate post-earthquake building damage maps in Turkey using the BRIGHT model.</p>
-    </div>
-    <div class="card">
-        <h3>Decision Support Tools</h3>
-        <p>Developed random forest and genetic algorithm models to recommend companion crops for farmers, with a chatbox interface powered by OpenAI API.</p>
-    </div>
-</section>
 
-<!-- Skills Section -->
-<section id="skills">
-    <h2 class="section-title">Skills & Tools</h2>
-    <p>Python, R, SQL, TensorFlow, PyTorch, Scikit-learn, Google Earth Engine, GDAL, OpenCV, QGIS, Sentinel-1/2, Landsat, MODIS, SMAP, CHIRPS, AQUAWAT, CausalImages, Random Forest, XGBoost, UNET, Vision Transformer</p>
-</section>
-
+    <section class="section" id="skills">
+        <h2>Skills & Tools</h2>
+        <ul class="skills">
+            <li>Python</li>
+            <li>R</li>
+            <li>SQL</li>
+            <li>TensorFlow</li>
+            <li>PyTorch</li>
+            <li>Scikit-learn</li>
+            <li>Google Earth Engine</li>
+            <li>GDAL</li>
+            <li>OpenCV</li>
+            <li>QGIS</li>
+            <li>Sentinel-2</li>
+            <li>Landsat</li>
+            <li>MODIS</li>
+            <li>SMAP</li>
+            <li>CHIRPS</li>
+            <li>AQUAWAT</li>
+            <li>CausalImages</li>
+            <li>Random Forest</li>
+            <li>XGBoost</li>
+            <li>UNET</li>
+            <li>Vision Transformer</li>
+        </ul>
+    </section>
 </body>
 </html>
