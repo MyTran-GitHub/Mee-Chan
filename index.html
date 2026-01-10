@@ -3,197 +3,1037 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Tran | Remote Sensing Portfolio</title>
+    <title>My Tran | Political Methodology & Causal Inference</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin:0; padding:0; background:#f4f6f8; color:#25314b; }
-        header { background:#30567b; color:white; padding:50px 20px; text-align:center; }
-        header img { border-radius:10px; max-width:180px; margin-top:20px; box-shadow:0 2px 12px rgba(60,88,136,0.14); }
-        .section { padding:42px 18px; max-width:950px; margin:auto;}
-        h2 { color:#30567b; margin-bottom:19px; font-size:2rem;}
-        .card { background:white; padding:23px; margin:18px 0; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.09);}
-        .tab-row { display:flex;gap:7px; margin-bottom:14px; }
-        .tab-row div { background:#e4e9ef; color:#30567b; padding:11px 21px; border-radius:5px; cursor:pointer; font-weight:500; }
-        .tab-row div.active { background:#30567b; color:white; }
-        .tab-panel { display:none; background:#eef1f6; padding:21px; border-radius:6px;}
-        .tab-panel.active { display:block;}
-        .thumb-btns { display:flex; gap:8px; margin-bottom:16px;}
-        .thumb-btns button { padding:7px 14px; border-radius:6px; border:1px solid #ecedf5; background:#e4e9ef; color:#30567b; font-weight:500; cursor:pointer;}
-        .thumb-btns button.active { background:#30567b; color:white; border:1px solid #30567b;}
-        .thumb-map { width:250px; max-width:90vw; border-radius:7px; box-shadow:0 1px 7px rgba(80,110,200,0.09); }
-        .project-cards { display:flex; flex-wrap:wrap; gap:24px;}
-        .project-card { flex:1 1 260px; background:white; border-radius:9px; box-shadow:0 2px 6px rgba(50,86,123,.09); padding:18px; margin-bottom:18px; }
-        .project-card h3 { margin-top:0;margin-bottom:9px;}
-        ul.skills {display:flex; flex-wrap:wrap; list-style:none; padding:0;}
-        ul.skills li { background:#e6ecf2; margin:6px; padding:8px 15px; border-radius:5px; font-size:1rem;}
-        a { color:#1758a8; text-decoration:none;}
-        @media(max-width: 800px) {
-          .project-cards { flex-direction:column;}
-          .section { padding:30px 7px;}
+        /* ═══════════════════════════════════════════════════════════════ */
+        /* GLOBAL RESET & TYPOGRAPHY */
+        /* ═══════════════════════════════════════════════════════════════ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            line-height: 1.2;
+            color: #0d0d0d;
+        }
+        
+        h1 { font-size: 3.5rem; letter-spacing: -0.02em; }
+        h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+        h3 { font-size: 1.75rem; margin-bottom: 1rem; }
+        h4 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+        
+        p { 
+            font-size: 1.1rem; 
+            margin-bottom: 1.2rem; 
+            color: #2d2d2d;
+            max-width: 75ch;
+        }
+        
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        
+        a:hover { border-bottom-color: #2563eb; }
+        
+        /* ═══════════════════════════════════════════════════════════════ */
+        /* HERO SECTION - FULL SCREEN IMPACT */
+        /* ═══════════════════════════════════════════════════════════════ */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect fill="rgba(255,255,255,0.03)" width="50" height="50"/></svg>') repeat;
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            padding: 2rem;
+            max-width: 1100px;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero .mission {
+            font-size: 1.15rem;
+            font-style: italic;
+            color: rgba(255,255,255,0.85);
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════ */
+        /* SECTION LAYOUT */
+        /* ═══════════════════════════════════════════════════════════════ */
+        section {
+            padding: 7rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section.alt-bg {
+            background: #f8fafc;
+            max-width: 100%;
+            padding: 7rem 2rem;
+        }
+        
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .section-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #2563eb;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════ */
+        /* CAPSTONE PROJECT - CENTERPIECE */
+        /* ═══════════════════════════════════════════════════════════════ */
+        .capstone {
+            background: linear-gradient(to bottom, #ffffff 0%, #f1f5f9 100%);
+        }
+        
+        .capstone-title {
+            font-size: 2.75rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .capstone-subtitle {
+            font-size: 1.25rem;
+            color: #475569;
+            text-align: center;
+            margin-bottom: 4rem;
+            font-style: italic;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .comparison-panel {
+            background: white;
+            border-radius: 8px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 10px 15px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-panel h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #0f172a;
+        }
+        
+        .comparison-panel.status-quo {
+            border-left: 4px solid #dc2626;
+        }
+        
+        .comparison-panel.innovation {
+            border-left: 4px solid #16a34a;
+        }
+        
+        .panel-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: #64748b;
+            font-style: italic;
+        }
+        
+        .panel-caption {
+            font-size: 1rem;
+            color: #475569;
+            line-height: 1.6;
+        }
+        
+        .capstone-narrative {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .narrative-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .narrative-section h4 {
+            color: #1e40af;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .narrative-section p {
+            color: #334155;
+            line-height: 1.8;
+        }
+        
+        .narrative-section ul {
+            margin-left: 2rem;
+            color: #334155;
+        }
+        
+        .narrative-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .methodology-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        .keyword {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════ */
+        /* METHODS STACK */
+        /* ═══════════════════════════════════════════════════════════════ */
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .method-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .method-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .method-card h4 {
+            color: #1e40af;
+            margin-bottom: 0.75rem;
+        }
+        
+        .method-card .problem {
+            font-size: 0.95rem;
+            color: #64748b;
+            font-style: italic;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════ */
+        /* POLICY LABORATORIES */
+        /* ═══════════════════════════════════════════════════════════════ */
+        .lab-card {
+            background: white;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 6px solid #2563eb;
+        }
+        
+        .lab-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #0f172a;
+        }
+        
+        .lab-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .lab-meta-item {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .lab-meta-item strong {
+            color: #1e40af;
+            font-weight: 600;
+        }
+        
+        .lab-content {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .lab-content p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .lab-links {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .lab-links a {
+            margin-right: 1.5rem;
+            font-weight: 500;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════ */
+        /* TECHNICAL ML SECTION */
+        /* ═══════════════════════════════════════════════════════════════ */
+        .ml-showcase {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .ml-showcase h3 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .ml-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .ml-detail {
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 6px;
+        }
+        
+        .ml-detail h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: #1e40af;
+        }
+        
+        .tech-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .tech-list li {
+            padding: 0.5rem 0;
+            color: #475569;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .tech-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #2563eb;
+            font-weight: bold;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════ */
+        /* PUBLICATIONS */
+        /* ═══════════════════════════════════════════════════════════════ */
+        .publication {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .publication h4 {
+            font-size: 1.15rem;
+            color: #0f172a;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .pub-meta {
+            font-size: 0.95rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+        
+        .pub-description {
+            font-size: 1rem;
+            color: #475569;
+            line-height: 1.7;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════ */
+        /* SKILLS SECTION */
+        /* ═══════════════════════════════════════════════════════════════ */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .skill-category h4 {
+            color: #1e40af;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .skill-tag {
+            background: #f1f5f9;
+            color: #334155;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════ */
+        /* CONTACT & FOOTER */
+        /* ═══════════════════════════════════════════════════════════════ */
+        .contact {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+        }
+        
+        .contact h2 {
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        .contact p {
+            color: rgba(255,255,255,0.9);
+            margin: 0 auto 2rem;
+        }
+        
+        .contact-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .contact-links a {
+            color: white;
+            font-size: 1.1rem;
+            padding: 0.75rem 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+        
+        .contact-links a:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.4);
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════ */
+        /* RESPONSIVE */
+        /* ═══════════════════════════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .hero h1 { font-size: 2.5rem; }
+            .hero .subtitle { font-size: 1.2rem; }
+            
+            section { padding: 4rem 1.5rem; }
+            section.alt-bg { padding: 4rem 1.5rem; }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .ml-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .capstone-title {
+                font-size: 2rem;
+            }
         }
     </style>
-    <script>
-        function showTab(evt, tabName) {
-            var i, tabpanels, tablinks;
-            tabpanels = document.getElementsByClassName("tab-panel");
-            for (i = 0; i < tabpanels.length; i++) tabpanels[i].classList.remove("active");
-            tablinks = document.querySelectorAll(".tab-row div");
-            for (i = 0; i < tablinks.length; i++) tablinks[i].classList.remove("active");
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-
-        // Threshold click-through gallery
-        const awdImages = [
-            {src:"assets/awd-thresh-25.png", label:"-25mm"},
-            {src:"assets/awd-thresh-50.png", label:"-50mm"},
-            {src:"assets/awd-thresh-70.png", label:"-70mm"},
-            {src:"assets/awd-thresh-90.png", label:"-90mm"},
-            {src:"assets/awd-thresh-110.png", label:"-110mm"},
-            {src:"assets/awd-thresh-130.png", label:"-130mm"},
-            {src:"assets/awd-thresh-150.png", label:"-150mm"}
-        ];
-        function selectAWDThreshold(idx) {
-            var imgElem = document.getElementById("awd-threshold-image");
-            var labElem = document.getElementById("awd-threshold-label");
-            imgElem.src = awdImages[idx].src;
-            labElem.innerText = awdImages[idx].label + " Threshold";
-            // Update active button
-            var btns = document.querySelectorAll('.thumb-btns button');
-            btns.forEach((b,i)=>b.classList.toggle('active',i===idx));
-        }
-        document.addEventListener("DOMContentLoaded",function(){
-            var thumbBtns = document.getElementsByClassName("thumb-btns")[0];
-            if(thumbBtns) selectAWDThreshold(1); // default -50mm, idx=1
-        });
-    </script>
 </head>
 <body>
-    <header>
-        <h1>Hi 👋, I'm My Tran</h1>
-        <h2 style="font-size:1.2rem; font-weight:400">Remote Sensing Data Scientist | Sustainable Agriculture & Causal Inference</h2>
-        <img src="assets/mytran-headshot.png" alt="My Tran">
-        <p style="margin-top:18px; max-width:600px; margin:auto;"><b>A glimpse through my AWD irrigation research and side projects.</b></p>
-    </header>
 
-    <section class="section" id="awd">
-        <h2>AWD (Alternative Wetting and Drying) Research</h2>
-        <div class="card">
-            <p><b>Problem:</b> Traditional rice irrigation consumes large amounts of water and is accountable for up to 10% of global methane emissions.</p>
-            <p><b>Objective:</b> Create an AWD suitability map using satellite data and water balance modeling.</p>
-            <p><b>Method:</b> Correct the overestimation of traditional water balance model by integrating biophysical constraints (soil, terrain).</p>
-            <p><b>Impact:</b> Provided recommendations for sustainable irrigation for improved food security in Japan.</p>
-        </div>
-    </section>
-
-    <section class="section" id="research-process">
-        <h2>Research Workflow</h2>
-        <div class="tab-row">
-            <div class="active" onclick="showTab(event, 'data')">Data Curation</div>
-            <div onclick="showTab(event, 'modeling')">Modeling</div>
-            <div onclick="showTab(event, 'visualization')">Visualization</div>
-        </div>
-        <div id="data" class="tab-panel active">
-            <h3>AWD Data & Curation</h3>
-            <p>
-              <b>Satellite & field data:</b> Daily rainfall (CHIRPS), MODIS ET, SMAP soil moisture, SoilGrids attributes, NASADEM elevation.<br>
-              <b>Processing steps:</b> We aligned all datasets to a common 500m grid for Japan rice-growing area and aggregated into dekadal (10-day) intervals.
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- HERO SECTION -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Making the Invisible Counterfactual Visible</h1>
+            <p class="subtitle">
+                Political Methodology • Causal Inference • Satellite-Derived Representations<br>
+                Environmental & Economic Policy Evaluation
             </p>
-        </div>
-        <div id="modeling" class="tab-panel">
-            <h3>Water Balance Modeling</h3>
-            <p>
-              <b>Classic model:</b> “Water in vs. Water out” approach: Rainfall adds water to the soil, while evaporation and percolation remove it. <br>
-              <b>Critical gap:</b> <span style="color:red;">AWD is safe only if the soil doesn’t get too dry. If rainfall is too low relative to evapotranspiration, water deficit drops too far, crops will experience water stress and make AWD risky.</span><br>
-              <b>Improvement:</b> Impose a water deficit threshold for safe AWD implementation + Integrate spatial soil/terrain layer for realistic suitability assessment.
-            </p>
-        </div>
-        <div id="visualization" class="tab-panel">
-            <h3>Threshold Visualization & Composite Mapping</h3>
-            <p>
-              <b>AWD suitability by water deficit threshold:</b><br>
-              <em>Click a threshold below to view its suitability map:</em>
-            </p>
-            <div class="thumb-btns">
-                <button onclick="selectAWDThreshold(0)">-25mm</button>
-                <button onclick="selectAWDThreshold(1)" class="active">-50mm</button>
-                <button onclick="selectAWDThreshold(2)">-70mm</button>
-                <button onclick="selectAWDThreshold(3)">-90mm</button>
-                <button onclick="selectAWDThreshold(4)">-110mm</button>
-                <button onclick="selectAWDThreshold(5)">-130mm</button>
-                <button onclick="selectAWDThreshold(6)">-150mm</button>
-            </div>
-            <div style="text-align:center; margin-bottom:17px;">
-                <span id="awd-threshold-label" style="font-weight:600; color:#30567b; display:block; margin-bottom:9px;">-50mm Threshold</span>
-                <img id="awd-threshold-image" src="assets/awd-thresh-50.png" class="thumb-map" alt="AWD Suitability Map">
-            </div>
-            <p>
-              <b>Why choose -50mm?</b><br>
-              -50mm threshold best aligns with the biophysical suitability layer.
-            </p>
-            <p>
-                <b>Biophysical constraints:</b><br>
-                <img src="assets/awd-biophysical-map.png" alt="Biophysical Map" style="width:220px; border-radius:7px; margin-bottom:12px;"><br>
-                Local soil texture, pH, drainage, moisture, and terrain slope harmonized to create a biophysical suitability layer.
-            </p>
-            <p>
-              <b>Final Composite Map:</b> Overlaying the <em>-50mm suitability map</em> with <em>biophysical constraints</em> yields the actionable AWD irrigation target areas:<br>
-              <img src="assets/awd-composite-map.png" alt="AWD Final Composite Map" style="width:350px; border-radius:10px;">
+            <p class="mission">
+                "I build causal inference systems for environmental and economic policy when the counterfactual is unobservable and the confounders are spatial, latent, and complex."
             </p>
         </div>
     </section>
 
-    <section class="section" id="projects">
-        <h2>Selected Side Projects</h2>
-        <div class="project-cards">
-            <div class="project-card">
-                <h3>Land-Water Segmentation</h3>
-                <p>Built Sentinel-2 image segmentation models (CNN, ResNet, ViT, UNET) to delineate land–water bodies.</p>
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- CAPSTONE PROJECT - CENTERPIECE -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <section class="capstone">
+        <div class="section-header">
+            <div class="section-label">CAPSTONE PROJECT</div>
+            <h2 class="capstone-title">Embedding the Counterfactual: Causal Inference for Environmental Policy with Satellite Representations</h2>
+            <p class="capstone-subtitle">
+                Solving the identification problem when latent ecological structure determines treatment assignment
+            </p>
+        </div>
+
+        <div class="comparison-grid">
+            <div class="comparison-panel status-quo">
+                <h3>Status Quo: Naïve Matching</h3>
+                <div class="panel-image">[Visualization: Buffer-based control selection]</div>
+                <p class="panel-caption">
+                    Conventional policy evaluation selects control units based on geographic proximity or outcome trends—<strong>ignoring latent ecological structure</strong> that determines both treatment assignment and outcomes.
+                </p>
+                <p class="panel-caption">
+                    <strong>Identification failure:</strong> When environmental heterogeneity is unobserved, spatial proximity does not guarantee comparability. Unobserved confounding invalidates causal claims.
+                </p>
             </div>
-            <div class="project-card">
-                <h3>Land Use Change Simulation</h3>
-                <p>Simulated land use change under different agricultural scenarios using Cellular Automata–Markov Chain.</p>
+
+            <div class="comparison-panel innovation">
+                <h3>Innovation: Embedding-Based Similarity</h3>
+                <div class="panel-image">[Visualization: Embedding-based donor pool]</div>
+                <p class="panel-caption">
+                    <strong>Embedding-based donor selection</strong> uses high-dimensional satellite representations (from foundation models like Clay, Prithvi, or Panopticon) to match treated sites to <strong>structurally similar counterfactuals</strong>—even when they are geographically distant.
+                </p>
+                <p class="panel-caption">
+                    <strong>Methodological contribution:</strong> Operationalizes latent similarity through representation learning, enabling valid synthetic control and causal forest estimation under spatial confounding.
+                </p>
             </div>
-            <div class="project-card">
-                <h3>Earthquake Damage Mapping (BRIGHT)</h3>
-                <p>Co-registered and normalized optical-SAR imagery pairs to generate post-earthquake building damage maps in Turkey using the BRIGHT building damage detection model.</p>
+        </div>
+
+        <div class="capstone-narrative">
+            <div class="narrative-section">
+                <h4>The Problem</h4>
+                <p>
+                    Environmental policy evaluation suffers from a fundamental identification problem: treatment assignment is rarely random. Regions selected for water conservation policies, conservation programs, or climate adaptation interventions differ systematically from control regions along dimensions that are difficult to observe—soil moisture dynamics, vegetation phenology, hydrological connectivity, microclimatic variation.
+                </p>
+                <p>
+                    Traditional approaches—geographic buffers, propensity score matching on observables, or difference-in-differences with parallel trends assumptions—fail when <strong>latent confounding</strong> is severe and <strong>spatial interference</strong> is present.
+                </p>
             </div>
-            <div class="project-card">
-                <h3>Landscape Connectivity Explorer</h3>
-                <p>Developed a Google Earth Engine app integrating AlphaEarth Embeddings for similarity-based retrieval and unsupervised change detection, facilitating landscape connectivity analysis at scale.</p>
+
+            <div class="narrative-section">
+                <h4>The Identification Failure</h4>
+                <p>
+                    Selecting control units based on proximity assumes that nearby regions are comparable. But in environmental contexts, this assumption is violated when:
+                </p>
+                <ul>
+                    <li>Treatment assignment is based on unobserved biophysical suitability</li>
+                    <li>Spillover effects propagate through hydrological or ecological networks</li>
+                    <li>Time-varying environmental shocks affect treated and control units differently</li>
+                </ul>
+                <p>
+                    These violations lead to <strong>selection bias</strong> and <strong>invalid counterfactual inference</strong>.
+                </p>
             </div>
-            <div class="project-card">
-                <h3>Crop Recommendation & Decision Support</h3>
-                <p>Developed random forest classification and genetic algorithm models to identify companion crops for specific environmental conditions, with a chatbox interface for farmers using OpenAI API.</p>
+
+            <div class="narrative-section">
+                <h4>The Methodological Innovation</h4>
+                <p>
+                    I propose using <strong>satellite-derived embeddings</strong> from foundation models (pre-trained on billions of Earth observation images) to construct a <strong>high-dimensional similarity space</strong> that captures latent ecological structure.
+                </p>
+                <p>
+                    By projecting treated and potential control units into this embedding space, I can:
+                </p>
+                <ul>
+                    <li>Identify <strong>structurally similar counterfactuals</strong> that are ecologically comparable to treated units—even if they are geographically distant</li>
+                    <li>Construct <strong>synthetic controls</strong> that are weighted combinations of these embedding-matched donors</li>
+                    <li>Apply <strong>causal forests</strong> to estimate heterogeneous treatment effects conditional on learned representations</li>
+                    <li>Evaluate <strong>treatment effect transportability</strong> by measuring embedding-space distances between source and target populations</li>
+                </ul>
+            </div>
+
+            <div class="narrative-section">
+                <h4>Why This Matters for Political Methodology</h4>
+                <p>
+                    This approach addresses core challenges in observational causal inference:
+                </p>
+                <ul>
+                    <li><strong>Unobserved confounding:</strong> Embeddings capture latent factors that traditional covariates miss</li>
+                    <li><strong>High-dimensional matching:</strong> Avoids curse of dimensionality by using learned representations</li>
+                    <li><strong>External validity:</strong> Embedding distances formalize the concept of "similarity" required for generalization</li>
+                    <li><strong>Scalability:</strong> Enables policy evaluation at planetary scale using satellite data</li>
+                </ul>
+            </div>
+
+            <div class="narrative-section">
+                <h4>Why This Matters for Environmental Governance</h4>
+                <p>
+                    <strong>Policy impact:</strong> Enables rigorous evaluation of water conservation, climate adaptation, and land management policies where randomized trials are infeasible. Provides decision-makers with credible estimates of treatment effects and clear guidance on where policies are likely to succeed or fail.
+                </p>
+                <p>
+                    <strong>Institutional relevance:</strong> Supports evidence-based policymaking by connecting methodological rigor to actionable insights for environmental governance.
+                </p>
+            </div>
+
+            <div class="methodology-keywords">
+                <span class="keyword">Synthetic Control</span>
+                <span class="keyword">Latent Confounding</span>
+                <span class="keyword">Treatment Effect Heterogeneity</span>
+                <span class="keyword">Unobserved Selection</span>
+                <span class="keyword">Spatial Interference</span>
+                <span class="keyword">Representation Learning</span>
+                <span class="keyword">Foundation Models</span>
+                <span class="keyword">Policy Transportability</span>
             </div>
         </div>
     </section>
 
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- METHODS STACK -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <section class="alt-bg">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label">METHODOLOGICAL TOOLKIT</div>
+                <h2>Causal Inference & Geospatial Methods</h2>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+                    Each method addresses a specific identification problem in observational policy evaluation
+                </p>
+            </div>
 
-    <section class="section" id="skills">
-        <h2>Skills & Tools</h2>
-        <ul class="skills">
-            <li>Python</li>
-            <li>R</li>
-            <li>SQL</li>
-            <li>TensorFlow</li>
-            <li>PyTorch</li>
-            <li>Scikit-learn</li>
-            <li>Google Earth Engine</li>
-            <li>GDAL</li>
-            <li>OpenCV</li>
-            <li>QGIS</li>
-            <li>Sentinel-2</li>
-            <li>Landsat</li>
-            <li>MODIS</li>
-            <li>SMAP</li>
-            <li>CHIRPS</li>
-            <li>AQUAWAT</li>
-            <li>CausalImages</li>
-            <li>Random Forest</li>
-            <li>XGBoost</li>
-            <li>UNET</li>
-            <li>Vision Transformer</li>
-        </ul>
+            <div class="methods-grid">
+                <div class="method-card">
+                    <h4>Synthetic Control Methods</h4>
+                    <p>Constructs counterfactual outcomes by weighting combinations of untreated units to match pre-treatment characteristics of treated units.</p>
+                    <p class="problem"><strong>Solves:</strong> Missing counterfactual when only one or few units are treated and randomization is impossible.</p>
+                </div>
+
+                <div class="method-card">
+                    <h4>Causal Forests</h4>
+                    <p>Machine learning approach to estimate heterogeneous treatment effects without parametric assumptions, using recursive partitioning.</p>
+                    <p class="problem"><strong>Solves:</strong> Treatment effect heterogeneity when functional form is unknown and effects vary across subpopulations.</p>
+                </div>
+
+                <div class="method-card">
+                    <h4>Difference-in-Differences</h4>
+                    <p>Compares changes in outcomes over time between treated and control groups, leveraging panel structure to control for time-invariant confounders.</p>
+                    <p class="problem"><strong>Solves:</strong> Selection on unobservables that are time-invariant, using parallel trends assumption.</p>
+                </div>
+
+                <div class="method-card">
+                    <h4>Bayesian Hierarchical Models</h4>
+                    <p>Multilevel regression with partial pooling, allowing effects to vary across groups while borrowing strength across units.</p>
+                    <p class="problem"><strong>Solves:</strong> Small sample sizes within subgroups and uncertainty quantification in policy evaluation.</p>
+                </div>
+
+                <div class="method-card">
+                    <h4>Representation Learning for Matching</h4>
+                    <p>Uses deep learning embeddings from satellite imagery to construct similarity metrics for donor selection in causal inference.</p>
+                    <p class="problem"><strong>Solves:</strong> Latent confounding and high-dimensional covariate spaces in spatial contexts.</p>
+                </div>
+
+                <div class="method-card">
+                    <h4>Policy Transportability Analysis</h4>
+                    <p>Evaluates external validity of treatment effects by assessing similarity between source and target populations using formal selection diagrams.</p>
+                    <p class="problem"><strong>Solves:</strong> Generalization of policy effects from one context to another when populations differ.</p>
+                </div>
+
+                <div class="method-card">
+                    <h4>Spatial Confounding Adjustment</h4>
+                    <p>Decomposes spatial variation into confounding and treatment effect components using restricted spatial regression or Gaussian processes.</p>
+                    <p class="problem"><strong>Solves:</strong> Biased treatment effect estimates when spatially-structured confounders exist.</p>
+                </div>
+
+                <div class="method-card">
+                    <h4>Instrumental Variables</h4>
+                    <p>Uses exogenous variation in treatment assignment to estimate causal effects when treatment is endogenous.</p>
+                    <p class="problem"><strong>Solves:</strong> Omitted variable bias and simultaneity when confounders are unobserved or unmeasured.</p>
+                </div>
+            </div>
+        </div>
     </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- EMPIRICAL POLICY LABORATORIES -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <section>
+        <div class="section-header">
+            <div class="section-label">EMPIRICAL POLICY LABORATORIES</div>
+            <h2>Applied Causal Inference for Policy Evaluation</h2>
+        </div>
+
+        <div class="lab-card">
+            <h3>Policy Transportability in Agricultural Water Management</h3>
+            <div class="lab-meta">
+                <div class="lab-meta-item"><strong>Context:</strong> Vietnam → Japan</div>
+                <div class="lab-meta-item"><strong>Policy:</strong> Alternate Wetting and Drying (AWD) Irrigation</div>
+                <div class="lab-meta-item"><strong>Methods:</strong> Counterfactual Simulation, Spatial Heterogeneity, Institutional Analysis</div>
+            </div>
+            <div class="lab-content">
+                <p><strong>Research Question:</strong> Under what conditions can a water conservation policy proven effective in one country be successfully transferred to another?</p>
+                
+                <p><strong>Identification Challenge:</strong> AWD adoption depends on biophysical suitability (soil permeability, rainfall patterns, terrain) and institutional constraints (farmer information, subsidy availability, agricultural extension systems). Simply observing AWD success in Vietnam does not guarantee transportability to Japan.</p>
+                
+                <p><strong>Approach:</strong> Constructed satellite-derived biophysical suitability indices (CHIRPS rainfall, MODIS evapotranspiration, SMAP soil moisture, SoilGrids, NASADEM) and developed counterfactual water balance simulations (AQUAWAT model) to model <strong>heterogeneous treatment effects</strong> across environmental contexts. Conducted comparative institutional analysis to identify political economy barriers: farmer adoption constraints, extension service capacity, and subsidy structures.</p>
+                
+                <p><strong>Causal Inference Framework:</strong> Treatment effect heterogeneity estimated using covariate-specific counterfactual simulations. Transportability assessed by comparing distributions of effect modifiers (soil type, precipitation deficit) between Vietnam and Japan.</p>
+                
+                <p><strong>Policy Impact:</strong> Provided actionable suitability maps and adoption guidelines for Japanese Ministry of Agriculture. Identified regions where AWD would succeed (low permeability soils, moderate rainfall) vs. fail (high permeability, extreme drought risk). Quantified institutional barriers requiring policy intervention.</p>
+            </div>
+            <div class="lab-links">
+                <a href="https://github.com/MyTran-GitHub/data-science-school-projects" target="_blank">Project Repository</a>
+            </div>
+        </div>
+
+        <div class="lab-card">
+            <h3>Trade Policy Incidence and Supply Chain Diffusion</h3>
+            <div class="lab-meta">
+                <div class="lab-meta-item"><strong>Context:</strong> China-Vietnam Trade</div>
+                <div class="lab-meta-item"><strong>Policy:</strong> Anti-Dumping Tariffs on Chinese Hot-Rolled Steel</div>
+                <div class="lab-meta-item"><strong>Methods:</strong> Institutional Power Analysis, Quantitative Incidence Modeling</div>
+            </div>
+            <div class="lab-content">
+                <p><strong>Research Question:</strong> How do anti-dumping tariffs create unintended market responses, and how does institutional power shape compliance behavior?</p>
+                
+                <p><strong>Policy Context:</strong> Vietnam imposed anti-dumping tariffs on Chinese hot-rolled coil (HRC) under WTO Article VI framework. Examined 10 case studies under Part 20 procedures.</p>
+                
+                <p><strong>Theoretical Framework:</strong> Power and information asymmetries allow large firms to negotiate tariff exceptions. Policy incidence is determined not just by tariff rates but by <strong>institutional capacity to enforce compliance</strong> and <strong>firm bargaining power</strong>.</p>
+                
+                <p><strong>Quantitative Analysis:</strong> Modeled tariff diffusion through supply chains: Chinese HRC tariffs → higher input costs for Vietnamese importers → domestic mills gain market share → downstream consumption declines. Estimated price elasticities and market share shifts using trade data and firm-level responses.</p>
+                
+                <p><strong>Identification Strategy:</strong> Compared outcomes for firms that received tariff exemptions vs. those that did not, controlling for firm size, industry, and political connections. Assessed whether exemptions were driven by economic efficiency or rent-seeking.</p>
+                
+                <p><strong>Findings:</strong> Large firms successfully lobbied for exemptions, undermining policy intent. Tariff incidence fell disproportionately on small importers. Domestic steel mills gained short-term protection but downstream industries faced higher costs.</p>
+                
+                <p><strong>Contribution to Political Methodology:</strong> Demonstrates how institutional analysis and quantitative modeling must be integrated to understand policy effects. Trade policy cannot be evaluated without understanding compliance mechanisms and power dynamics.</p>
+            </div>
+        </div>
+
+        <div class="lab-card">
+            <h3>Bayesian Hierarchical Modeling for Fiscal Policy Evaluation</h3>
+            <div class="lab-meta">
+                <div class="lab-meta-item"><strong>Context:</strong> Argentina Government Finance</div>
+                <div class="lab-meta-item"><strong>Focus:</strong> Revenue and Wage Expenditure Dynamics</div>
+                <div class="lab-meta-item"><strong>Methods:</strong> Bayesian Regression, Uncertainty Quantification</div>
+            </div>
+            <div class="lab-content">
+                <p><strong>Research Question:</strong> How do government revenue streams and wage expenditures respond to macroeconomic shocks and policy changes?</p>
+                
+                <p><strong>Statistical Approach:</strong> Applied Bayesian hierarchical regression (PyMC) to model the relationship between revenue sources (tax income, commodity exports) and public sector wage expenses. Allowed coefficients to vary by province and time period, capturing heterogeneity in fiscal capacity.</p>
+                
+                <p><strong>Why Bayesian?</strong> Small sample sizes at the provincial level and high uncertainty in revenue projections require principled uncertainty quantification. Bayesian framework allows incorporation of prior information (from historical data or expert judgment) and propagates uncertainty through the model to policy recommendations.</p>
+                
+                <p><strong>Identification:</strong> Controlled for endogeneity of wage policy (governments adjust wages in response to revenue shocks) by instrumenting revenue using exogenous commodity price shocks.</p>
+                
+                <p><strong>Policy Relevance:</strong> Provided probabilistic forecasts of fiscal sustainability under alternative revenue scenarios. Identified provinces at high risk of fiscal crisis. Estimated the effect of wage freezes on expenditure reduction.</p>
+                
+                <p><strong>Methodological Contribution:</strong> Demonstrates the value of Bayesian methods for policy evaluation when data are limited and uncertainty is high. Interactive visualization (Streamlit app) allows policymakers to explore scenarios.</p>
+            </div>
+            <div class="lab-links">
+                <a href="https://github.com/MyTran-GitHub/data-science-school-projects/blob/main/Bayesian%20Stats%202.pdf" target="_blank">Project PDF</a>
+                <a href="https://github.com/MyTran-GitHub/data-science-school-projects" target="_blank">GitHub Repository</a>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- TECHNICAL GEOSPATIAL ML -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <section class="alt-bg">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label">TECHNICAL CAPABILITIES</div>
+                <h2>Geospatial Machine Learning & Remote Sensing</h2>
+                <p style="text-align: center; max-width: 900px; margin: 0 auto;">
+                    Extracting latent socioeconomic and ecological structure from satellite imagery using deep learning
+                </p>
+            </div>
+
+            <div class="ml-showcase">
+                <h3>Representation Learning from Earth Observation Data</h3>
+                <p>
+                    <strong>Objective:</strong> Extract high-dimensional embeddings from satellite imagery to capture latent features (urbanization density, vegetation health, infrastructure development, socioeconomic status) that are not directly observable but are critical for policy evaluation.
+                </p>
+                <p>
+                    <strong>Application to Political Methodology:</strong> These embeddings serve as <strong>learned confounders</strong> in causal inference pipelines. By using foundation models (pre-trained on billions of satellite images), I can construct similarity metrics that capture complex environmental and social contexts—enabling more credible counterfactual estimation.
+                </p>
+
+                <div class="ml-grid">
+                    <div class="ml-detail">
+                        <h4>Architecture & Models</h4>
+                        <ul class="tech-list">
+                            <li><strong>Foundation Models:</strong> Panopticon, Clay, Prithvi (satellite-specific transformers)</li>
+                            <li><strong>Vision Transformers (ViT):</strong> Self-attention for spatial context</li>
+                            <li><strong>CNNs:</strong> ResNet, U-Net for segmentation and feature extraction</li>
+                            <li><strong>Embedding Techniques:</strong> Contrastive learning, SimCLR, BYOL</li>
+                        </ul>
+                    </div>
+
+                    <div class="ml-detail">
+                        <h4>Data Sources & Preprocessing</h4>
+                        <ul class="tech-list">
+                            <li><strong>Satellite Platforms:</strong> Landsat 5/8, Sentinel-2, MODIS</li>
+                            <li><strong>Biophysical Layers:</strong> CHIRPS (rainfall), SMAP (soil moisture), NASADEM (elevation)</li>
+                            <li><strong>Preprocessing:</strong> Atmospheric correction, cloud masking, time-series aggregation, spatial alignment</li>
+                            <li><strong>Tools:</strong> Google Earth Engine, GDAL, Rasterio, PyTorch</li>
+                        </ul>
+                    </div>
+
+                    <div class="ml-detail">
+                        <h4>Downstream Causal Tasks</h4>
+                        <ul class="tech-list">
+                            <li>Donor selection for synthetic control</li>
+                            <li>Covariate adjustment in regression</li>
+                            <li>Heterogeneous treatment effect estimation (causal forests)</li>
+                            <li>Spatial confounding adjustment</li>
+                        </ul>
+                    </div>
+
+                    <div class="ml-detail">
+                        <h4>Example: Evaluating Georgia Water Policy</h4>
+                        <p style="font-size: 0.95rem; color: #475569;">
+                            <strong>Planetary Causal Inference Lab:</strong> Curated pre-treatment Landsat 5 imagery, extracted embeddings using Panopticon foundation model, and benchmarked against CNN, ViT, and Clay models. Used embeddings in CausalImagesR to evaluate treatment effect heterogeneity of Georgia's water conservation policy.
+                        </p>
+                    </div>
+                </div>
+
+                <p style="margin-top: 2rem;">
+                    <strong>Why This Matters:</strong> Satellite-derived embeddings operationalize the concept of "latent similarity" required for credible causal inference in spatial contexts. This connects cutting-edge computer vision research to core problems in political methodology.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- PUBLICATIONS -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <section>
+        <div class="section-header">
+            <div class="section-label">SCHOLARLY CREDIBILITY</div>
+            <h2>Publications & Research Output</h2>
+        </div>
+
+        <div class="publication">
+            <h4>
+                Stakeholders' Attitudes towards the Installations of Closed-Circuit Television Cameras in Reducing School Violence
+            </h4>
+            <p class="pub-meta">
+                <strong>Authors:</strong> Tran, Khoa, Tuyet Nguyen, Linh Phan, My Tran, Mai Trinh, and Linh Pham<br>
+                <strong>Journal:</strong> <em>Heliyon</em>, Volume 8, Issue 9 (2022): e10645<br>
+                <strong>DOI:</strong> <a href="https://doi.org/10.1016/j.heliyon.2022.e10645" target="_blank">10.1016/j.heliyon.2022.e10645</a>
+            </p>
+            <p class="pub-description">
+                <strong>Research Pipeline:</strong> Conducted systematic literature review and qualitative analysis of stakeholder interviews to evaluate public opinion and institutional barriers to the implementation of school-violence reduction policy.
+            </p>
+            <p class="pub-description">
+                <strong>Methodological Contribution:</strong> Demonstrates capacity to execute full research cycle: literature synthesis → qualitative data collection → statistical inference → policy-relevant interpretation. Mixed-methods approach integrates survey data with institutional analysis.
+            </p>
+            <p class="pub-description">
+                <strong>Policy Relevance:</strong> Informed Vietnamese education policymakers about stakeholder concerns (privacy, surveillance, trust) that must be addressed for successful CCTV implementation.
+            </p>
+            <p class="pub-description">
+                <strong>Evidence of Publication Capacity:</strong> Peer-reviewed publication in indexed journal. Co-authorship demonstrates collaborative research experience.
+            </p>
+        </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- SKILLS & TOOLS -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <section class="alt-bg">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label">TECHNICAL EXPERTISE</div>
+                <h2>Methods, Tools & Technologies</h2>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Causal Inference</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Synthetic Control</span>
+                        <span class="skill-tag">Difference-in-Differences</span>
+                        <span class="skill-tag">Causal Forests (grf)</span>
+                        <span class="skill-tag">Instrumental Variables</span>
+                        <span class="skill-tag">Regression Discontinuity</span>
+                        <span class="skill-tag">Matching (Propensity Score)</span>
+                        <span class="skill-tag">CausalImagesR</span>
+                        <span class="skill-tag">DoWhy (Python)</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Statistical Modeling</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Bayesian Inference (PyMC, Stan)</span>
+                        <span class="skill-tag">Hierarchical Models</span>
+                        <span class="skill-tag">Mixed Effects</span>
+                        <span class="skill-tag">Spatial Statistics</span>
+                        <span class="skill-tag">Time Series</span>
+                        <span class="skill-tag">Panel Data</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Machine Learning</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">TensorFlow / PyTorch</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">XGBoost</span>
+                        <span class="skill-tag">Vision Transformers (ViT)</span>
+                        <span class="skill-tag">CNNs (ResNet, U-Net)</span>
+                        <span class="skill-tag">Foundation Models</span>
+                        <span class="skill-tag">Representation Learning</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Remote Sensing & Geospatial</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Google Earth Engine</span>
+                        <span class="skill-tag">GDAL / Rasterio</span>
+                        <span class="skill-tag">QGIS</span>
+                        <span class="skill-tag">Landsat / Sentinel-2</span>
+                        <span class="skill-tag">MODIS / CHIRPS / SMAP</span>
+                        <span class="skill-tag">Panopticon / Clay / Prithvi</span>
+                        <span class="skill-tag">AQUAWAT (Water Balance)</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Programming & Data</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">R</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Git / GitHub</span>
+                        <span class="skill-tag">Pandas / NumPy</span>
+                        <span class="skill-tag">Tidyverse / Data.table</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Policy Analysis</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Policy Transportability</span>
+                        <span class="skill-tag">Institutional Analysis</span>
+                        <span class="skill-tag">Political Economy</span>
+                        <span class="skill-tag">Public Finance</span>
+                        <span class="skill-tag">Environmental Governance</span>
+                        <span class="skill-tag">Trade Policy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- CONTACT -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <section class="contact">
+        <h2>Let's Connect</h2>
+        <p>
+            I'm actively seeking opportunities to contribute to research at the intersection of causal inference,<br>
+            environmental policy, and geospatial data science.
+        </p>
+        <div class="contact-links">
+            <a href="mailto:your.email@example.com">Email</a>
+            <a href="https://github.com/MyTran-GitHub" target="_blank">GitHub</a>
+            <a href="#" target="_blank">CV / Resume</a>
+            <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
+        </div>
+    </section>
+
 </body>
 </html>
