@@ -898,51 +898,53 @@
         };
 
         function switchDonorStrategy(strategy) {
-            <div class="section-inner">
-                <div class="section-header">
-                    <div class="section-label">CAPSTONE PROJECT</div>
+            const strategies = {
+                'random': {
+                    title: 'Random Statewide Donors (500 untreated pixels)',
+                    desc: 'Randomly sample 500 untreated conifer pixels statewide. No explicit constraint on ecological similarity; relies on large sample to approximate covariate distributions.',
+                    rmspe: '0.45',
+                    iqr: '0.15–0.62',
+                    randomDisplay: 'block',
+                    manualDisplay: 'none',
+                    embeddingDisplay: 'none',
+                    embedLabel: 'Random donors: dispersed in embedding space'
+                },
+                'manual': {
+                    title: 'Manual Covariate Screen (284 untreated pixels)',
+                    desc: 'Filter statewide pixels using explicit covariate thresholds: slope < 15°, elevation 400–2000m, forest type in [DF, PP]. Tighter ecological similarity constraints.',
+                    rmspe: '0.36',
+                    iqr: '0.18–0.58',
+                    randomDisplay: 'none',
+                    manualDisplay: 'block',
+                    embeddingDisplay: 'none',
+                    embedLabel: 'Manual donors: moderately clustered in embedding space'
+                },
+                'embedding': {
+                    title: 'Embedding-Based K=50 (50 nearest neighbors)',
+                    desc: 'Select K=50 untreated pixels nearest to treated pixel in learned embedding space. Highest ecological and spectral similarity; trade-off between balance and sample size.',
+                    rmspe: '0.23',
+                    iqr: '0.10–0.41',
+                    randomDisplay: 'none',
+                    manualDisplay: 'none',
+                    embeddingDisplay: 'block',
+                    embedLabel: 'Embedding donors: tightly clustered in latent space'
+                }
+            };
 
-                    <h2 class="capstone-title">
-                        A Satellite-based Synthetic Control Evaluation of Prescribed Burn Intervention
-                    </h2>
+            const strat = strategies[strategy];
+            if (strat) {
+                document.getElementById('strategy-title').textContent = strat.title;
+                document.getElementById('strategy-desc').textContent = strat.desc;
+                document.getElementById('rmspe-median').textContent = strat.rmspe;
+                document.getElementById('rmspe-iqr').textContent = strat.iqr;
+                document.getElementById('random-donors').style.display = strat.randomDisplay;
+                document.getElementById('manual-donors').style.display = strat.manualDisplay;
+                document.getElementById('embedding-donors').style.display = strat.embeddingDisplay;
+                document.getElementById('embed-label').textContent = strat.embedLabel;
+            }
+        }
 
-                    <p class="capstone-subtitle">
-                        Embedding-informed donor selection improves causal inference in high-dimensional environmental policy evaluation
-                    </p>
-                </div>
 
-            <!-- INTERACTIVE DONOR POOL STRATEGY SELECTION -->
-            <div class="interactive-toggle" style="justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;">
-                <button class="toggle-btn active" onclick="switchDonorStrategy('random'); event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active');">
-                    Random Statewide (500)
-                </button>
-                <button class="toggle-btn" onclick="switchDonorStrategy('manual'); event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active');">
-                    Manual Covariate Screen (284)
-                </button>
-                <button class="toggle-btn" onclick="switchDonorStrategy('embedding'); event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active');">
-                    Embedding-Based K=50
-                </button>
-            </div>
-
-            <!-- DONOR STRATEGY COMPARISON PANEL -->
-            <div style="background: white; border-radius: 8px; padding: 2.5rem; margin-bottom: 3rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                <h3 id="strategy-title" style="color: #0f172a; margin-bottom: 1.5rem;">Random Statewide Donors (500 untreated pixels)</h3>
-            
-                <div class="comparison-grid">
-                    <div style="border-radius: 8px; padding: 2rem; background: #f8fafc; border-left: 4px solid #f59e0b;">
-                        <h4 style="color: #d97706; margin-bottom: 1rem;">Donor Selection Rule</h4>
-                        <p id="strategy-desc" style="color: #64748b; line-height: 1.7;">
-                            Randomly sample 500 untreated conifer pixels statewide. No explicit constraint on ecological similarity; relies on large sample to approximate covariate distributions.
-                        </p>
-                    </div>
-                
-                    <div style="border-radius: 8px; padding: 2rem; background: #f8fafc;">
-                        <h4 style="color: #1e40af; margin-bottom: 1rem;">Pre-Treatment Fit (2003–2011)</h4>
-                        <div class="stats-row" style="gap: 1rem;">
-                            <div class="stat-card" style="flex: 1;">
-                                <div class="stat-label">Median RMSPE</div>
-                                <div class="stat-value" id="rmspe-median" style="font-size: 2rem;">0.41</div>
-                            </div>
                             <div class="stat-card" style="flex: 1;">
                                 <div class="stat-label">IQR Range</div>
                                 <div class="stat-value" id="rmspe-iqr" style="font-size: 1.3rem;">0.15–0.62</div>
