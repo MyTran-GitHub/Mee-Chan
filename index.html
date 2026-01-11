@@ -2165,6 +2165,62 @@
             }
         }
 
+        // Donor Strategy Switching (mirrors tab behavior)
+        function switchDonorStrategy(strategy) {
+            const strategies = {
+                'random': {
+                    title: 'Random Statewide Donors (500 untreated pixels)',
+                    desc: 'Randomly sample 500 untreated conifer pixels statewide. No explicit constraint on ecological similarity; relies on large sample to approximate covariate distributions.',
+                    rmspe: '0.45',
+                    iqr: '0.15–0.62',
+                    randomDisplay: 'block',
+                    manualDisplay: 'none',
+                    embeddingDisplay: 'none',
+                    embedLabel: 'Random donors: dispersed in embedding space'
+                },
+                'manual': {
+                    title: 'Manual Covariate Screen (284 untreated pixels)',
+                    desc: 'Filter statewide pixels using explicit covariate thresholds: slope < 15°, elevation 400–2000m, forest type in [DF, PP]. Tighter ecological similarity constraints.',
+                    rmspe: '0.36',
+                    iqr: '0.18–0.58',
+                    randomDisplay: 'none',
+                    manualDisplay: 'block',
+                    embeddingDisplay: 'none',
+                    embedLabel: 'Manual donors: moderately clustered in embedding space'
+                },
+                'embedding': {
+                    title: 'Embedding-Based K=50 (50 nearest neighbors)',
+                    desc: 'Select K=50 untreated pixels nearest to treated pixel in learned embedding space. Highest ecological and spectral similarity; trade-off between balance and sample size.',
+                    rmspe: '0.23',
+                    iqr: '0.10–0.41',
+                    randomDisplay: 'none',
+                    manualDisplay: 'none',
+                    embeddingDisplay: 'block',
+                    embedLabel: 'Embedding donors: tightly clustered in latent space'
+                }
+            };
+
+            const strat = strategies[strategy];
+            if (!strat) return;
+            const titleEl = document.getElementById('strategy-title');
+            const descEl = document.getElementById('strategy-desc');
+            const rmspeEl = document.getElementById('rmspe-median');
+            const iqrEl = document.getElementById('rmspe-iqr');
+            const randomGroup = document.getElementById('random-donors');
+            const manualGroup = document.getElementById('manual-donors');
+            const embeddingGroup = document.getElementById('embedding-donors');
+            const embedLabelEl = document.getElementById('embed-label');
+
+            if (titleEl) titleEl.textContent = strat.title;
+            if (descEl) descEl.textContent = strat.desc;
+            if (rmspeEl) rmspeEl.textContent = strat.rmspe;
+            if (iqrEl) iqrEl.textContent = strat.iqr;
+            if (randomGroup) randomGroup.style.display = strat.randomDisplay;
+            if (manualGroup) manualGroup.style.display = strat.manualDisplay;
+            if (embeddingGroup) embeddingGroup.style.display = strat.embeddingDisplay;
+            if (embedLabelEl) embedLabelEl.textContent = strat.embedLabel;
+        }
+
         // Tab Switching
         function switchTab(tabId, buttonElement) {
             // Hide all tabs
