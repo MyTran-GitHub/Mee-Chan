@@ -841,6 +841,52 @@
         }
     </style>
     <script>
+        // Donor strategy data
+        const donorStrategies = {
+            random: {
+                title: 'Random Statewide Donors (500 untreated pixels)',
+                desc: 'Randomly sample 500 untreated conifer pixels statewide. No explicit constraint on ecological similarity; relies on large sample to approximate covariate distributions.',
+                rmspeMedian: '0.45',
+                rmspeIQR: '0.15–0.62',
+                embedLabel: 'Random donors: dispersed in embedding space',
+                color: '#9ca3af'
+            },
+            manual: {
+                title: 'Manual Covariate Screen (284 untreated pixels)',
+                desc: 'Select donors within ±200 m elevation, ±1°C average temperature, and ±15% canopy cover. Incorporates observable covariates but may miss latent ecological heterogeneity.',
+                rmspeMedian: '0.36',
+                rmspeIQR: '0.12–0.52',
+                embedLabel: 'Manual donors: moderately clustered in embedding space',
+                color: '#f59e0b'
+            },
+            embedding: {
+                title: 'Embedding-Based K=50 (top nearest neighbors)',
+                desc: 'Select the 50 nearest neighbors in satellite embedding space (PrithVi V2, 512-dim). Captures unobserved ecological structure including fuel configuration, microclimate, and disturbance legacies.',
+                rmspeMedian: '0.23',
+                rmspeIQR: '0.09–0.38',
+                embedLabel: 'Embedding donors: tightly clustered in latent space',
+                color: '#16a34a'
+            }
+        };
+
+        function switchDonorStrategy(strategy) {
+            const data = donorStrategies[strategy];
+            
+            // Update title and description
+            document.getElementById('strategy-title').textContent = data.title;
+            document.getElementById('strategy-desc').textContent = data.desc;
+            
+            // Update metrics
+            document.getElementById('rmspe-median').textContent = data.rmspeMedian;
+            document.getElementById('rmspe-iqr').textContent = data.rmspeIQR;
+            document.getElementById('embed-label').textContent = data.embedLabel;
+            
+            // Toggle donor visualization
+            document.getElementById('random-donors').style.display = strategy === 'random' ? 'block' : 'none';
+            document.getElementById('manual-donors').style.display = strategy === 'manual' ? 'block' : 'none';
+            document.getElementById('embedding-donors').style.display = strategy === 'embedding' ? 'block' : 'none';
+        }
+
         // Toggle between interactive panels
         function togglePanel(activeClass, btnClass) {
             return function(e) {
@@ -908,6 +954,8 @@
             tabBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     const tabContainer = this.closest('.tab-container');
+                    if (!tabContainer) return;
+                    
                     const tabs = tabContainer.parentElement.querySelectorAll('.tab-content');
                     tabs.forEach(tab => tab.classList.remove('active'));
                     
@@ -953,157 +1001,323 @@
     <section class="capstone">
         <div class="section-header">
             <div class="section-label">CAPSTONE PROJECT</div>
-            <h2 class="capstone-title">Embedding the Counterfactual: Causal Inference for Environmental Policy with Satellite Representations</h2>
+            <h2 class="capstone-title">A Satellite-based Synthetic Control Evaluation of Prescribed Burn Intervention</h2>
             <p class="capstone-subtitle">
-                Solving the identification problem when latent ecological structure determines treatment assignment
+                Embedding-informed donor selection improves causal inference in high-dimensional environmental policy evaluation
             </p>
         </div>
 
-        <!-- INTERACTIVE DONOR POOL COMPARISON -->
-        <div class="interactive-toggle" style="justify-content: center; margin-bottom: 3rem;">
-            <button class="toggle-btn active" data-target="buffer-panel" onclick="event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active'); document.querySelectorAll('.comparison-method').forEach(p => p.classList.remove('active')); document.getElementById('buffer-panel').classList.add('active');">
-                Buffer-Based Controls (Status Quo)
+        <!-- INTERACTIVE DONOR POOL STRATEGY SELECTION -->
+        <div class="interactive-toggle" style="justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;">
+            <button class="toggle-btn active" onclick="switchDonorStrategy('random'); event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active');">
+                Random Statewide (500)
             </button>
-            <button class="toggle-btn" data-target="embedding-panel" onclick="event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active'); document.querySelectorAll('.comparison-method').forEach(p => p.classList.remove('active')); document.getElementById('embedding-panel').classList.add('active');">
-                Embedding-Based Controls (Innovation)
+            <button class="toggle-btn" onclick="switchDonorStrategy('manual'); event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active');">
+                Manual Covariate Screen (284)
+            </button>
+            <button class="toggle-btn" onclick="switchDonorStrategy('embedding'); event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active');">
+                Embedding-Based K=50
             </button>
         </div>
 
-        <!-- BUFFER-BASED APPROACH -->
-        <div id="buffer-panel" class="comparison-method active">
+        <!-- DONOR STRATEGY COMPARISON PANEL -->
+        <div style="background: white; border-radius: 8px; padding: 2.5rem; margin-bottom: 3rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <h3 id="strategy-title" style="color: #0f172a; margin-bottom: 1.5rem;">Random Statewide Donors (500 untreated pixels)</h3>
+            
             <div class="comparison-grid">
-                <div class="comparison-panel status-quo">
-                    <h3>Naïve Geographic Matching</h3>
-                    <div class="figure-container">
-                        <div class="figure-label">Control Unit Selection Map</div>
-                        [Interactive map showing buffer zones]
-                    </div>
-                    <p class="panel-caption">
-                        <strong>Method:</strong> Select controls within fixed radius (e.g., 50km) of treated units.
-                    </p>
-                    <p class="panel-caption">
-                        <strong>Problem:</strong> Assumes geographic proximity → ecological similarity. Ignores latent confounding.
+                <div style="border-radius: 8px; padding: 2rem; background: #f8fafc; border-left: 4px solid #f59e0b;">
+                    <h4 style="color: #d97706; margin-bottom: 1rem;">Donor Selection Rule</h4>
+                    <p id="strategy-desc" style="color: #64748b; line-height: 1.7;">
+                        Randomly sample 500 untreated conifer pixels statewide. No explicit constraint on ecological similarity; relies on large sample to approximate covariate distributions.
                     </p>
                 </div>
-
-                <div class="comparison-panel">
-                    <h3>Identification Failure</h3>
-                    <div class="stats-row">
-                        <div class="stat-card">
-                            <div class="stat-label">Pre-treatment Fit</div>
-                            <div class="stat-value">0.62</div>
+                
+                <div style="border-radius: 8px; padding: 2rem; background: #f8fafc;">
+                    <h4 style="color: #1e40af; margin-bottom: 1rem;">Pre-Treatment Fit (2003–2011)</h4>
+                    <div class="stats-row" style="gap: 1rem;">
+                        <div class="stat-card" style="flex: 1;">
+                            <div class="stat-label">Median RMSPE</div>
+                            <div class="stat-value" id="rmspe-median" style="font-size: 2rem;">0.41</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Covariate Balance</div>
-                            <div class="stat-value">0.48</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Placebo Test (p)</div>
-                            <div class="stat-value">0.18</div>
+                        <div class="stat-card" style="flex: 1;">
+                            <div class="stat-label">IQR Range</div>
+                            <div class="stat-value" id="rmspe-iqr" style="font-size: 1.3rem;">0.15–0.62</div>
                         </div>
                     </div>
-                    <p class="panel-caption" style="color: #dc2626; font-weight: 600;">
-                        ⚠️ Poor covariate balance suggests selection bias. Placebo test fails to rule out pre-trends.
+                    <p style="font-size: 0.85rem; color: #64748b; margin-top: 1rem;">
+                        <span class="tooltip">RMSPE: Root Mean Squared Prediction Error
+                            <span class="tooltiptext">Measures how well synthetic control tracks treated pixels pre-treatment. Lower = better pre-fit.</span>
+                        </span>
                     </p>
                 </div>
             </div>
-        </div>
 
-        <!-- EMBEDDING-BASED APPROACH -->
-        <div id="embedding-panel" class="comparison-method">
-            <div class="comparison-grid">
-                <div class="comparison-panel innovation">
-                    <h3>Embedding-Based Donor Selection</h3>
-                    <div class="figure-container">
-                        <div class="figure-label">High-Dimensional Similarity Space</div>
-                        [Interactive embedding space visualization]
-                    </div>
-                    <p class="panel-caption">
-                        <strong>Method:</strong> Match controls based on satellite embedding distance in high-dimensional space.
-                    </p>
-                    <p class="panel-caption">
-                        <strong>Advantage:</strong> Captures unobserved ecological structure; finds geographically distant but structurally similar matches.
-                    </p>
+            <!-- EMBEDDING SPACE VISUALIZATION -->
+            <div style="margin-top: 2rem;">
+                <h4 style="color: #1e40af; margin-bottom: 1rem;">Control Pool Similarity (Embedding Space)</h4>
+                <div class="figure-container" style="height: 300px; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);">
+                    <div class="figure-label" id="embed-label">Random donors: dispersed in embedding space</div>
+                    <svg style="width: 80%; height: 80%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        <!-- Treated pixel -->
+                        <circle cx="50%" cy="50%" r="8" fill="#dc2626" stroke="white" stroke-width="2"/>
+                        <!-- Random donors: dispersed -->
+                        <g id="random-donors" style="display: block;">
+                            <circle cx="20%" cy="30%" r="5" fill="#9ca3af" opacity="0.6"/>
+                            <circle cx="80%" cy="25%" r="5" fill="#9ca3af" opacity="0.6"/>
+                            <circle cx="15%" cy="70%" r="5" fill="#9ca3af" opacity="0.6"/>
+                            <circle cx="85%" cy="75%" r="5" fill="#9ca3af" opacity="0.6"/>
+                            <circle cx="45%" cy="20%" r="5" fill="#9ca3af" opacity="0.6"/>
+                            <circle cx="55%" cy="80%" r="5" fill="#9ca3af" opacity="0.6"/>
+                            <circle cx="30%" cy="60%" r="5" fill="#9ca3af" opacity="0.6"/>
+                            <circle cx="70%" cy="45%" r="5" fill="#9ca3af" opacity="0.6"/>
+                        </g>
+                        <!-- Manual donors: clustered -->
+                        <g id="manual-donors" style="display: none;">
+                            <circle cx="45%" cy="48%" r="5" fill="#f59e0b" opacity="0.7"/>
+                            <circle cx="48%" cy="52%" r="5" fill="#f59e0b" opacity="0.7"/>
+                            <circle cx="52%" cy="50%" r="5" fill="#f59e0b" opacity="0.7"/>
+                            <circle cx="50%" cy="45%" r="5" fill="#f59e0b" opacity="0.7"/>
+                            <circle cx="47%" cy="53%" r="5" fill="#f59e0b" opacity="0.7"/>
+                            <circle cx="53%" cy="48%" r="5" fill="#f59e0b" opacity="0.7"/>
+                        </g>
+                        <!-- Embedding donors: tight cluster -->
+                        <g id="embedding-donors" style="display: none;">
+                            <circle cx="50%" cy="49%" r="5" fill="#16a34a" opacity="0.8"/>
+                            <circle cx="49%" cy="51%" r="5" fill="#16a34a" opacity="0.8"/>
+                            <circle cx="51%" cy="50%" r="5" fill="#16a34a" opacity="0.8"/>
+                            <circle cx="50%" cy="48%" r="5" fill="#16a34a" opacity="0.8"/>
+                            <circle cx="48%" cy="50%" r="5" fill="#16a34a" opacity="0.8"/>
+                            <circle cx="51%" cy="51%" r="5" fill="#16a34a" opacity="0.8"/>
+                        </g>
+                    </svg>
                 </div>
-
-                <div class="comparison-panel">
-                    <h3>Improved Identification</h3>
-                    <div class="stats-row">
-                        <div class="stat-card">
-                            <div class="stat-label">Pre-treatment Fit</div>
-                            <div class="stat-value">0.94</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Covariate Balance</div>
-                            <div class="stat-value">0.89</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Placebo Test (p)</div>
-                            <div class="stat-value">0.67</div>
-                        </div>
-                    </div>
-                    <p class="panel-caption" style="color: #16a34a; font-weight: 600;">
-                        ✓ Strong covariate balance and placebo validity suggest credible causal inference.
-                    </p>
-                </div>
+                <p style="font-size: 0.9rem; color: #64748b; margin-top: 1rem;">
+                    Red: treated pixel. Gray/Orange/Green: donors from Random/Manual/Embedding strategies. Embedding-based selection yields tighter clusters in latent similarity space, improving comparability.
+                </p>
             </div>
         </div>
 
-        <!-- SYNTHETIC CONTROL RESULTS -->
+        <!-- SYNTHETIC CONTROL RESULTS: TABBED EXPLORATION -->
         <div style="margin-top: 4rem; padding: 3rem; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <h3>Synthetic Control Results: Interactive Exploration</h3>
+            <h3>Estimated Treatment Effects (Post-Treatment 2012–2018)</h3>
             
             <div class="tab-container">
                 <button class="tab-btn active" data-target="outcome-tab">Outcome Trajectories</button>
-                <button class="tab-btn" data-target="att-tab">Treatment Effects (ATT)</button>
-                <button class="tab-btn" data-target="placebo-tab">Placebo & Robustness</button>
+                <button class="tab-btn" data-target="att-tab">ATT by Strategy</button>
+                <button class="tab-btn" data-target="gap-tab">Gap Plot & Diagnostics</button>
+                <button class="tab-btn" data-target="robustness-tab">Robustness Checks</button>
             </div>
 
+            <!-- TAB 1: OUTCOME TRAJECTORIES -->
             <div id="outcome-tab" class="tab-content active">
-                <p><strong>Treated Unit vs. Synthetic Control (Embedding-Based)</strong></p>
-                <div class="figure-container">
-                    <div class="figure-label">Outcome Trajectory Over Time</div>
-                    [Treated unit line vs. synthetic control line showing divergence post-treatment]
+                <p style="margin-bottom: 1.5rem; color: #475569;">
+                    <strong>Treated pixels (n=3,966) vs. Synthetic Controls</strong>: Pre-treatment alignment (2003–2011) and post-treatment divergence (2012–2018) by donor strategy. All strategies share identical pre-window and post-window definitions.
+                </p>
+                <div class="figure-container" style="height: 400px;">
+                    <div class="figure-label">Figure 1: Time-Series FRP (Max Fire Radiative Power)</div>
+                    <img src="https://raw.githubusercontent.com/MyTran-GitHub/Capstone/main/assets/timeseries_2012.png" style="width: 100%; height: 100%; object-fit: contain;"/>
                 </div>
-                <p style="margin-top: 1rem; color: #475569;">
-                    The treated unit (green) follows the synthetic control (red dashed) closely before treatment, diverging sharply after policy implementation, indicating a strong treatment effect.
+                <p style="margin-top: 1.5rem; color: #475569; font-size: 0.95rem;">
+                    <strong>Interpretation:</strong> All three strategies track pre-treatment trajectories closely, supporting parallel-trends assumption. Post-2012, Embedding-based (green) exhibits the largest and most sustained divergence from synthetic control, followed by Manual (orange), then Random (gray). This ordering aligns with pre-treatment balance quality.
                 </p>
             </div>
 
+            <!-- TAB 2: ATT BY STRATEGY -->
             <div id="att-tab" class="tab-content">
-                <p><strong>Average Treatment Effect on the Treated (ATT)</strong></p>
-                <div class="figure-container">
-                    <div class="figure-label">Cumulative Treatment Effect Estimate</div>
-                    [Bar plot showing ATT with 95% confidence intervals]
+                <p style="margin-bottom: 1.5rem; color: #475569;">
+                    <strong>Average Treatment Effect on the Treated (ATT)</strong>: Post-treatment reduction in FRP (MW) aggregated over 2012–2018. Negative values indicate wildfire mitigation.
+                </p>
+                
+                <div style="overflow-x: auto; margin-bottom: 2rem;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                        <thead>
+                            <tr style="background: #f1f5f9; border-bottom: 2px solid #e2e8f0;">
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1e40af;">Strategy</th>
+                                <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1e40af;">Pre-RMSPE</th>
+                                <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1e40af;">ATT (MW)</th>
+                                <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1e40af;">95% CI</th>
+                                <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1e40af;">% ATT</th>
+                                <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1e40af;">95% CI %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 1rem; font-weight: 600; color: #0f172a;">Random (500)</td>
+                                <td style="padding: 1rem; text-align: center; color: #475569;">0.45</td>
+                                <td style="padding: 1rem; text-align: center; color: #dc2626; font-weight: 600;">−0.53</td>
+                                <td style="padding: 1rem; text-align: center; color: #64748b;">[−0.88, −0.18]</td>
+                                <td style="padding: 1rem; text-align: center; color: #dc2626; font-weight: 600;">−3.2%</td>
+                                <td style="padding: 1rem; text-align: center; color: #64748b;">[−3.9%, −2.5%]</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 1rem; font-weight: 600; color: #0f172a;">Manual (284)</td>
+                                <td style="padding: 1rem; text-align: center; color: #475569;">0.36</td>
+                                <td style="padding: 1rem; text-align: center; color: #dc2626; font-weight: 600;">−0.67</td>
+                                <td style="padding: 1rem; text-align: center; color: #64748b;">[−0.98, −0.36]</td>
+                                <td style="padding: 1rem; text-align: center; color: #dc2626; font-weight: 600;">−3.8%</td>
+                                <td style="padding: 1rem; text-align: center; color: #64748b;">[−4.6%, −3.0%]</td>
+                            </tr>
+                            <tr style="background: #f0fdf4;">
+                                <td style="padding: 1rem; font-weight: 600; color: #0f172a;">Embeddings (K=50)</td>
+                                <td style="padding: 1rem; text-align: center; color: #16a34a; font-weight: 600;">0.23</td>
+                                <td style="padding: 1rem; text-align: center; color: #dc2626; font-weight: 600;">−0.81</td>
+                                <td style="padding: 1rem; text-align: center; color: #16a34a; font-weight: 600;">[−1.08, −0.54]</td>
+                                <td style="padding: 1rem; text-align: center; color: #dc2626; font-weight: 600;">−4.4%</td>
+                                <td style="padding: 1rem; text-align: center; color: #16a34a; font-weight: 600;">[−5.1%, −3.7%]</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <p style="margin-top: 1rem; color: #475569;">
-                    Point estimate: <strong>-2.4 units</strong> (95% CI: [-3.1, -1.7]). Policy reduced outcome by 2.4 units, highly significant.
+
+                <div style="background: #f1f5f9; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #1e40af;">
+                    <p style="color: #475569; margin: 0;">
+                        <strong>Key Finding:</strong> Embedding-based donors deliver the largest negative ATT (−0.81 MW) with the smallest uncertainty (SE=0.14). This translates to a −4.4% reduction in post-treatment FRP relative to baseline. The ordering is consistent: Embeddings > Manual > Random, mirroring pre-treatment balance quality.
+                    </p>
+                </div>
+            </div>
+
+            <!-- TAB 3: GAP PLOT & DIAGNOSTICS -->
+            <div id="gap-tab" class="tab-content">
+                <p style="margin-bottom: 1.5rem; color: #475569;">
+                    <strong>Gap Plot</strong>: Median treated − synthetic FRP over time. Zero or near-zero pre-gaps indicate good parallel-trends validity. Sustained negative post-gaps indicate treatment effect credibility.
+                </p>
+                <div class="figure-container" style="height: 400px;">
+                    <div class="figure-label">Figure 2: Treated − Synthetic Gap by Strategy</div>
+                    <img src="https://raw.githubusercontent.com/MyTran-GitHub/Capstone/main/assets/figure3_gap.png" style="width: 100%; height: 100%; object-fit: contain;"/>
+                </div>
+                <p style="margin-top: 1.5rem; color: #475569; font-size: 0.95rem;">
+                    <strong>Interpretation:</strong> All strategies show near-flat pre-trends (flat gray band 2003–2011), supporting the assumption that treated and control outcomes would have followed parallel paths absent treatment. Post-2012, Embeddings (green) exhibits the largest and most stable negative gap, approximately twice the magnitude of Manual and Random strategies. The absence of systematic pre-existing divergence strengthens causal attribution.
                 </p>
             </div>
 
-            <div id="placebo-tab" class="tab-content">
-                <p><strong>Placebo Test: Is the Effect Real?</strong></p>
-                <div class="figure-container">
-                    <div class="figure-label">Placebo Distribution (Falsification Test)</div>
-                    [Distribution showing ATT for fake treatment dates; actual treatment far in tail]
-                </div>
-                <p style="margin-top: 1rem; color: #475569;">
-                    Red line shows actual ATT; blue distribution shows ATTs from placebo tests. Our effect is larger than 95% of placebos, supporting causal interpretation.
+            <!-- TAB 4: ROBUSTNESS CHECKS -->
+            <div id="robustness-tab" class="tab-content">
+                <p style="margin-bottom: 1.5rem; color: #475569;">
+                    <strong>Sensitivity Analysis</strong>: ATT estimates under alternative specifications (pre-period length, donor count K, outlier exclusion, spatial buffers). Robustness to design choices supports credibility of main results.
                 </p>
+                
+                <div style="overflow-x: auto; margin-bottom: 2rem;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <thead>
+                            <tr style="background: #f1f5f9; border-bottom: 2px solid #e2e8f0;">
+                                <th style="padding: 0.8rem; text-align: left; font-weight: 600; color: #1e40af;">Specification</th>
+                                <th style="padding: 0.8rem; text-align: center; font-weight: 600; color: #1e40af;">Pre-RMSPE</th>
+                                <th style="padding: 0.8rem; text-align: center; font-weight: 600; color: #1e40af;">ATT (MW)</th>
+                                <th style="padding: 0.8rem; text-align: center; font-weight: 600; color: #1e40af;">95% CI</th>
+                                <th style="padding: 0.8rem; text-align: center; font-weight: 600; color: #1e40af;">% ATT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #e2e8f0; background: #f0fdf4;">
+                                <td style="padding: 0.8rem; font-weight: 600;">Embeddings: Baseline (K=50)</td>
+                                <td style="padding: 0.8rem; text-align: center;">0.23</td>
+                                <td style="padding: 0.8rem; text-align: center;">−0.81</td>
+                                <td style="padding: 0.8rem; text-align: center;">[−1.08, −0.54]</td>
+                                <td style="padding: 0.8rem; text-align: center;">−4.4%</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 0.8rem;">Embeddings: Shorter pre (5y)</td>
+                                <td style="padding: 0.8rem; text-align: center;">0.29</td>
+                                <td style="padding: 0.8rem; text-align: center;">−0.68</td>
+                                <td style="padding: 0.8rem; text-align: center;">[−1.03, −0.33]</td>
+                                <td style="padding: 0.8rem; text-align: center;">−3.7%</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 0.8rem;">Embeddings: K=25</td>
+                                <td style="padding: 0.8rem; text-align: center;">0.26</td>
+                                <td style="padding: 0.8rem; text-align: center;">−0.65</td>
+                                <td style="padding: 0.8rem; text-align: center;">[−1.05, −0.25]</td>
+                                <td style="padding: 0.8rem; text-align: center;">−3.5%</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 0.8rem;">Embeddings: K=100</td>
+                                <td style="padding: 0.8rem; text-align: center;">0.22</td>
+                                <td style="padding: 0.8rem; text-align: center;">−0.85</td>
+                                <td style="padding: 0.8rem; text-align: center;">[−1.11, −0.59]</td>
+                                <td style="padding: 0.8rem; text-align: center;">−4.6%</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 0.8rem;">Embeddings: Exclude FRP > 500 MW</td>
+                                <td style="padding: 0.8rem; text-align: center;">0.24</td>
+                                <td style="padding: 0.8rem; text-align: center;">−0.54</td>
+                                <td style="padding: 0.8rem; text-align: center;">[−0.97, −0.11]</td>
+                                <td style="padding: 0.8rem; text-align: center;">−2.9%</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 0.8rem;">Embeddings: Buffer 5 km</td>
+                                <td style="padding: 0.8rem; text-align: center;">0.23</td>
+                                <td style="padding: 0.8rem; text-align: center;">−0.87</td>
+                                <td style="padding: 0.8rem; text-align: center;">[−1.16, −0.58]</td>
+                                <td style="padding: 0.8rem; text-align: center;">−4.7%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #16a34a;">
+                    <p style="color: #475569; margin: 0;">
+                        <strong>Robustness Finding:</strong> ATT estimates remain stable across design variations. Embedding-based ATT ranges from −0.54 to −0.87 MW across all specifications, with tight confidence intervals. Even when relaxing donor constraints (K=100) or using only 5-year pre-periods, estimates remain consistent. This demonstrates the method's reliability and reduces concerns about design-specific artifacts.
+                    </p>
+                </div>
             </div>
         </div>
 
-        <!-- CONCEPTUAL NARRATIVE (MINIMAL) -->
+        <!-- CONCEPTUAL FRAMEWORK & KEY CONTRIBUTIONS -->
         <div style="margin-top: 3rem; padding: 2.5rem; background: #f8fafc; border-radius: 8px; border-left: 4px solid #1e40af;">
-            <h4 style="color: #1e40af;">Why This Matters</h4>
-            <p><strong>For Political Methodology:</strong> This approach solves three core identification challenges: (1) unobserved confounding through learned representations, (2) high-dimensional covariate spaces without curse of dimensionality, (3) external validity through embedding-distance-based transportability assessment.</p>
-            <p><strong>For Environmental Policy:</strong> Enables credible evaluation of conservation and water management policies where randomized trials are infeasible, providing evidence-based guidance for where policies succeed or fail.</p>
-            <div class="methodology-keywords">
-                <span class="keyword">Synthetic Control</span>
-                <span class="keyword">Latent Confounding</span>
-                <span class="keyword">Treatment Heterogeneity</span>
-                <span class="keyword">Representation Learning</span>
-                <span class="keyword">Policy Transportability</span>
+            <h4 style="color: #1e40af; margin-bottom: 1rem;">Research Contribution & Methodology</h4>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
+                <div>
+                    <h5 style="color: #0f172a; font-size: 1rem; margin-bottom: 0.75rem;">📊 Core Finding</h5>
+                    <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
+                        Low-intensity prescribed fire reduces subsequent high-intensity wildfire risk by <strong>4.4%</strong> (95% CI: [−5.1%, −3.7%]) over a six-year horizon, with effects concentrated in embedding-matched control pixels that exhibit superior pre-treatment balance.
+                    </p>
+                </div>
+                
+                <div>
+                    <h5 style="color: #0f172a; font-size: 1rem; margin-bottom: 0.75rem;">🔬 Methodological Innovation</h5>
+                    <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
+                        Satellite-derived embeddings from PrithVi V2 foundation model constrain donor pools to latent ecological peers, improving pre-treatment RMSPE from 0.45 (Random) to 0.23 (Embeddings)—a 49% reduction—while preserving synthetic control interpretability.
+                    </p>
+                </div>
+                
+                <div>
+                    <h5 style="color: #0f172a; font-size: 1rem; margin-bottom: 0.75rem;">✓ Identification Strength</h5>
+                    <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
+                        Embedding-based donors achieve standardized pre-treatment covariate balance near zero across all six key variables (FRP, Elevation, Canopy Cover, Prior Fires, Precipitation, Temperature), compared to larger imbalances in Random and Manual strategies.
+                    </p>
+                </div>
+                
+                <div>
+                    <h5 style="color: #0f172a; font-size: 1rem; margin-bottom: 0.75rem;">🛡️ Robustness</h5>
+                    <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
+                        ATT estimates stable across pre-period lengths, donor counts (K=25–100), outlier exclusion, and spatial buffers. Worst-case specification (FRP > 500 MW excluded) still yields −2.9% ATT, indicating core inference is not driven by extreme outcomes.
+                    </p>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e2e8f0;">
+                <h5 style="color: #1e40af; font-size: 1rem; margin-bottom: 0.75rem;">Research Design</h5>
+                <ul style="margin-left: 2rem; color: #475569; line-height: 1.8; font-size: 0.95rem;">
+                    <li><strong>Estimand:</strong> Average treatment effect on the treated (ATT) for VMP-treated pixels (n=3,966) relative to synthetic controls constructed from untreated conifer pixels.</li>
+                    <li><strong>Pre-period:</strong> 2003–2011 (9 years); <strong>Post-period:</strong> 2012–2018 (6 years)</li>
+                    <li><strong>Outcome:</strong> Maximum Fire Radiative Power (FRP) in MW from MODIS FIRMS, capturing fire intensity at 1 km² resolution.</li>
+                    <li><strong>Donor Strategies Compared:</strong> Random statewide (500 pixels), Manual covariate screens (284 pixels), Embedding-based K-nearest neighbors (50 pixels)</li>
+                    <li><strong>Inference:</strong> Block bootstrap over treated units (500 resamples) for SEs and 95% CIs; placebo-based p-values pending additional computation.</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <div class="methodology-keywords">
+                    <span class="keyword">Synthetic Control</span>
+                    <span class="keyword">Representation Learning</span>
+                    <span class="keyword">Causal Inference</span>
+                    <span class="keyword">Satellite Embeddings (PrithVi V2)</span>
+                    <span class="keyword">Pre-Treatment Balance</span>
+                    <span class="keyword">RMSPE Diagnostics</span>
+                    <span class="keyword">Donor Pool Restriction</span>
+                    <span class="keyword">Environmental Policy Evaluation</span>
+                </div>
             </div>
         </div>
     </section>
