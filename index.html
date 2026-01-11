@@ -1451,16 +1451,24 @@
             <!-- SECTION 2: WATER DEFICIT THRESHOLD SENSITIVITY -->
             <div class="slider-container" style="margin: 2rem 0; background: #f1f5f9; padding: 1.5rem; border-radius: 6px;">
                 <label style="font-weight: 600; color: #1e40af; display: block; margin-bottom: 1rem;">
-                    Water Deficit Threshold: Control the sensitivity of the model
+                    Water Deficit Threshold: Slide to explore suitability across precipitation regimes
                 </label>
                 <p style="font-size: 0.85rem; color: #475569; margin-bottom: 1rem;">
                     Drag to set maximum allowable water deficit. Stricter thresholds classify fewer areas as suitable but reduce crop failure risk.
                 </p>
-                <input type="range" id="awd-deficit-threshold" min="25" max="150" value="50" step="5" onchange="updateDeficitThreshold(this.value)">
+                <input type="range" id="awd-deficit-threshold" min="0" max="6" value="1" step="1" onchange="updateDeficitThreshold(this.value)">
                 <div class="slider-value" style="margin-top: 0.75rem; font-weight: 500;">
                     Threshold: <span id="deficit-threshold-value">−50</span> mm | 
                     Suitable Area: <span id="suitable-area-pct">32</span>% | 
                     Dekads with deficit: <span id="deficit-dekads">48</span>%
+                </div>
+
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <span id="awd-threshold-label" style="font-weight: 600; color: #1e40af; display: block; margin-bottom: 0.75rem; font-size: 1.1rem;">−50 mm Threshold</span>
+                    <img id="awd-threshold-image" src="assets/awd-thresh-50.png" alt="AWD Suitability Map" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem;">
+                    <p style="color: #475569; font-size: 0.9rem;">
+                        <strong>Why −50mm?</strong> This threshold best aligns with the biophysical suitability layer, providing an optimal balance between capturing suitable areas and minimizing yield risk.
+                    </p>
                 </div>
             </div>
 
@@ -2138,28 +2146,29 @@
     <!-- JAVASCRIPT: AWD INTERACTIVITY -->
     <!-- ═══════════════════════════════════════════════════════════════════════════ -->
     <script>
-        // AWD Deficit Threshold Slider
+        // AWD Threshold images and data
+        const awdThresholds = [
+            {idx: 0, value: 25, src: "assets/awd-thresh-25.png", label: "-25 mm", suitableArea: 18, dekads: 22},
+            {idx: 1, value: 50, src: "assets/awd-thresh-50.png", label: "-50 mm", suitableArea: 32, dekads: 48},
+            {idx: 2, value: 70, src: "assets/awd-thresh-70.png", label: "-70 mm", suitableArea: 42, dekads: 60},
+            {idx: 3, value: 90, src: "assets/awd-thresh-90.png", label: "-90 mm", suitableArea: 52, dekads: 68},
+            {idx: 4, value: 110, src: "assets/awd-thresh-110.png", label: "-110 mm", suitableArea: 62, dekads: 75},
+            {idx: 5, value: 130, src: "assets/awd-thresh-130.png", label: "-130 mm", suitableArea: 66, dekads: 80},
+            {idx: 6, value: 150, src: "assets/awd-thresh-150.png", label: "-150 mm", suitableArea: 69, dekads: 85}
+        ];
+
         function updateDeficitThreshold(value) {
-            const threshold = -parseInt(value);
-            document.getElementById('deficit-threshold-value').textContent = threshold + ' mm';
+            const idx = parseInt(value);
+            const threshold = awdThresholds[idx];
             
-            // Calculate suitability area based on threshold
-            // More stringent threshold = smaller suitable area
-            const thresholdFactors = {
-                25: 18, 30: 20, 35: 22, 40: 24, 45: 27, 50: 32, 55: 37, 60: 42,
-                70: 52, 80: 58, 90: 62, 100: 65, 110: 66, 130: 68, 150: 69
-            };
+            // Update label and image
+            document.getElementById('deficit-threshold-value').textContent = threshold.label;
+            document.getElementById('awd-threshold-label').textContent = threshold.label + ' Threshold';
+            document.getElementById('awd-threshold-image').src = threshold.src;
             
-            const suitableArea = thresholdFactors[value] || Math.round(15 + (value / 150) * 55);
-            document.getElementById('suitable-area-pct').textContent = suitableArea + '%';
-            
-            // Calculate deficit dekads
-            const dekadValues = {
-                25: 22, 30: 26, 35: 31, 40: 36, 45: 42, 50: 48, 55: 54, 60: 59,
-                70: 68, 80: 73, 90: 77, 100: 80, 110: 82, 130: 84, 150: 85
-            };
-            const dekads = dekadValues[value] || Math.round(20 + (value / 150) * 65);
-            document.getElementById('deficit-dekads').textContent = dekads + '%';
+            // Update statistics
+            document.getElementById('suitable-area-pct').textContent = threshold.suitableArea + '%';
+            document.getElementById('deficit-dekads').textContent = threshold.dekads + '%';
             
             updateMapDisplay();
         }
