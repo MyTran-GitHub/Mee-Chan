@@ -151,25 +151,54 @@
         /* ═══════════════════════════════════════════════════════════════ */
         /* CAPSTONE PROJECT - CENTERPIECE */
         /* ═══════════════════════════════════════════════════════════════ */
-        .capstone {
-            background: linear-gradient(to bottom, #ffffff 0%, #f1f5f9 100%);
-            display: flex;
-            justify-content: center;
+        /* Full-width background layer */
+        .capstone.alt-bg {
+            width: 100%;
+            background: linear-gradient(
+                180deg,
+                rgba(8, 12, 20, 0.98) 0%,
+                rgba(10, 14, 24, 1) 100%
+            );
+            padding: 7rem 0;
+        }
+        
+        /* Centered content column */
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Centered header block */
+        .section-header {
+            max-width: 1100px;
+            margin: 0 auto 3rem auto;
+            text-align: center;
+        }
+
+        
+        .section-label {
+            letter-spacing: 0.15em;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 1rem;
         }
         
         .capstone-title {
-            font-size: 2.75rem;
-            margin-bottom: 1rem;
-            text-align: center;
+            font-size: 2.6rem;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
         }
         
         .capstone-subtitle {
-            font-size: 1.25rem;
-            color: #475569;
-            text-align: center;
-            margin-bottom: 4rem;
-            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            opacity: 0.85;
         }
+
         
         .comparison-grid {
             display: grid;
@@ -1000,14 +1029,19 @@
     <!-- ═══════════════════════════════════════════════════════════════════════════ -->
     <!-- CAPSTONE PROJECT - INTERACTIVE -->
     <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <section class="capstone">
-        <div class="section-header">
-            <div class="section-label">CAPSTONE PROJECT</div>
-            <h2 class="capstone-title">A Satellite-based Synthetic Control Evaluation of Prescribed Burn Intervention</h2>
-            <p class="capstone-subtitle">
-                Embedding-informed donor selection improves causal inference in high-dimensional environmental policy evaluation
-            </p>
-        </div>
+    <section class="capstone alt-bg">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label">CAPSTONE PROJECT</div>
+    
+                <h2 class="capstone-title">
+                    A Satellite-based Synthetic Control Evaluation of Prescribed Burn Intervention
+                </h2>
+    
+                <p class="capstone-subtitle">
+                    Embedding-informed donor selection improves causal inference in high-dimensional environmental policy evaluation
+                </p>
+            </div>
 
         <!-- INTERACTIVE DONOR POOL STRATEGY SELECTION -->
         <div class="interactive-toggle" style="justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;">
