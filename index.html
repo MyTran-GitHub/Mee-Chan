@@ -1044,14 +1044,14 @@
             </div>
 
         <!-- INTERACTIVE DONOR POOL STRATEGY SELECTION -->
-        <div class="interactive-toggle" style="justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;">
-            <button class="toggle-btn active" onclick="switchDonorStrategy('random'); event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active');">
+        <div class="donor-strategy-container" style="justify-content: center; margin-bottom: 3rem; flex-wrap: wrap; display: flex;">
+            <button class="toggle-btn active" data-strategy="random">
                 Random Statewide (500)
             </button>
-            <button class="toggle-btn" onclick="switchDonorStrategy('manual'); event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active');">
+            <button class="toggle-btn" data-strategy="manual">
                 Manual Covariate Screen (284)
             </button>
-            <button class="toggle-btn" onclick="switchDonorStrategy('embedding'); event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active');">
+            <button class="toggle-btn" data-strategy="embedding">
                 Embedding-Based K=50
             </button>
         </div>
@@ -2187,7 +2187,7 @@
             buttonElement.classList.add('active');
         }
 
-        // Initialize tab display
+        // Initialize tab display and donor strategy switching
         document.addEventListener('DOMContentLoaded', function() {
             const tabButtons = document.querySelectorAll('.tab-container .tab-btn');
             const tabContents = document.querySelectorAll('.tab-content');
@@ -2217,6 +2217,21 @@
                 const defaultTarget = tabButtons[0].dataset.target;
                 activateTab(defaultTarget);
             }
+
+            // Donor strategy buttons
+            const strategyButtons = document.querySelectorAll('.donor-strategy-container .toggle-btn');
+            strategyButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const strategy = btn.dataset.strategy;
+                    if (strategy) {
+                        // Update active button styling
+                        strategyButtons.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        // Call the strategy switch function
+                        switchDonorStrategy(strategy);
+                    }
+                });
+            });
         });
 
         // Node selection for institutional analysis
