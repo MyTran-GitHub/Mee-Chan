@@ -898,107 +898,108 @@
         };
 
         function switchDonorStrategy(strategy) {
-            const data = donorStrategies[strategy];
-            
-            // Update title and description
-            document.getElementById('strategy-title').textContent = data.title;
-            document.getElementById('strategy-desc').textContent = data.desc;
-            
-            // Update metrics
-            document.getElementById('rmspe-median').textContent = data.rmspeMedian;
-            document.getElementById('rmspe-iqr').textContent = data.rmspeIQR;
-            document.getElementById('embed-label').textContent = data.embedLabel;
-            
-            // Toggle donor visualization
-            document.getElementById('random-donors').style.display = strategy === 'random' ? 'block' : 'none';
-            document.getElementById('manual-donors').style.display = strategy === 'manual' ? 'block' : 'none';
-            document.getElementById('embedding-donors').style.display = strategy === 'embedding' ? 'block' : 'none';
-        }
+            <div class="section-inner">
+                <div class="section-header">
+                    <div class="section-label">CAPSTONE PROJECT</div>
 
-        // Toggle between interactive panels
-        function togglePanel(activeClass, btnClass) {
-            return function(e) {
-                const buttons = document.querySelectorAll(`.${btnClass}`);
-                const panels = document.querySelectorAll(`.${activeClass}`);
+                    <h2 class="capstone-title">
+                        A Satellite-based Synthetic Control Evaluation of Prescribed Burn Intervention
+                    </h2>
+
+                    <p class="capstone-subtitle">
+                        Embedding-informed donor selection improves causal inference in high-dimensional environmental policy evaluation
+                    </p>
+                </div>
+
+            <!-- INTERACTIVE DONOR POOL STRATEGY SELECTION -->
+            <div class="interactive-toggle" style="justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;">
+                <button class="toggle-btn active" onclick="switchDonorStrategy('random'); event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active');">
+                    Random Statewide (500)
+                </button>
+                <button class="toggle-btn" onclick="switchDonorStrategy('manual'); event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active');">
+                    Manual Covariate Screen (284)
+                </button>
+                <button class="toggle-btn" onclick="switchDonorStrategy('embedding'); event.currentTarget.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active');">
+                    Embedding-Based K=50
+                </button>
+            </div>
+
+            <!-- DONOR STRATEGY COMPARISON PANEL -->
+            <div style="background: white; border-radius: 8px; padding: 2.5rem; margin-bottom: 3rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h3 id="strategy-title" style="color: #0f172a; margin-bottom: 1.5rem;">Random Statewide Donors (500 untreated pixels)</h3>
+            
+                <div class="comparison-grid">
+                    <div style="border-radius: 8px; padding: 2rem; background: #f8fafc; border-left: 4px solid #f59e0b;">
+                        <h4 style="color: #d97706; margin-bottom: 1rem;">Donor Selection Rule</h4>
+                        <p id="strategy-desc" style="color: #64748b; line-height: 1.7;">
+                            Randomly sample 500 untreated conifer pixels statewide. No explicit constraint on ecological similarity; relies on large sample to approximate covariate distributions.
+                        </p>
+                    </div>
                 
-                buttons.forEach(btn => btn.classList.remove('active'));
-                panels.forEach(panel => panel.classList.remove('active'));
-                
-                e.target.classList.add('active');
-                const target = e.target.getAttribute('data-target');
-                document.getElementById(target).classList.add('active');
-            }
-        }
-        
-        // Slider update for AWD threshold
-        function updateAWDSlider(value) {
-            const percentage = Math.round((value / 150) * 100);
-            document.getElementById('awd-suitability-pct').textContent = percentage + '%';
-            document.getElementById('awd-threshold-value').textContent = value + 'mm';
-        }
-        
-        // Trade policy tariff slider
-        function updateTariffImpact(value) {
-            const priceChange = (value * 0.8).toFixed(1);
-            const quantityChange = (100 - value * 0.6).toFixed(0);
-            const costIncrease = (value * 1.2).toFixed(1);
-            
-            document.getElementById('tariff-rate').textContent = value + '%';
-            document.getElementById('price-impact').textContent = '+' + priceChange + '%';
-            document.getElementById('quantity-impact').textContent = quantityChange + '%';
-            document.getElementById('importer-cost').textContent = '+' + costIncrease + '%';
-        }
-        
-        // Bayesian model parameter update
-        function updateBayesianParam(param, value) {
-            document.getElementById(param + '-value').textContent = parseFloat(value).toFixed(2);
-            
-            const priorStrength = parseFloat(document.getElementById('prior-strength-range').value) || 50;
-            const stateVariance = parseFloat(document.getElementById('state-variance-range').value) || 1;
-            
-            const credibleWidth = (10 * (1 - priorStrength / 100) + stateVariance).toFixed(2);
-            document.getElementById('credible-width').textContent = credibleWidth;
-        }
-        
-        // Stakeholder node interaction
-        function selectNode(nodeId) {
-            const nodes = document.querySelectorAll('.node');
-            nodes.forEach(node => node.classList.remove('active'));
-            document.getElementById(nodeId).classList.add('active');
-        }
-        
-        // Toggle scenario (Vietnam baseline vs Japan transfer)
-        function toggleScenario(scenario) {
-            const description = scenario === 'vietnam' 
-                ? 'Current AWD adoption in Vietnam with established farmer networks and extension infrastructure.'
-                : 'Projected AWD feasibility in Japan considering biophysical constraints and institutional capacity gaps.';
-            document.getElementById('scenario-description').textContent = description;
-        }
-        
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set up tab listeners
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            tabBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    const tabContainer = this.closest('.tab-container');
-                    if (!tabContainer) return;
-                    
-                    const tabs = tabContainer.parentElement.querySelectorAll('.tab-content');
-                    tabs.forEach(tab => tab.classList.remove('active'));
-                    
-                    tabContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const target = this.getAttribute('data-target');
-                    document.getElementById(target).classList.add('active');
-                });
-            });
-            
-            // Initialize first tab as active in each container
-            document.querySelectorAll('.tab-container').forEach(container => {
-                const firstTab = container.querySelector('.tab-btn');
-                if (firstTab) {
+                    <div style="border-radius: 8px; padding: 2rem; background: #f8fafc;">
+                        <h4 style="color: #1e40af; margin-bottom: 1rem;">Pre-Treatment Fit (2003–2011)</h4>
+                        <div class="stats-row" style="gap: 1rem;">
+                            <div class="stat-card" style="flex: 1;">
+                                <div class="stat-label">Median RMSPE</div>
+                                <div class="stat-value" id="rmspe-median" style="font-size: 2rem;">0.41</div>
+                            </div>
+                            <div class="stat-card" style="flex: 1;">
+                                <div class="stat-label">IQR Range</div>
+                                <div class="stat-value" id="rmspe-iqr" style="font-size: 1.3rem;">0.15–0.62</div>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.85rem; color: #64748b; margin-top: 1rem;">
+                            <span class="tooltip">RMSPE: Root Mean Squared Prediction Error
+                                <span class="tooltiptext">Measures how well synthetic control tracks treated pixels pre-treatment. Lower = better pre-fit.</span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- EMBEDDING SPACE VISUALIZATION -->
+                <div style="margin-top: 2rem;">
+                    <h4 style="color: #1e40af; margin-bottom: 1rem;">Control Pool Similarity (Embedding Space)</h4>
+                    <div class="figure-container" style="height: 300px; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);">
+                        <div class="figure-label" id="embed-label">Random donors: dispersed in embedding space</div>
+                        <svg style="width: 80%; height: 80%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <!-- Treated pixel -->
+                            <circle cx="50%" cy="50%" r="8" fill="#dc2626" stroke="white" stroke-width="2"/>
+                            <!-- Random donors: dispersed -->
+                            <g id="random-donors" style="display: block;">
+                                <circle cx="20%" cy="30%" r="5" fill="#9ca3af" opacity="0.6"/>
+                                <circle cx="80%" cy="25%" r="5" fill="#9ca3af" opacity="0.6"/>
+                                <circle cx="15%" cy="70%" r="5" fill="#9ca3af" opacity="0.6"/>
+                                <circle cx="85%" cy="75%" r="5" fill="#9ca3af" opacity="0.6"/>
+                                <circle cx="45%" cy="20%" r="5" fill="#9ca3af" opacity="0.6"/>
+                                <circle cx="55%" cy="80%" r="5" fill="#9ca3af" opacity="0.6"/>
+                                <circle cx="30%" cy="60%" r="5" fill="#9ca3af" opacity="0.6"/>
+                                <circle cx="70%" cy="45%" r="5" fill="#9ca3af" opacity="0.6"/>
+                            </g>
+                            <!-- Manual donors: clustered -->
+                            <g id="manual-donors" style="display: none;">
+                                <circle cx="45%" cy="48%" r="5" fill="#f59e0b" opacity="0.7"/>
+                                <circle cx="48%" cy="52%" r="5" fill="#f59e0b" opacity="0.7"/>
+                                <circle cx="52%" cy="50%" r="5" fill="#f59e0b" opacity="0.7"/>
+                                <circle cx="50%" cy="45%" r="5" fill="#f59e0b" opacity="0.7"/>
+                                <circle cx="47%" cy="53%" r="5" fill="#f59e0b" opacity="0.7"/>
+                                <circle cx="53%" cy="48%" r="5" fill="#f59e0b" opacity="0.7"/>
+                            </g>
+                            <!-- Embedding donors: tight cluster -->
+                            <g id="embedding-donors" style="display: none;">
+                                <circle cx="50%" cy="49%" r="5" fill="#16a34a" opacity="0.8"/>
+                                <circle cx="49%" cy="51%" r="5" fill="#16a34a" opacity="0.8"/>
+                                <circle cx="51%" cy="50%" r="5" fill="#16a34a" opacity="0.8"/>
+                                <circle cx="50%" cy="48%" r="5" fill="#16a34a" opacity="0.8"/>
+                                <circle cx="48%" cy="50%" r="5" fill="#16a34a" opacity="0.8"/>
+                                <circle cx="51%" cy="51%" r="5" fill="#16a34a" opacity="0.8"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #64748b; margin-top: 1rem;">
+                        Red: treated pixel. Gray/Orange/Green: donors from Random/Manual/Embedding strategies. Embedding-based selection yields tighter clusters in latent similarity space, improving comparability.
+                    </p>
+                </div>
+            </div>
                     firstTab.click();
                 }
             });
@@ -1465,7 +1466,7 @@
 
                 <div style="text-align: center; margin-top: 1.5rem;">
                     <span id="awd-threshold-label" style="font-weight: 600; color: #1e40af; display: block; margin-bottom: 0.75rem; font-size: 1.1rem;">−50 mm Threshold</span>
-                    <img id="awd-threshold-image" src="assets/awd-thresh-50.png" alt="AWD Suitability Map" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem;">
+                    <img id="awd-threshold-image" src="assets/awd-thresh-50.png" alt="AWD Suitability Map" style="width: 50%; max-width: 520px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem; display: inline-block;">
                     <p style="color: #475569; font-size: 0.9rem;">
                         <strong>Why −50mm?</strong> This threshold best aligns with the biophysical suitability layer, providing an optimal balance between capturing suitable areas and minimizing yield risk.
                     </p>
@@ -1489,7 +1490,7 @@
 
                 <div class="figure-container" style="background: #f8fafc; padding: 1.5rem; border-radius: 6px; text-align: center;">
                     <div class="figure-label" id="map-layer-label">Water Balance Suitability (threshold-based)</div>
-                    <div style="height: 300px; background: linear-gradient(135deg, #ef4444 0%, #fbbf24 33%, #86efac 100%); border-radius: 4px; margin: 1rem 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.9rem; font-weight: 500;">
+                    <div id="awd-map-canvas" style="height: 300px; background: linear-gradient(135deg, #ef4444 0%, #fbbf24 33%, #86efac 100%); border-radius: 4px; margin: 1rem 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.9rem; font-weight: 500;">
                         [Interactive map: Suitability distribution by threshold]
                     </div>
                     <div id="map-layer-description" style="color: #475569; font-size: 0.9rem; margin-top: 1rem; line-height: 1.6;">
@@ -1548,52 +1549,6 @@
                 </div>
                 <p style="color: #475569; margin-top: 1rem; font-size: 0.9rem;">
                     Additional constraints: Soil texture (silty clays preferred), drainage class (well-drained > imperfect > poor), and elevation (elevation affects percolation and water availability).
-                </p>
-            </div>
-
-            <!-- SECTION 6: COMPOSITE LOGIC -->
-            <div style="margin: 2rem 0;">
-                <h4 style="color: #1e40af; margin-bottom: 1rem;">Composite Suitability: Decision Rule Logic</h4>
-                <div style="overflow-x: auto; background: #f8fafc; padding: 1rem; border-radius: 6px; border: 1px solid #e2e8f0;">
-                    <table style="width: 100%; font-size: 0.9rem; border-collapse: collapse;">
-                        <thead>
-                            <tr style="background: #e0e7ff; border-bottom: 2px solid #1e40af;">
-                                <th style="padding: 0.75rem; text-align: left;">Biophysical Layer</th>
-                                <th style="padding: 0.75rem; text-align: left;">Water Balance Layer</th>
-                                <th style="padding: 0.75rem; text-align: left;">Composite Class</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                                <td style="padding: 0.75rem;"><strong>Not Suitable</strong></td>
-                                <td style="padding: 0.75rem;">Any</td>
-                                <td style="padding: 0.75rem; color: #dc2626; font-weight: 500;">Not Suitable</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                                <td style="padding: 0.75rem;"><strong>Moderate</strong></td>
-                                <td style="padding: 0.75rem;">Not Suitable</td>
-                                <td style="padding: 0.75rem; color: #ea580c; font-weight: 500;">Low Suitable</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                                <td style="padding: 0.75rem;"><strong>Moderate</strong></td>
-                                <td style="padding: 0.75rem;">Moderate/High</td>
-                                <td style="padding: 0.75rem; color: #eab308; font-weight: 500;">Moderate Suitable</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                                <td style="padding: 0.75rem;"><strong>High</strong></td>
-                                <td style="padding: 0.75rem;">Not Suitable</td>
-                                <td style="padding: 0.75rem; color: #eab308; font-weight: 500;">Moderate Suitable</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 0.75rem;"><strong>High</strong></td>
-                                <td style="padding: 0.75rem;">Moderate/High</td>
-                                <td style="padding: 0.75rem; color: #16a34a; font-weight: 500;">Suitable</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p style="color: #475569; margin-top: 1rem; font-size: 0.9rem;">
-                    <strong>Key principle:</strong> Biophysical constraints override water balance. If the land cannot physically support AWD (steep slopes, poor drainage, extreme pH), no amount of rainfall deficit makes it feasible. Conversely, biophysically favorable land requires adequate water availability to realize potential.
                 </p>
             </div>
 
@@ -2197,7 +2152,7 @@
             document.getElementById('map-layer-description').textContent = layerDescriptions[currentMapLayer];
 
             // Update gradient based on layer
-            const mapElement = document.querySelector('[style*="height: 300px"]');
+            const mapElement = document.getElementById('awd-map-canvas');
             if (mapElement) {
                 const gradients = {
                     'water-balance': 'linear-gradient(135deg, #ef4444 0%, #fbbf24 33%, #86efac 100%)',
@@ -2232,21 +2187,34 @@
 
         // Initialize tab display
         document.addEventListener('DOMContentLoaded', function() {
-            // Set first tab as active
-            const firstTabBtn = document.querySelector('.tab-btn');
-            if (firstTabBtn) {
-                firstTabBtn.classList.add('active');
-            }
+            const tabButtons = document.querySelectorAll('.tab-container .tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
 
-            // Hide non-active tabs
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach((tab, index) => {
-                if (index === 0) {
-                    tab.style.display = 'block';
-                } else {
-                    tab.style.display = 'none';
-                }
+            const activateTab = (targetId) => {
+                tabButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.target === targetId);
+                });
+
+                tabContents.forEach(tab => {
+                    const isTarget = tab.id === targetId;
+                    tab.classList.toggle('active', isTarget);
+                    tab.style.display = isTarget ? 'block' : 'none';
+                });
+            };
+
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetId = btn.dataset.target;
+                    if (targetId) {
+                        activateTab(targetId);
+                    }
+                });
             });
+
+            if (tabButtons.length > 0) {
+                const defaultTarget = tabButtons[0].dataset.target;
+                activateTab(defaultTarget);
+            }
         });
 
         // Node selection for institutional analysis
