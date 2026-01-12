@@ -1947,17 +1947,17 @@
                     <div class="bayes-section-title">🟡 Normal Likelihood Models</div>
                     <div class="bayes-model-grid">
                         <div class="bayes-model-card">
-                            <div class="bayes-model-name">Normal Linear</div>
+                            <div class="bayes-model-name">6️⃣ Normal Linear</div>
                             <div class="bayes-model-elpd">ELPD: 125.26 (6th)</div>
                             <img src="assets/normal_linear_posterior.png" alt="Normal linear posterior" class="bayes-image small">
                         </div>
                         <div class="bayes-model-card">
-                            <div class="bayes-model-name">Normal Quadratic</div>
+                            <div class="bayes-model-name">4️⃣ Normal Quadratic</div>
                             <div class="bayes-model-elpd">ELPD: 134.87</div>
                             <img src="assets/normal_quadratic_posterior.png" alt="Normal quadratic posterior" class="bayes-image small">
                         </div>
                         <div class="bayes-model-card">
-                            <div class="bayes-model-name">Normal Cubic</div>
+                            <div class="bayes-model-name">5️⃣ Normal Cubic</div>
                             <div class="bayes-model-elpd">ELPD: 130.65</div>
                             <img src="assets/normal_cubic_posterior.png" alt="Normal cubic posterior" class="bayes-image small">
                         </div>
@@ -1968,20 +1968,22 @@
                     <div class="bayes-section-title winner">🟢 Student-T Likelihood Models (Winners)</div>
                     <div class="bayes-model-grid">
                         <div class="bayes-model-card">
-                            <div class="bayes-model-name highlight">1️⃣ Student-T Cubic</div>
-                            <div class="bayes-model-elpd highlight">ELPD: 289.28</div>
-                            <img src="assets/student_t_cubic_posterior.png" alt="Student-T cubic posterior" class="bayes-image small">
+                            <div class="bayes-model-name">3️⃣ Student-T Linear</div>
+                            <div class="bayes-model-elpd">ELPD: 262.4</div>
+                            <img src="assets/student_t_linear_posterior.png" alt="Student-T linear posterior" class="bayes-image small">
                         </div>
+
                         <div class="bayes-model-card">
                             <div class="bayes-model-name">2️⃣ Student-T Quad</div>
                             <div class="bayes-model-elpd">ELPD: 270.17</div>
                             <img src="assets/student_t_quad_posterior.png" alt="Student-T quadratic posterior" class="bayes-image small">
                         </div>
                         <div class="bayes-model-card">
-                            <div class="bayes-model-name">Student-T Linear</div>
-                            <div class="bayes-model-elpd">ELPD: 262.4</div>
-                            <img src="assets/student_t_linear_posterior.png" alt="Student-T linear posterior" class="bayes-image small">
+                            <div class="bayes-model-name highlight">1️⃣ Student-T Cubic</div>
+                            <div class="bayes-model-elpd highlight">ELPD: 289.28</div>
+                            <img src="assets/student_t_cubic_posterior.png" alt="Student-T cubic posterior" class="bayes-image small">
                         </div>
+
                     </div>
                 </div>
                 <div style="background: #f8fafc; padding: 2rem; border-radius: 12px; margin: 2rem 0; border-left: 6px solid #10b981;">
@@ -1992,12 +1994,12 @@
                     <div style="font-size: 1rem; line-height: 1.7; color: #374151; max-width: 800px; margin: 0 auto;">
                         <strong>Visual Fit (Posterior Predictive Check):</strong> The Student-T Cubic model generates data that <em>perfectly matches</em> the observed revenue-wage relationship. Its predictive distribution overlays the real data points, capturing both the main trend and the lower-right outlier cluster that simpler models miss. Normal models pull away from high-revenue observations due to outlier sensitivity.<br><br>
                         
-                        <strong>Quantitative Superiority (PSIS-LOO):</strong> Student-T Cubic scores <strong>289.28 ELPD points</strong> - 164 points ahead of Normal Linear (125.26), making it <em>e<sup>164</sup> (200 million times) more likely</em> to generate the observed data. The Student-T distribution's heavy tails (ν≈0.6) provide outlier resistance (σ=0.01 vs Normal σ=0.07), while cubic polynomial captures non-linear curvature across the 0.1-8.7T revenue range.<br><br>
+                        <strong>Quantitative Superiority (PSIS-LOO):</strong> Student-T Cubic scores <strong>289.28 ELPD points</strong> - 164 points ahead of Normal Linear (125.26), making it <em>e<sup>19.1</sup> (200 million times) more likely</em> to generate the observed data. The Student-T distribution's heavy tails (ν≈0.6) provide outlier resistance (σ=0.01 vs Normal σ=0.07), while cubic polynomial captures non-linear curvature across the 0.1-8.7T revenue range.<br><br>
                         
                     </div>
                 </div>
                 <div class="bayes-elpd">
-                    <div class="bayes-elpd-title">📊 PSIS-LOO Model Comparison (All 6 Models)</div>
+                    <div class="bayes-elpd-title">📊 PSIS-LOO Model Comparison</div>
                     <img src="assets/elpd_comparison.png" alt="ELPD comparison" class="bayes-image">
                 </div>
             </div>
