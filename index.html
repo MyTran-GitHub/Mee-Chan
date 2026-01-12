@@ -790,7 +790,39 @@
             font-weight: 700;
             color: #1e40af;
         }
-        
+        .policy-intro { 
+            background: #f8fafc; 
+            padding: 2rem; 
+            border-radius: 12px; 
+            margin-bottom: 2rem;
+            border-left: 6px solid #1e40af;
+        }
+        .stats-comparison {
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 2rem; 
+            margin-top: 1.5rem;
+        }
+        .stat-card {
+            background: white; 
+            padding: 1.5rem; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-top: 4px solid #3b82f6;
+        }
+        .stat-card.no-tariff { border-top-color: #10b981; }
+        .stat-card.with-tariff { border-top-color: #ef4444; }
+        .stat-item {
+            display: flex; 
+            justify-content: space-between; 
+            margin-bottom: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .stat-item:last-child { border-bottom: none; margin-bottom: 0; }
+        .stat-label { font-size: 0.9rem; color: #64748b; font-weight: 500; }
+        .stat-value { font-weight: 700; color: #1e293b; font-size: 1rem; }
+        .stat-change { font-size: 0.85rem; color: #ef4444; font-weight: 600; }
         .tooltip {
             position: relative;
             display: inline-block;
@@ -1753,82 +1785,199 @@
             </div>
         </div>
 
-        <div class="lab-card">
-            <h3>Trade Policy Incidence and Supply Chain Diffusion</h3>
-            <div class="lab-meta">
-                <div class="lab-meta-item"><strong>Context:</strong> China-Vietnam Trade</div>
-                <div class="lab-meta-item"><strong>Policy:</strong> Anti-Dumping Tariffs on Chinese Hot-Rolled Steel</div>
-                <div class="lab-meta-item"><strong>Methods:</strong> Institutional Power Analysis, Quantitative Incidence Modeling</div>
-            </div>
-
-            <!-- INTERACTIVE TARIFF SLIDER -->
-            <div class="slider-container">
-                <label><span class="tooltip">Tariff Rate
-                    <span class="tooltiptext">Adjust to see how tariff changes propagate through supply chains</span>
-                </span></label>
-                <input type="range" id="tariff-slider" min="0" max="50" value="20" step="5" onchange="updateTariffImpact(this.value)">
-                <div class="slider-value">
-                    <span id="tariff-rate">20</span>% Tariff
+        <div class="lab-card" style="max-width: 1200px; margin: 0 auto;">
+            <h3 style="color: #1e40af; font-size: 1.8rem; margin-bottom: 1rem;">Trade Policy Incidence: Vietnam-China HRC Tariffs (10 Cases)</h3>
+            
+            <!-- NEW INTRODUCTION + STATS COMPARISON -->
+            <div class="policy-intro">
+                <div style="font-size: 1.1rem; color: #1e40af; margin-bottom: 1rem; font-weight: 600;">
+                    📊 <strong>Research Question:</strong> Do anti-dumping tariffs protect domestic steel producers or backfire on downstream industries?
+                </div>
+                <div style="font-size: 0.95rem; color: #4b5563; margin-bottom: 1.5rem; line-height: 1.6;">
+                    Vietnam imposed <strong>23-28% WTO anti-dumping duties</strong> on Chinese Hot-Rolled Coil (HRC) in 2023-2024 across 10 cases. 
+                    Analysis of firm-level data reveals <strong>35% tariff exemptions</strong> granted to large importers, creating unintended consequences.
+                </div>
+                
+                <!-- SIDE-BY-SIDE STATS COMPARISON -->
+                <div class="stats-comparison">
+                    <div class="stat-card no-tariff">
+                        <h5 style="color: #059669; margin-bottom: 1.25rem; font-size: 1.1rem;">📈 Pre-Tariff Baseline</h5>
+                        <div class="stat-item">
+                            <span class="stat-label">HRC Import Price</span>
+                            <span class="stat-value">CNY 560/ton</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Import Volume</span>
+                            <span class="stat-value">6.0M tons</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Domestic Market Share</span>
+                            <span class="stat-value">26%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">CRC Producer Costs</span>
+                            <span class="stat-value">Stable</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card with-tariff">
+                        <h5 style="color: #dc2626; margin-bottom: 1.25rem; font-size: 1.1rem;">📉 Post-Tariff Reality</h5>
+                        <div class="stat-item">
+                            <span class="stat-label">HRC Import Price</span>
+                            <span class="stat-value">+22.5%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Import Volume</span>
+                            <span class="stat-value">4.1M tons (-32%) </span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Domestic Market Share</span>
+                            <span class="stat-value">+15.2%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">CRC Producer Costs</span>
+                            <span class="stat-value">+24%</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- MARKET IMPACT STATS -->
-            <div class="stats-row">
-                <div class="stat-card">
-                    <div class="stat-label">Price Impact (HRC)</div>
-                    <div class="stat-value" id="price-impact">+16.0%</div>
+        
+        
+            <!-- MICRO FOUNDATIONS → FIGURE 2 & 3 -->
+            <div style="text-align: center; margin: 3rem 0 1rem 0; padding: 1rem; font-size: 1.2rem; color: #3b82f6; font-weight: 700;">
+                ↓ <strong>Why do stats change?</strong>
+            </div>
+            <h4 style="color: #1e40af; margin-bottom: 1rem;">Micro Analysis: Different Firms, Different Fates</h4>
+            <p style="color: #6b7280; font-style: italic; margin-bottom: 2rem;">
+            <strong>HRC mills profit</strong> because they control 80% market share (duopoly). <strong>Downstream factories lose</strong> because tariffs raise their raw material costs 24%.
+            </p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+                <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #0ea5e9; text-align: center;">
+                    <h5 style="color: #059669; margin-bottom: 1rem;">🏭 HRC Producers (Duopoly)</h5>
+                    <img src="assets/HRC_Producers.png" alt="HRC Producers" class="figure">
+                    <p style="margin-top: 1rem; color: #6b7280;"><em>Mills have low costs and market control, so they easily handle tariffs.</em></p>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-label">Import Quantity</div>
-                    <div class="stat-value" id="quantity-impact">88%</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Importer Costs</div>
-                    <div class="stat-value" id="importer-cost">+24.0%</div>
+                <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #0ea5e9; text-align: center;">
+                    <h5 style="color: #dc2626; margin-bottom: 1rem;">🔩 Downstream (CRC)</h5>
+                    <img src="assets/CRC_Producers.png" alt="Downstream CRC" class="figure">
+                    <p style="margin-top: 1rem; color: #6b7280;"><em>Factories face higher input costs from tariffs and cannot raise their prices, so profits disappear.</em></p>
                 </div>
             </div>
-
-            <!-- STAKEHOLDER INTERACTION MAP -->
-            <h4 style="color: #1e40af; margin: 2rem 0 1rem 0;">Click stakeholders to see exposure and response strategies</h4>
-            <div class="node-map">
-                <div id="chinese-exporters" class="node" onclick="selectNode('chinese-exporters')">
-                    <div class="node-label">Chinese Exporters</div>
-                    <div class="node-description">Lobby for exemptions; shift to price discrimination by firm size; markup on large buyers</div>
+        
+            <!-- STAKEHOLDER NODES - SINGLE ROW, NO POPUPS -->
+            <div style="text-align: center; margin: 3rem 0 1rem 0; padding: 1rem; font-size: 1.2rem; color: #3b82f6; font-weight: 700;">
+                ↓ <strong>How does this play out across firms?</strong>
+            </div>
+            <h4 style="color: #1e40af; margin-bottom: 1.5rem;">Stakeholder Bargaining Dynamics</h4>
+            
+            <div class="stakeholder-grid">
+                <div class="stakeholder-card" style="border-left-color: #ef4444;">
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🇨🇳 Chinese Exporters</div>
+                    <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">4.1M tons (-32%)</div>
+                    <div style="font-size: 0.875rem; color: #4b5563;">China sells cheap steel but adds price markup after tariffs hit.</div>
                 </div>
-                <div id="viet-importers" class="node" onclick="selectNode('viet-importers')">
-                    <div class="node-label">Vietnamese Importers</div>
-                    <div class="node-description">Bear tariff incidence; small firms face insolvency; large firms lobby for exemptions</div>
+                <div class="stakeholder-card" style="border-left-color: #f59e0b;">
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🇻🇳 VN Importers</div>
+                    <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">Cost shock +24%</div>
+                    <div style="font-size: 0.875rem; color: #4b5563;">Vietnam firms pay the full tariff cost, and small firms cannot survive.</div>
                 </div>
-                <div id="domestic-mills" class="node" onclick="selectNode('domestic-mills')">
-                    <div class="node-label">Domestic Mills</div>
-                    <div class="node-description">Gain market share short-term; face downstream cost increases; lobby for protectionism</div>
+                <div class="stakeholder-card" style="border-left-color: #10b981;">
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🏭 Domestic Mills</div>
+                    <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">Market share +15%</div>
+                    <div style="font-size: 0.875rem; color: #4b5563;">Hoa Phat and Formosa petition for protection and gain market share.</div>
                 </div>
-                <div id="downstream" class="node" onclick="selectNode('downstream')">
-                    <div class="node-label">Downstream Manufacturers</div>
-                    <div class="node-description">Face higher input costs; pass costs to consumers; shift to import substitution</div>
+                <div class="stakeholder-card" style="border-left-color: #8b5cf6;">
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🔩 Downstream (CRC)</div>
+                    <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">Output -12.4%</div>
+                    <div style="font-size: 0.875rem; color: #4b5563;">Car makers and construction firms face 24% higher steel costs. Tariffs delay construction of 100,000 government housing units planned for 2025.</div>
                 </div>
-                <div id="government" class="node" onclick="selectNode('government')">
-                    <div class="node-label">Government</div>
-                    <div class="node-description">Faces exemption requests; enforcement challenged by firm lobbying; policy intent undermined</div>
+                <div class="stakeholder-card" style="border-left-color: #ec4899;">
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🏛️ VN Government</div>
+                    <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">35% exemptions</div>
+                    <div style="font-size: 0.875rem; color: #4b5563;">Government grants tariff exemptions to 35% of firms.</div>
                 </div>
             </div>
-
-            <!-- KEY FINDINGS -->
-            <div style="background: #f8fafc; padding: 2rem; border-radius: 8px; border-left: 4px solid #dc2626; margin-top: 2rem;">
-                <h4 style="color: #dc2626;">Why Tariffs Fail: The Compliance Problem</h4>
-                <p>
-                    <strong>Finding:</strong> Large firms successfully lobbied for tariff exemptions (≈35% of imports), undermining policy intent and creating a two-tiered market.
-                </p>
-                <p>
-                    <strong>Mechanism:</strong> Information asymmetry + firm bargaining power allow large importers to negotiate exemptions on claims of "efficiency." Small importers without political connections face full tariff, creating market concentration.
-                </p>
-                <p>
-                    <strong>Policy Implication:</strong> Trade policy effectiveness depends on institutional capacity to enforce compliance, not tariff rates alone. Exemption requests reveal hidden bargaining dynamics that quantitative trade models miss.
-                </p>
+        
+            <!-- POLICY INCIDENCE MECHANISM GRAPH (UNCHANGED) -->
+            <div style="margin: 3rem 0;">
+                <h4 style="color: #1e40af;">Policy Incidence Mechanism</h4>
+                <svg viewBox="0 0 800 200" style="width: 100%; height: 200px; background: white; border-radius: 8px; border: 2px solid #e5e7eb;">
+                    <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#374151" /></marker></defs>
+                    <rect x="50" y="80" width="120" height="40" rx="5" fill="#ef4444" stroke="#dc2626"/>
+                    <text x="110" y="105" text-anchor="middle" fill="white" font-weight="bold">Tariff (23-28%)</text>
+                    
+                    <rect x="220" y="60" width="100" height="40" rx="5" fill="#f59e0b"/>
+                    <text x="270" y="85" text-anchor="middle" fill="black">CN Exporters</text>
+                    <text x="270" y="95" text-anchor="middle" fill="#666" font-size="12">Markup +12%</text>
+                    
+                    <rect x="220" y="120" width="100" height="40" rx="5" fill="#10b981"/>
+                    <text x="270" y="145" text-anchor="middle" fill="black">VN Importers</text>
+                    <text x="270" y="155" text-anchor="middle" fill="#666" font-size="12">Cost +24%</text>
+                    
+                    <rect x="370" y="80" width="100" height="40" rx="5" fill="#3b82f6"/>
+                    <text x="420" y="105" text-anchor="middle" fill="white">Domestic Mills</text>
+                    <text x="420" y="115" text-anchor="middle" fill="white" font-size="12">Share +15%</text>
+                    
+                    <rect x="520" y="80" width="100" height="40" rx="5" fill="#8b5cf6"/>
+                    <text x="570" y="105" text-anchor="middle" fill="white">Downstream</text>
+                    <text x="570" y="115" text-anchor="middle" fill="white" font-size="12">Output -12%</text>
+                    
+                    <path d="M170 100 L220 80" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+                    <path d="M170 100 L220 120" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+                    <path d="M320 100 L370 100" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
+                    <path d="M470 100 L520 100" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+                </svg>
+                <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-size: 0.9rem; color: #4b5563;">
+                    Tariffs aim to help local mills. China raises prices on Vietnamese importers. Importers raise prices on local factories. Factories raise consumer prices. Construction slows down. Fewer jobs result.
+                </div>
             </div>
-
-            <div class="lab-links" style="margin-top: 2rem;">
-                <a href="https://github.com/MyTran-GitHub/data-science-school-projects" target="_blank">Project Repository (Case Studies)</a>
+        
+            <!-- MACRO IMPACT → FIGURE 5 & 6 -->
+            <div style="text-align: center; margin: 3rem 0 1rem 0; padding: 1rem; font-size: 1.2rem; color: #3b82f6; font-weight: 700;">
+                ↓ <strong>What happens to entire economy?</strong>
+            </div>
+            <h4 style="color: #1e40af; margin-bottom: 1rem;">Macro Outcome: AD-AS Model</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #ef4444; text-align: center;">
+                    <h5 style="color: #dc2626; margin-bottom: 1rem;">Scenario 1: Stagflation Risk</h5>
+                    <img src="assets/Stagflation.png" alt="Stagflation" class="figure">
+                    <p style="margin-top: 1rem; color: #6b7280;"><em>Higher prices appear alongside fewer jobs, which hurts Vietnam's economy.</em></p>
+                </div>
+                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #059669; text-align: center;">
+                    <h5 style="color: #059669; margin-bottom: 1rem;">Scenario 2: Intervention Recovery</h5>
+                    <img src="assets/Inflation.png" alt="Inflation" class="figure">
+                    <p style="margin-top: 1rem; color: #6b7280;"><em>Government spending restores jobs, but causes higher consumer prices.</em></p>
+                </div>
+            </div>
+        
+            <!-- FINAL TAKEAWAY - SINGLE ROW, PLAIN TEXT -->
+             <div style="text-align: center; margin: 3rem 0 1rem 0; padding: 1rem; font-size: 1.2rem; color: #3b82f6; font-weight: 700;">
+                ↓ <strong>Policy takeaway + PhD extension</strong>
+            </div>
+            
+            <div class="blue-container" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 16px; border-left: 6px solid #0ea5e9; margin-bottom: 2rem; overflow: hidden;">
+                <h4 style="color: #1e40af; text-align: center; margin-bottom: 2rem;">🎯 Core Findings: Why Anti-Dumping Fails</h4>
+        
+                <div class="core-grid">
+                    <div class="core-card" style="border-left-color: #d97706;">
+                        <h5 style="color: #b45309; margin-bottom: 0.75rem;">1. Institutional Capture</h5>
+                        <p><strong>35% tariff exemptions</strong> via Part 20 procedures. Large firms (Hoa Phat) bypass policy intent.</p>
+                    </div>
+                    <div class="core-card" style="border-left-color: #ef4444;">
+                        <h5 style="color: #dc2626; margin-bottom: 0.75rem;">2. Incidence Mismatch</h5>
+                        <p>Tariff should protect mills but actually crushes <strong>CRC producers</strong> (profit margin drops to 0).</p>
+                    </div>
+                    <div class="core-card" style="border-left-color: #10b981;">
+                        <h5 style="color: #059669; margin-bottom: 0.75rem;">3. Macro Risk</h5>
+                        <p>SRAS shifts left. Stagflation dominates without aggressive monetary intervention.</p>
+                    </div>
+                    <div class="core-card" style="border-left-color: #8b5cf6;">
+                        <h5 style="color: #7c3aed; margin-bottom: 0.75rem;">4. PhD Research Gap</h5>
+                        <p><strong>Synthetic controls:</strong> VN tariff effects vs ASEAN donors.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
