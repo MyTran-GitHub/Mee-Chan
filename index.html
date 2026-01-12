@@ -2743,14 +2743,16 @@
 
         .bayes-image {
             width: 100%;
-            height: 320px;
-            object-fit: cover;
+            height: auto;
+            max-height: 360px;
+            object-fit: contain;
             border-radius: 10px;
             background: #f8fafc;
+            display: block;
         }
 
         .bayes-image.small {
-            height: 220px;
+            max-height: 240px;
         }
 
         .bayes-section {
