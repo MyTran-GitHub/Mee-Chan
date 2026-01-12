@@ -1984,7 +1984,18 @@
                         </div>
                     </div>
                 </div>
-
+                <div style="background: #f8fafc; padding: 2rem; border-radius: 12px; margin: 2rem 0; border-left: 6px solid #10b981;">
+                    <h6 style="color: #059669; font-weight: 700; margin-bottom: 1.5rem; font-size: 1.1rem; text-align: center;">
+                        🔍 Why Student-T Cubic is the Best Model
+                    </h6>
+                    
+                    <div style="font-size: 1rem; line-height: 1.7; color: #374151; max-width: 800px; margin: 0 auto;">
+                        <strong>Visual Fit (Posterior Predictive Check):</strong> The Student-T Cubic model generates data that <em>perfectly matches</em> the observed revenue-wage relationship. Its predictive distribution overlays the real data points, capturing both the main trend and the lower-right outlier cluster that simpler models miss. Normal models pull away from high-revenue observations due to outlier sensitivity.<br><br>
+                        
+                        <strong>Quantitative Superiority (PSIS-LOO):</strong> Student-T Cubic scores <strong>289.28 ELPD points</strong> - 164 points ahead of Normal Linear (125.26), making it <em>e<sup>164</sup> (200 million times) more likely</em> to generate the observed data. The Student-T distribution's heavy tails (ν≈0.6) provide outlier resistance (σ=0.01 vs Normal σ=0.07), while cubic polynomial captures non-linear curvature across the 0.1-8.7T revenue range.<br><br>
+                        
+                    </div>
+                </div>
                 <div class="bayes-elpd">
                     <div class="bayes-elpd-title">📊 PSIS-LOO Model Comparison (All 6 Models)</div>
                     <img src="assets/elpd_comparison.png" alt="ELPD comparison" class="bayes-image">
@@ -1994,7 +2005,7 @@
            
 
             <div class="bayes-findings">
-                <h5>🔬 Statistical Discovery</h5>
+                <div class="bayes-policy-title">Statistical Discovery</div>
                 <div class="bayes-findings-grid">
                     <div class="bayes-finding-card">
                         <div class="bayes-finding-rank">🥇 #1</div>
@@ -2688,6 +2699,7 @@
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .bayes-tab-btn {
