@@ -600,19 +600,24 @@
         
         .figure-container {
             width: 100%;
-            height: 350px;
+            max-width: 640px;     /* limits horizontal size */
+            aspect-ratio: 16 / 9; /* keeps it visually balanced */
+            height: auto;        /* lets aspect-ratio control height */
+        
             background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
             border-radius: 8px;
+        
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 1.5rem 0;
+        
+            margin: 1.5rem auto; /* centers the figure */
             color: #64748b;
             font-style: italic;
+        
             position: relative;
             overflow: hidden;
         }
-        
         .figure-label {
             position: absolute;
             top: 1rem;
@@ -1807,12 +1812,12 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
                 <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #0ea5e9; text-align: center;">
                     <h5 style="color: #059669; margin-bottom: 1rem;">🏭 HRC Producers (Duopoly)</h5>
-                    <img src="assets/HRC_Producers.png" alt="HRC Producers" class="figure">
+                    <img src="assets/HRC_Producers.png" alt="HRC Producers" class="figure-container">
                     <p style="margin-top: 1rem; color: #6b7280;"><em>Mills have low costs and market control, so they easily handle tariffs.</em></p>
                 </div>
                 <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #0ea5e9; text-align: center;">
                     <h5 style="color: #dc2626; margin-bottom: 1rem;">🔩 Downstream (CRC)</h5>
-                    <img src="assets/CRC_Producers.png" alt="Downstream CRC" class="figure">
+                    <img src="assets/CRC_Producers.png" alt="Downstream CRC" class="figure-container">
                     <p style="margin-top: 1rem; color: #6b7280;"><em>Factories face higher input costs from tariffs and cannot raise their prices, so profits disappear.</em></p>
                 </div>
             </div>
@@ -1894,12 +1899,12 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
                 <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #ef4444; text-align: center;">
                     <h5 style="color: #dc2626; margin-bottom: 1rem;">Scenario 1: Stagflation Risk</h5>
-                    <img src="assets/Stagflation.png" alt="Stagflation" class="figure">
+                    <img src="assets/Stagflation.png" alt="Stagflation" class="figure-container">
                     <p style="margin-top: 1rem; color: #6b7280;"><em>Higher prices appear alongside fewer jobs, which hurts Vietnam's economy.</em></p>
                 </div>
                 <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #059669; text-align: center;">
                     <h5 style="color: #059669; margin-bottom: 1rem;">Scenario 2: Intervention Recovery</h5>
-                    <img src="assets/Inflation.png" alt="Inflation" class="figure">
+                    <img src="assets/Inflation.png" alt="Inflation" class="figure-container">
                     <p style="margin-top: 1rem; color: #6b7280;"><em>Government spending restores jobs, but causes higher consumer prices.</em></p>
                 </div>
             </div>
