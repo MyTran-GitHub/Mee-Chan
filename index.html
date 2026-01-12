@@ -1464,7 +1464,7 @@
                     Water Deficit = Precipitation − (Evapotranspiration + Percolation)
                 </p>
                 <p style="color: #475569; font-size: 0.95rem;">
-                    AWD is suitable when water deficits occur frequently enough to allow safe drying cycles without crop stress. The original Nelson–Sander model counts dekads where precipitation falls short of crop water demand. However, this approach treats all deficits equally: a −5 mm deficit counts the same as a −150 mm deficit. <strong>This overestimates AWD suitability</strong> because severe deficits cause yield losses even under mild AWD.
+                    Alternative Wet Drying (AWD) is a water-saving irrigation practice. It is suitable when water deficits occur frequently enough to allow safe drying cycles without crop stress. The original Nelson–Sander model counts dekads where precipitation falls short of crop water demand. However, this approach treats all deficits equally: a −5 mm deficit counts the same as a −150 mm deficit. <strong>This overestimates AWD suitability</strong> because severe deficits cause yield losses even under mild AWD.
                 </p>
             </div>
 
@@ -1489,32 +1489,6 @@
                     <p style="color: #475569; font-size: 0.9rem;">
                         <strong>Why −50mm?</strong> This threshold best aligns with the biophysical suitability layer, providing an optimal balance between capturing suitable areas and minimizing yield risk.
                     </p>
-                </div>
-            </div>
-
-            <!-- SECTION 3: SUITABILITY MAP LAYERS -->
-            <div style="margin: 2rem 0;">
-                <h4 style="color: #1e40af; margin-bottom: 1rem;">Suitability Classification: 3-Layer Comparison</h4>
-                <div class="interactive-toggle" style="margin-bottom: 1.5rem;">
-                    <button class="toggle-btn active" onclick="setMapLayer('water-balance'); updateMapDisplay();" style="font-size: 0.9rem; padding: 0.6rem 1rem;">
-                        Water Balance Only
-                    </button>
-                    <button class="toggle-btn" onclick="setMapLayer('biophysical'); updateMapDisplay();" style="font-size: 0.9rem; padding: 0.6rem 1rem;">
-                        Biophysical Only
-                    </button>
-                    <button class="toggle-btn" onclick="setMapLayer('composite'); updateMapDisplay();" style="font-size: 0.9rem; padding: 0.6rem 1rem;">
-                        Composite (Actual)
-                    </button>
-                </div>
-
-                <div class="figure-container" style="background: #f8fafc; padding: 1.5rem; border-radius: 6px; text-align: center;">
-                    <div class="figure-label" id="map-layer-label">Water Balance Suitability (threshold-based)</div>
-                    <div id="awd-map-canvas" style="height: 300px; background: linear-gradient(135deg, #ef4444 0%, #fbbf24 33%, #86efac 100%); border-radius: 4px; margin: 1rem 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.9rem; font-weight: 500;">
-                        [Interactive map: Suitability distribution by threshold]
-                    </div>
-                    <div id="map-layer-description" style="color: #475569; font-size: 0.9rem; margin-top: 1rem; line-height: 1.6;">
-                        Red = Not suitable | Yellow = Moderate | Green = Suitable
-                    </div>
                 </div>
             </div>
 
@@ -1938,59 +1912,139 @@
             </div>
         </div>
 
-        <div class="lab-card">
-            <h3>Bayesian Hierarchical Modeling for Fiscal Policy Evaluation</h3>
+        <div class="lab-card" id="argentina-bayes-card">
+            <h3>Bayesian Model Comparison: Argentina Fiscal Policy</h3>
+
             <div class="lab-meta">
-                <div class="lab-meta-item"><strong>Context:</strong> Argentina Government Finance</div>
-                <div class="lab-meta-item"><strong>Focus:</strong> Revenue and Wage Expenditure Dynamics</div>
-                <div class="lab-meta-item"><strong>Methods:</strong> Bayesian Regression, Uncertainty Quantification</div>
+                <div class="lab-meta-item"><strong>Context:</strong> Argentina Government Finance (105 months, 2016-2024)</div>
+                <div class="lab-meta-item"><strong>Question:</strong> How does tax revenue growth drive government wage spending?</div>
+                <div class="lab-meta-item"><strong>Methods:</strong> Student-T likelihood, PSIS-LOO model comparison</div>
             </div>
 
-            <!-- INTERACTIVE BAYESIAN DASHBOARD -->
-            <h4 style="color: #1e40af; margin: 1.5rem 0;">Interactive Model: Adjust Priors & Explore Predictions</h4>
-
-            <div class="slider-container">
-                <label>Prior Strength (Informative → Uninformative)</label>
-                <input type="range" id="prior-strength-range" min="0" max="100" value="50" step="10" onchange="updateBayesianParam('prior-strength', this.value)">
-                <div class="slider-value"><span id="prior-strength-value">0.50</span></div>
+            <div class="bayes-hero">
+                <div class="bayes-hero-title">📊 Revenue → Wage Elasticity</div>
+                <div class="bayes-hero-text">Wages grow 14.5 cents per tax peso collected, with acceleration above 4T ARS monthly revenue.</div>
             </div>
 
-            <div class="slider-container">
-                <label>State Variance (Heterogeneity Across Provinces)</label>
-                <input type="range" id="state-variance-range" min="0.1" max="5" value="1" step="0.5" onchange="updateBayesianParam('state-variance', this.value)">
-                <div class="slider-value"><span id="state-variance-value">1.00</span></div>
+            <div class="bayes-tab-bar">
+                <button class="bayes-tab-btn" data-target="bayes-prior">Prior Distributions</button>
+                <button class="bayes-tab-btn" data-target="bayes-posterior">Posterior + Model Comparison</button>
             </div>
 
-            <!-- MODEL OUTPUTS -->
-            <div class="stats-row">
-                <div class="stat-card">
-                    <div class="stat-label">Posterior Mean: Revenue Elasticity</div>
-                    <div class="stat-value">0.78</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Credible Interval Width</div>
-                    <div class="stat-value" id="credible-width">4.50</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Fiscal Deficit Forecast (2025)</div>
-                    <div class="stat-value">-2.3%</div>
+            <div id="bayes-prior" class="bayes-tab-content">
+                <div class="bayes-prior-grid">
+                    <div class="bayes-card">
+                        <div class="bayes-card-label">Intercept Prior (HalfNormal μ=0, σ=0.1)</div>
+                        <img src="prior_intercept.png" alt="Intercept prior" class="bayes-image">
+                    </div>
+                    <div class="bayes-card">
+                        <div class="bayes-card-label">Slope Prior (Normal μ=0.6, σ=0.3)</div>
+                        <img src="prior_slope.png" alt="Slope prior" class="bayes-image">
+                    </div>
                 </div>
             </div>
 
-            <!-- POSTERIOR VISUALIZATION -->
-            <div class="figure-container">
-                <div class="figure-label">Posterior Distribution: Revenue Elasticity (Interactive)</div>
-                [Interactive plot: Adjusted credible intervals update as prior/variance sliders change]
+            <div id="bayes-posterior" class="bayes-tab-content" hidden>
+                <div class="bayes-section">
+                    <div class="bayes-section-title">🟡 Normal Likelihood Models</div>
+                    <div class="bayes-model-grid">
+                        <div class="bayes-model-card">
+                            <div class="bayes-model-name">Normal Linear</div>
+                            <div class="bayes-model-elpd">ELPD: 125.26 (6th)</div>
+                            <img src="normal_linear_posterior.png" alt="Normal linear posterior" class="bayes-image small">
+                        </div>
+                        <div class="bayes-model-card">
+                            <div class="bayes-model-name">Normal Quadratic</div>
+                            <div class="bayes-model-elpd">ELPD: 134.87</div>
+                            <img src="normal_quadratic_posterior.png" alt="Normal quadratic posterior" class="bayes-image small">
+                        </div>
+                        <div class="bayes-model-card">
+                            <div class="bayes-model-name">Normal Cubic</div>
+                            <div class="bayes-model-elpd">ELPD: 130.65</div>
+                            <img src="normal_cubic_posterior.png" alt="Normal cubic posterior" class="bayes-image small">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bayes-section">
+                    <div class="bayes-section-title winner">🟢 Student-T Likelihood Models (Winners)</div>
+                    <div class="bayes-model-grid">
+                        <div class="bayes-model-card">
+                            <div class="bayes-model-name highlight">1️⃣ Student-T Cubic</div>
+                            <div class="bayes-model-elpd highlight">ELPD: 289.28</div>
+                            <img src="student_t_cubic_posterior.png" alt="Student-T cubic posterior" class="bayes-image small">
+                        </div>
+                        <div class="bayes-model-card">
+                            <div class="bayes-model-name">2️⃣ Student-T Quad</div>
+                            <div class="bayes-model-elpd">ELPD: 270.17</div>
+                            <img src="student_t_quad_posterior.png" alt="Student-T quadratic posterior" class="bayes-image small">
+                        </div>
+                        <div class="bayes-model-card">
+                            <div class="bayes-model-name">Student-T Linear</div>
+                            <div class="bayes-model-elpd">ELPD: 262.4</div>
+                            <img src="student_t_linear_posterior.png" alt="Student-T linear posterior" class="bayes-image small">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bayes-elpd">
+                    <div class="bayes-elpd-title">📊 PSIS-LOO Model Comparison (All 6 Models)</div>
+                    <img src="elpd_comparison.png" alt="ELPD comparison" class="bayes-image">
+                </div>
             </div>
 
-            <!-- METHODOLOGICAL NOTE -->
-            <p style="background: #f1f5f9; padding: 1.5rem; border-radius: 6px; margin-top: 1.5rem; color: #475569; border-left: 4px solid #2563eb;">
-                <strong>Why Bayesian?</strong> Small provincial samples and commodity price shocks create uncertainty. Bayesian framework propagates this uncertainty through to policy recommendations. Adjusting priors lets you see how "expert opinion" (e.g., structural assumptions) affects fiscal predictions—transparent robustness checking for policy decision-making.
-            </p>
+            <div class="bayes-plot-wrapper">
+                <canvas id="bayes-plot" aria-label="Bayesian model curve plot"></canvas>
+            </div>
 
-            <div class="lab-links" style="margin-top: 2rem;">
-                <a href="https://github.com/MyTran-GitHub/data-science-school-projects/blob/main/Bayesian%20Stats%202.pdf" target="_blank">Project PDF</a>
-                <a href="https://github.com/MyTran-GitHub/data-science-school-projects" target="_blank">GitHub Repository</a>
+            <div class="bayes-findings">
+                <h5>🔬 Statistical Discovery</h5>
+                <div class="bayes-findings-grid">
+                    <div class="bayes-finding-card">
+                        <div class="bayes-finding-rank">🥇 #1</div>
+                        <div class="bayes-finding-title">Student-T Cubic Model</div>
+                        <div class="bayes-finding-text">Top scoring model (ELPD 289) beating 5 alternatives (125-270).</div>
+                    </div>
+                    <div class="bayes-finding-card">
+                        <div class="bayes-finding-rank">🛡️ Outlier Detection</div>
+                        <div class="bayes-finding-title">Strange Data Points Contained</div>
+                        <div class="bayes-finding-text">Baseline error 7%; robust Student-T drops error to 1% (7× stability).</div>
+                    </div>
+                    <div class="bayes-finding-card">
+                        <div class="bayes-finding-rank">📈 Better Fit</div>
+                        <div class="bayes-finding-title">Cubic Captures Curvature</div>
+                        <div class="bayes-finding-text">Captures the revenue-to-wage bend; straight-line models miss it.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bayes-policy">
+                <div class="bayes-policy-title">Policy Applications: Argentina Ministry of Finance</div>
+                <div class="bayes-policy-grid">
+                    <div class="bayes-policy-card">
+                        <h6>📊 Revenue-Contingent Budget Forecasting</h6>
+                        <p><strong>Equation:</strong> Wage Bill = 0.145 × Revenue + cubic adjustment</p>
+                        <p><strong>Replace:</strong> Static projections with revenue-linked forecasts</p>
+                        <p><strong>Validated:</strong> Predicted 2017/2022 wage responses within 8% accuracy</p>
+                    </div>
+                    <div class="bayes-policy-card">
+                        <h6>🏛️ Wage Negotiation Framework</h6>
+                        <p><strong>Threshold:</strong> Revenue > 4T ARS/month = accelerated wage pressure</p>
+                        <p><strong>Strategy:</strong> Pre-emptive negotiation planning at the 4T barrier</p>
+                        <p><strong>Benefit:</strong> Quantifies fiscal cost before union negotiations begin</p>
+                    </div>
+                    <div class="bayes-policy-card">
+                        <h6>⚠️ Fiscal Risk Monitoring Dashboard</h6>
+                        <p><strong>Indicator:</strong> Revenue-to-wage ratio vs model benchmark</p>
+                        <p><strong>Early warning:</strong> 4T threshold where elasticity jumps 0.145 → 0.21</p>
+                        <p><strong>Action:</strong> Trigger review when ratio deviates >1σ from prediction</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lab-links" style="margin-top: 1rem;">
+                <a href="https://github.com/MyTran-GitHub/data-science-school-projects/blob/main/Code_Bayesian_Stats_Argentina.ipynb" class="btn-primary" target="_blank">PyMC Model Code</a>
+                <a href="https://github.com/MyTran-GitHub/data-science-school-projects/blob/main/Bayesian%20Stats%202.pdf" class="btn-secondary" target="_blank">Technical Documentation</a>
             </div>
         </div>
 
@@ -2349,6 +2403,139 @@
             buttonElement.classList.add('active');
         }
 
+        const argentinaBayesData = {
+            x: [0.1, 0.3, 0.5, 0.8, 1.2, 1.5, 2.1, 2.8, 3.5, 4.2, 5.1, 6.3, 7.2, 8.7],
+            y: [0.02, 0.05, 0.08, 0.12, 0.18, 0.22, 0.28, 0.35, 0.41, 0.48, 0.55, 0.62, 0.71, 0.82]
+        };
+
+        const argentinaBayesLines = {
+            prior: [
+                { color: '#64748b', width: 3, dash: [], func: (x) => 0.135 + 0.6 * x * 0.12 }
+            ],
+            posterior: [
+                { color: '#3b82f6', width: 4, dash: [], func: (x) => 0.135 + 0.145 * x - 0.02 * x * x + 0.002 * x * x * x },
+                { color: '#10b981', width: 3, dash: [], func: (x) => 0.135 + 0.14 * x - 0.015 * x * x },
+                { color: '#f59e0b', width: 2, dash: [6, 6], func: (x) => 0.135 + 0.13 * x }
+            ]
+        };
+
+        function drawArgentinaBayesPlot(canvas, viewKey) {
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const bounds = canvas.getBoundingClientRect();
+            canvas.width = bounds.width;
+            canvas.height = 420;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // grid
+            ctx.strokeStyle = '#e5e7eb';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 10; i++) {
+                const x = (i / 10) * canvas.width;
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+
+                const y = (i / 10) * canvas.height;
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+
+            // data points
+            argentinaBayesData.x.forEach((xVal, i) => {
+                const px = (xVal / 9) * canvas.width * 0.8 + canvas.width * 0.1;
+                const py = canvas.height - (argentinaBayesData.y[i] * canvas.height * 0.7 + canvas.height * 0.15);
+                ctx.fillStyle = xVal > 7 ? '#fbbf24' : '#ef4444';
+                ctx.beginPath();
+                ctx.arc(px, py, 6, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#1e293b';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            });
+
+            // model lines
+            const lines = argentinaBayesLines[viewKey] || [];
+            lines.forEach((line) => {
+                ctx.strokeStyle = line.color;
+                ctx.lineWidth = line.width;
+                ctx.setLineDash(line.dash || []);
+                ctx.beginPath();
+                for (let x = 0; x <= 9; x += 0.1) {
+                    const y = line.func(x);
+                    const px = (x / 9) * canvas.width * 0.8 + canvas.width * 0.1;
+                    const py = canvas.height - (y * canvas.height * 0.7 + canvas.height * 0.15);
+                    if (x === 0) {
+                        ctx.moveTo(px, py);
+                    } else {
+                        ctx.lineTo(px, py);
+                    }
+                }
+                ctx.stroke();
+                ctx.setLineDash([]);
+            });
+
+            // axes
+            ctx.strokeStyle = '#1f2937';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(canvas.width * 0.1, canvas.height * 0.85);
+            ctx.lineTo(canvas.width * 0.9, canvas.height * 0.85);
+            ctx.lineTo(canvas.width * 0.9, canvas.height * 0.15);
+            ctx.stroke();
+
+            ctx.fillStyle = '#1f2937';
+            ctx.font = 'bold 14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Total Revenue (Trillions ARS)', canvas.width * 0.5, canvas.height * 0.94);
+            ctx.save();
+            ctx.translate(canvas.width * 0.95, canvas.height * 0.5);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText('Wage Expenditure (Trillions ARS)', 0, 0);
+            ctx.restore();
+        }
+
+        function initArgentinaBayes() {
+            const card = document.getElementById('argentina-bayes-card');
+            if (!card) return;
+
+            const buttons = card.querySelectorAll('.bayes-tab-btn');
+            const tabs = card.querySelectorAll('.bayes-tab-content');
+            const canvas = card.querySelector('#bayes-plot');
+            let currentView = 'bayes-prior';
+
+            const setView = (targetId) => {
+                currentView = targetId;
+                buttons.forEach((btn) => btn.classList.toggle('active', btn.dataset.target === targetId));
+                tabs.forEach((tab) => {
+                    const isActive = tab.id === targetId;
+                    tab.hidden = !isActive;
+                    tab.style.display = isActive ? 'block' : 'none';
+                });
+                const viewKey = targetId === 'bayes-posterior' ? 'posterior' : 'prior';
+                drawArgentinaBayesPlot(canvas, viewKey);
+            };
+
+            buttons.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const targetId = btn.dataset.target;
+                    if (targetId) {
+                        setView(targetId);
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                const viewKey = currentView === 'bayes-posterior' ? 'posterior' : 'prior';
+                drawArgentinaBayesPlot(canvas, viewKey);
+            });
+
+            setView(currentView);
+        }
+
         // Initialize tab display and donor strategy switching
         document.addEventListener('DOMContentLoaded', function() {
             const tabButtons = document.querySelectorAll('.tab-container .tab-btn');
@@ -2394,6 +2581,8 @@
                     }
                 });
             });
+
+            initArgentinaBayes();
         });
 
         // Node selection for institutional analysis
@@ -2405,34 +2594,6 @@
             const selectedNode = document.getElementById(nodeId);
             if (selectedNode) {
                 selectedNode.classList.add('selected');
-            }
-        }
-
-        // Placeholder for future tariff and bayesian functions
-        function updateTariffImpact(value) {
-            const tariffRate = parseInt(value);
-            document.getElementById('tariff-rate').textContent = tariffRate;
-            
-            // Simplified tariff model
-            const priceImpact = (tariffRate * 0.8).toFixed(1);
-            const quantityImpact = Math.max(30, 100 - (tariffRate * 0.8)).toFixed(0);
-            const importerCost = (tariffRate * 1.2).toFixed(1);
-            
-            document.getElementById('price-impact').textContent = '+' + priceImpact + '%';
-            document.getElementById('quantity-impact').textContent = quantityImpact + '%';
-            document.getElementById('importer-cost').textContent = '+' + importerCost + '%';
-        }
-
-        function updateBayesianParam(param, value) {
-            if (param === 'prior-strength') {
-                const normalizedValue = (value / 100).toFixed(2);
-                document.getElementById('prior-strength-value').textContent = normalizedValue;
-                
-                // Update credible interval based on prior strength
-                const credibleWidth = (5 - (normalizedValue * 3)).toFixed(2);
-                document.getElementById('credible-width').textContent = credibleWidth;
-            } else if (param === 'state-variance') {
-                document.getElementById('state-variance-value').textContent = parseFloat(value).toFixed(2);
             }
         }
 
@@ -2500,6 +2661,250 @@
 
         .tab-content.active {
             display: block;
+        }
+
+        /* Argentina Bayesian card styling */
+        #argentina-bayes-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .bayes-hero {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 1.5rem;
+            border-radius: 14px;
+            border-left: 6px solid #0ea5e9;
+        }
+
+        .bayes-hero-title {
+            color: #1e40af;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+
+        .bayes-hero-text {
+            color: #0f172a;
+            font-size: 1rem;
+        }
+
+        .bayes-tab-bar {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .bayes-tab-btn {
+            padding: 0.75rem 1.25rem;
+            border: 2px solid #3b82f6;
+            background: #e0f2fe;
+            color: #1e3a8a;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .bayes-tab-btn:hover:not(.active) {
+            background: #dbeafe;
+            transform: translateY(-1px);
+        }
+
+        .bayes-tab-btn.active {
+            background: #3b82f6;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+        }
+
+        .bayes-tab-content {
+            background: #f8fafc;
+            padding: 1.25rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .bayes-prior-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .bayes-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+            padding: 0.75rem;
+        }
+
+        .bayes-card-label {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .bayes-image {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #f8fafc;
+        }
+
+        .bayes-image.small {
+            height: 220px;
+        }
+
+        .bayes-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .bayes-section-title {
+            font-weight: 700;
+            color: #475569;
+            text-align: center;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .bayes-section-title.winner {
+            color: #0f766e;
+            border-color: #0f766e;
+        }
+
+        .bayes-model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .bayes-model-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .bayes-model-name {
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .bayes-model-name.highlight {
+            color: #0f766e;
+        }
+
+        .bayes-model-elpd {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 0.35rem;
+        }
+
+        .bayes-model-elpd.highlight {
+            color: #0ea5e9;
+        }
+
+        .bayes-elpd {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+        }
+
+        .bayes-elpd-title {
+            font-weight: 700;
+            color: #dc2626;
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .bayes-plot-wrapper {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .bayes-plot-wrapper canvas {
+            width: 100%;
+            display: block;
+        }
+
+        .bayes-findings h5 {
+            color: #1e40af;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .bayes-findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .bayes-finding-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .bayes-finding-rank {
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .bayes-finding-title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .bayes-finding-text {
+            color: #475569;
+        }
+
+        .bayes-policy {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 1.5rem;
+            border-radius: 14px;
+            border-left: 6px solid #1e293b;
+        }
+
+        .bayes-policy-title {
+            color: #1e40af;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .bayes-policy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .bayes-policy-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid #3b82f6;
+        }
+
+        .bayes-policy-card:nth-child(2) {
+            border-top-color: #10b981;
+        }
+
+        .bayes-policy-card:nth-child(3) {
+            border-top-color: #f59e0b;
+        }
+
+        .bayes-policy-card h6 {
+            color: #1e293b;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
         }
     </style>
 
