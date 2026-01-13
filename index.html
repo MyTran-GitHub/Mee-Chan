@@ -33,7 +33,6 @@
             font-size: 1.1rem; 
             margin-bottom: 1.2rem; 
             color: #2d2d2d;
-            max-width: 75ch;
         }
         
         a {
@@ -176,7 +175,7 @@
         
         .section-label {
             letter-spacing: 0.15em;
-            font-size: 0.8rem;
+            font-size: 0.875rem;
             text-transform: uppercase;
             opacity: 0.6;
             margin-bottom: 1rem;
@@ -287,7 +286,7 @@
             color: #1e40af;
             padding: 0.5rem 1rem;
             border-radius: 20px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 500;
         }
         
@@ -320,11 +319,11 @@
         }
         
         .method-card .problem {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: #64748b;
             font-style: italic;
-            margin-top: 0.75rem;
-            padding-top: 0.75rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
             border-top: 1px solid #e2e8f0;
         }
         
@@ -455,7 +454,7 @@
         }
         
         .pub-meta {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: #64748b;
             margin-bottom: 1rem;
         }
@@ -626,7 +625,7 @@
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: 0.875rem;
             font-style: normal;
         }
         
@@ -651,9 +650,10 @@
             background: #e2e8f0;
             outline: none;
             -webkit-appearance: none;
+            appearance: none;
             margin: 1rem 0;
         }
-        
+
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -758,7 +758,7 @@
         }
         
         .node-description {
-            font-size: 0.85rem;
+            font-size: 0.875rem;
             color: #64748b;
             display: none;
         }
@@ -782,7 +782,7 @@
         }
         
         .stat-label {
-            font-size: 0.85rem;
+            font-size: 0.875rem;
             color: #64748b;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -821,12 +821,18 @@
             box-sizing: border-box !important;  /* ✅ ADDED */
         }
         .HRC-core-card p { 
-            font-size: 0.9rem; 
+            font-size: 1rem; 
+            line-height: 1.4; 
+            margin: 0; 
+            overflow-wrap: break-word;  /* ✅ ADDED */
+            color: #475569;
+        }
+        .HRC-core-card h5 { 
+            font-size: 17.5px !important; 
             line-height: 1.4; 
             margin: 0; 
             overflow-wrap: break-word;  /* ✅ ADDED */
         }
-        
         .stakeholder-grid { 
             display: flex !important; 
             flex-wrap: nowrap !important; 
@@ -951,144 +957,50 @@
         }
     </style>
     <script>
-        // Donor strategy data
-        const donorStrategies = {
-            random: {
-                title: 'Random Statewide Donors (500 untreated pixels)',
-                desc: 'Randomly sample 500 untreated conifer pixels statewide. No explicit constraint on ecological similarity; relies on large sample to approximate covariate distributions.',
-                rmspeMedian: '0.45',
-                rmspeIQR: '0.15–0.62',
-                embedLabel: 'Random donors: dispersed in embedding space',
-                color: '#9ca3af'
-            },
-            manual: {
-                title: 'Manual Covariate Screen (284 untreated pixels)',
-                desc: 'Select donors within ±200 m elevation, ±1°C average temperature, and ±15% canopy cover. Incorporates observable covariates but may miss latent ecological heterogeneity.',
-                rmspeMedian: '0.36',
-                rmspeIQR: '0.12–0.52',
-                embedLabel: 'Manual donors: moderately clustered in embedding space',
-                color: '#f59e0b'
-            },
-            embedding: {
-                title: 'Embedding-Based K=50 (top nearest neighbors)',
-                desc: 'Select the 50 nearest neighbors in satellite embedding space (PrithVi V2, 512-dim). Captures unobserved ecological structure including fuel configuration, microclimate, and disturbance legacies.',
-                rmspeMedian: '0.23',
-                rmspeIQR: '0.09–0.38',
-                embedLabel: 'Embedding donors: tightly clustered in latent space',
-                color: '#16a34a'
-            }
-        };
+    const donorStrategies = {
+    random: {
+        title: 'Random Statewide Donors (500 untreated pixels)',
+        desc: 'Randomly sample 500 untreated conifer pixels statewide. No explicit constraint on ecological similarity; relies on large sample to approximate covariate distributions.',
+        rmspe: '0.45',
+        iqr: '0.15–0.62',
+        embedLabel: 'Random donors: dispersed in embedding space',
+    },
+    manual: {
+        title: 'Manual Covariate Screen (284 untreated pixels)',
+        desc: 'Select donors within ±200 m elevation, ±1°C average temperature, and ±15% canopy cover.',
+        rmspe: '0.36',
+        iqr: '0.12–0.52',
+        embedLabel: 'Manual donors: moderately clustered in embedding space',
+    },
+    embedding: {
+        title: 'Embedding-Based K=50 (top nearest neighbors)',
+        desc: 'Select the 50 nearest neighbors in satellite embedding space.',
+        rmspe: '0.23',
+        iqr: '0.09–0.38',
+        embedLabel: 'Embedding donors: tightly clustered in latent space',
+    }
+    };
 
-        function switchDonorStrategy(strategy) {
-            const strategies = {
-                'random': {
-                    title: 'Random Statewide Donors (500 untreated pixels)',
-                    desc: 'Randomly sample 500 untreated conifer pixels statewide. No explicit constraint on ecological similarity; relies on large sample to approximate covariate distributions.',
-                    rmspe: '0.45',
-                    iqr: '0.15–0.62',
-                    randomDisplay: 'block',
-                    manualDisplay: 'none',
-                    embeddingDisplay: 'none',
-                    embedLabel: 'Random donors: dispersed in embedding space'
-                },
-                'manual': {
-                    title: 'Manual Covariate Screen (284 untreated pixels)',
-                    desc: 'Filter statewide pixels using explicit covariate thresholds: slope < 15°, elevation 400–2000m, forest type in [DF, PP]. Tighter ecological similarity constraints.',
-                    rmspe: '0.36',
-                    iqr: '0.18–0.58',
-                    randomDisplay: 'none',
-                    manualDisplay: 'block',
-                    embeddingDisplay: 'none',
-                    embedLabel: 'Manual donors: moderately clustered in embedding space'
-                },
-                'embedding': {
-                    title: 'Embedding-Based K=50 (50 nearest neighbors)',
-                    desc: 'Select K=50 untreated pixels nearest to treated pixel in learned embedding space. Highest ecological and spectral similarity; trade-off between balance and sample size.',
-                    rmspe: '0.23',
-                    iqr: '0.10–0.41',
-                    randomDisplay: 'none',
-                    manualDisplay: 'none',
-                    embeddingDisplay: 'block',
-                    embedLabel: 'Embedding donors: tightly clustered in latent space'
-                }
-            };
+    function switchDonorStrategy(strategy) {
+    const strat = donorStrategies[strategy];
+    if (!strat) return;
 
-            const strat = strategies[strategy];
-            if (strat) {
-                document.getElementById('strategy-title').textContent = strat.title;
-                document.getElementById('strategy-desc').textContent = strat.desc;
-                document.getElementById('rmspe-median').textContent = strat.rmspe;
-                document.getElementById('rmspe-iqr').textContent = strat.iqr;
-                document.getElementById('random-donors').style.display = strat.randomDisplay;
-                document.getElementById('manual-donors').style.display = strat.manualDisplay;
-                document.getElementById('embedding-donors').style.display = strat.embeddingDisplay;
-                document.getElementById('embed-label').textContent = strat.embedLabel;
-            }
-        }
+    document.getElementById('strategy-title').textContent = strat.title;
+    document.getElementById('strategy-desc').textContent = strat.desc;
+    document.getElementById('rmspe-median').textContent = strat.rmspe;
+    document.getElementById('rmspe-iqr').textContent = strat.iqr;
+    document.getElementById('embed-label').textContent = strat.embedLabel;
 
+    document.getElementById('random-donors').style.display = strategy === 'random' ? 'block' : 'none';
+    document.getElementById('manual-donors').style.display = strategy === 'manual' ? 'block' : 'none';
+    document.getElementById('embedding-donors').style.display = strategy === 'embedding' ? 'block' : 'none';
+    }
 
-                            <div class="stat-card" style="flex: 1;">
-                                <div class="stat-label">IQR Range</div>
-                                <div class="stat-value" id="rmspe-iqr" style="font-size: 1.3rem;">0.15–0.62</div>
-                            </div>
-                        </div>
-                        <p style="font-size: 0.85rem; color: #64748b; margin-top: 1rem;">
-                            <span class="tooltip">RMSPE: Root Mean Squared Prediction Error
-                                <span class="tooltiptext">Measures how well synthetic control tracks treated pixels pre-treatment. Lower = better pre-fit.</span>
-                            </span>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- EMBEDDING SPACE VISUALIZATION -->
-                <div style="margin-top: 2rem;">
-                    <h4 style="color: #1e40af; margin-bottom: 1rem;">Control Pool Similarity (Embedding Space)</h4>
-                    <div class="figure-container" style="height: 300px; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);">
-                        <div class="figure-label" id="embed-label">Random donors: dispersed in embedding space</div>
-                        <svg style="width: 80%; height: 80%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                            <!-- Treated pixel -->
-                            <circle cx="50%" cy="50%" r="8" fill="#dc2626" stroke="white" stroke-width="2"/>
-                            <!-- Random donors: dispersed -->
-                            <g id="random-donors" style="display: block;">
-                                <circle cx="20%" cy="30%" r="5" fill="#9ca3af" opacity="0.6"/>
-                                <circle cx="80%" cy="25%" r="5" fill="#9ca3af" opacity="0.6"/>
-                                <circle cx="15%" cy="70%" r="5" fill="#9ca3af" opacity="0.6"/>
-                                <circle cx="85%" cy="75%" r="5" fill="#9ca3af" opacity="0.6"/>
-                                <circle cx="45%" cy="20%" r="5" fill="#9ca3af" opacity="0.6"/>
-                                <circle cx="55%" cy="80%" r="5" fill="#9ca3af" opacity="0.6"/>
-                                <circle cx="30%" cy="60%" r="5" fill="#9ca3af" opacity="0.6"/>
-                                <circle cx="70%" cy="45%" r="5" fill="#9ca3af" opacity="0.6"/>
-                            </g>
-                            <!-- Manual donors: clustered -->
-                            <g id="manual-donors" style="display: none;">
-                                <circle cx="45%" cy="48%" r="5" fill="#f59e0b" opacity="0.7"/>
-                                <circle cx="48%" cy="52%" r="5" fill="#f59e0b" opacity="0.7"/>
-                                <circle cx="52%" cy="50%" r="5" fill="#f59e0b" opacity="0.7"/>
-                                <circle cx="50%" cy="45%" r="5" fill="#f59e0b" opacity="0.7"/>
-                                <circle cx="47%" cy="53%" r="5" fill="#f59e0b" opacity="0.7"/>
-                                <circle cx="53%" cy="48%" r="5" fill="#f59e0b" opacity="0.7"/>
-                            </g>
-                            <!-- Embedding donors: tight cluster -->
-                            <g id="embedding-donors" style="display: none;">
-                                <circle cx="50%" cy="49%" r="5" fill="#16a34a" opacity="0.8"/>
-                                <circle cx="49%" cy="51%" r="5" fill="#16a34a" opacity="0.8"/>
-                                <circle cx="51%" cy="50%" r="5" fill="#16a34a" opacity="0.8"/>
-                                <circle cx="50%" cy="48%" r="5" fill="#16a34a" opacity="0.8"/>
-                                <circle cx="48%" cy="50%" r="5" fill="#16a34a" opacity="0.8"/>
-                                <circle cx="51%" cy="51%" r="5" fill="#16a34a" opacity="0.8"/>
-                            </g>
-                        </svg>
-                    </div>
-                    <p style="font-size: 0.9rem; color: #64748b; margin-top: 1rem;">
-                        Red: treated pixel. Gray/Orange/Green: donors from Random/Manual/Embedding strategies. Embedding-based selection yields tighter clusters in latent similarity space, improving comparability.
-                    </p>
-                </div>
-            </div>
-                    firstTab.click();
-                }
-            });
-        });
+    document.addEventListener("DOMContentLoaded", function () {
+    switchDonorStrategy('random'); // default
+    });
     </script>
+
 </head>
 <body>
 
@@ -1162,7 +1074,7 @@
                             <div class="stat-value" id="rmspe-iqr" style="font-size: 1.3rem;">0.15–0.62</div>
                         </div>
                     </div>
-                    <p style="font-size: 0.85rem; color: #64748b; margin-top: 1rem;">
+                    <p style="font-size: 0.875rem; color: #64748b; margin-top: 1rem;">
                         <span class="tooltip">RMSPE: Root Mean Squared Prediction Error
                             <span class="tooltiptext">Measures how well synthetic control tracks treated pixels pre-treatment. Lower = better pre-fit.</span>
                         </span>
@@ -1210,7 +1122,7 @@
                     </svg>
                 </div>
                 <p style="font-size: 0.9rem; color: #64748b; margin-top: 1rem;">
-                    Red: treated pixel. Gray/Orange/Green: donors from Random/Manual/Embedding strategies. Embedding-based selection yields tighter clusters in latent similarity space, improving comparability.
+                    Red: treated pixel. Gray/Orange/Green: donors from Random/Manual/Embedding strategies. Embedding-based selection <strong>yields tighter clusters in latent similarity space</strong>, improving comparability.
                 </p>
             </div>
         </div>
@@ -1219,6 +1131,7 @@
         <div style="margin-top: 4rem; padding: 3rem; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
             <h3>Estimated Treatment Effects (Post-Treatment 2012–2018)</h3>
             
+            <div style="margin-bottom: 0.5rem; color: #64748b; font-size: 0.875rem; font-weight: 500;">👆 Click tabs to explore different analyses:</div>
             <div class="tab-container">
                 <button class="tab-btn active" data-target="outcome-tab">Outcome Trajectories</button>
                 <button class="tab-btn" data-target="att-tab">ATT by Strategy</button>
@@ -1228,26 +1141,26 @@
 
             <!-- TAB 1: OUTCOME TRAJECTORIES -->
             <div id="outcome-tab" class="tab-content active">
-                <p style="margin-bottom: 1.5rem; color: #475569;">
+                <p style="margin-bottom: 1.5rem; color: #475569;font-size: 1rem;">
                     <strong>Treated pixels (n=3,966) vs. Synthetic Controls</strong>: Pre-treatment alignment (2003–2011) and post-treatment divergence (2012–2018) by donor strategy. All strategies share identical pre-window and post-window definitions.
                 </p>
                 <div class="figure-container" style="height: 400px;">
                     <div class="figure-label">Figure 1: Time-Series FRP (Max Fire Radiative Power)</div>
                     <img src="assets/timeseries_2012.png" style="width: 100%; height: 100%; object-fit: contain;"/>
                 </div>
-                <p style="margin-top: 1.5rem; color: #475569; font-size: 0.95rem;">
+                <p style="margin-top: 1.5rem; color: #475569; font-size: 1rem;">
                     <strong>Interpretation:</strong> All three strategies track pre-treatment trajectories closely, supporting parallel-trends assumption. Post-2012, Embedding-based (green) exhibits the largest and most sustained divergence from synthetic control, followed by Manual (orange), then Random (gray). This ordering aligns with pre-treatment balance quality.
                 </p>
             </div>
 
             <!-- TAB 2: ATT BY STRATEGY -->
             <div id="att-tab" class="tab-content">
-                <p style="margin-bottom: 1.5rem; color: #475569;">
+                <p style="margin-bottom: 1.5rem; color: #475569;font-size: 1rem;">
                     <strong>Average Treatment Effect on the Treated (ATT)</strong>: Post-treatment reduction in FRP (MW) aggregated over 2012–2018. Negative values indicate wildfire mitigation.
                 </p>
                 
                 <div style="overflow-x: auto; margin-bottom: 2rem;">
-                    <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 1rem;">
                         <thead>
                             <tr style="background: #f1f5f9; border-bottom: 2px solid #e2e8f0;">
                                 <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1e40af;">Strategy</th>
@@ -1288,7 +1201,7 @@
                 </div>
 
                 <div style="background: #f1f5f9; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #1e40af;">
-                    <p style="color: #475569; margin: 0;">
+                    <p style="color: #475569; margin: 0;font-size: 1rem;">
                         <strong>Key Finding:</strong> Embedding-based donors deliver the largest negative ATT (−0.81 MW) with the smallest uncertainty (SE=0.14). This translates to a −4.4% reduction in post-treatment FRP relative to baseline. The ordering is consistent: Embeddings > Manual > Random, mirroring pre-treatment balance quality.
                     </p>
                 </div>
@@ -1296,21 +1209,21 @@
 
             <!-- TAB 3: GAP PLOT & DIAGNOSTICS -->
             <div id="gap-tab" class="tab-content">
-                <p style="margin-bottom: 1.5rem; color: #475569;">
+                <p style="margin-bottom: 1.5rem; color: #475569;font-size: 1rem;">
                     <strong>Gap Plot</strong>: Median treated − synthetic FRP over time. Zero or near-zero pre-gaps indicate good parallel-trends validity. Sustained negative post-gaps indicate treatment effect credibility.
                 </p>
                 <div class="figure-container" style="height: 400px;">
                     <div class="figure-label">Figure 2: Treated − Synthetic Gap by Strategy</div>
                     <img src="assets/figure3_gap.png" style="width: 100%; height: 100%; object-fit: contain;"/>
                 </div>
-                <p style="margin-top: 1.5rem; color: #475569; font-size: 0.95rem;">
+                <p style="margin-top: 1.5rem; color: #475569; font-size: 1rem;">
                     <strong>Interpretation:</strong> All strategies show near-flat pre-trends (flat gray band 2003–2011), supporting the assumption that treated and control outcomes would have followed parallel paths absent treatment. Post-2012, Embeddings (green) exhibits the largest and most stable negative gap, approximately twice the magnitude of Manual and Random strategies. The absence of systematic pre-existing divergence strengthens causal attribution.
                 </p>
             </div>
 
             <!-- TAB 4: ROBUSTNESS CHECKS -->
             <div id="robustness-tab" class="tab-content">
-                <p style="margin-bottom: 1.5rem; color: #475569;">
+                <p style="margin-bottom: 1.5rem; color: #475569;font-size: 1rem;">
                     <strong>Sensitivity Analysis</strong>: ATT estimates under alternative specifications (pre-period length, donor count K, outlier exclusion, spatial buffers). Robustness to design choices supports credibility of main results.
                 </p>
                 
@@ -1373,7 +1286,7 @@
                 </div>
 
                 <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #16a34a;">
-                    <p style="color: #475569; margin: 0;">
+                    <p style="color: #475569; margin: 0;font-size: 1rem;">
                         <strong>Robustness Finding:</strong> ATT estimates remain stable across design variations. Embedding-based ATT ranges from −0.54 to −0.87 MW across all specifications, with tight confidence intervals. Even when relaxing donor constraints (K=100) or using only 5-year pre-periods, estimates remain consistent. This demonstrates the method's reliability and reduces concerns about design-specific artifacts.
                     </p>
                 </div>
@@ -1387,36 +1300,36 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
                 <div>
                     <h5 style="color: #0f172a; font-size: 1rem; margin-bottom: 0.75rem;">📊 Core Finding</h5>
-                    <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
+                    <p style="color: #475569; line-height: 1.7; font-size: 1rem;">
                         Low-intensity prescribed fire reduces subsequent high-intensity wildfire risk by <strong>4.4%</strong> (95% CI: [−5.1%, −3.7%]) over a six-year horizon, with effects concentrated in embedding-matched control pixels that exhibit superior pre-treatment balance.
                     </p>
                 </div>
                 
                 <div>
                     <h5 style="color: #0f172a; font-size: 1rem; margin-bottom: 0.75rem;">🔬 Methodological Innovation</h5>
-                    <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
+                    <p style="color: #475569; line-height: 1.7; font-size: 1rem;">
                         Satellite-derived embeddings from PrithVi V2 foundation model constrain donor pools to latent ecological peers, improving pre-treatment RMSPE from 0.45 (Random) to 0.23 (Embeddings)—a 49% reduction—while preserving synthetic control interpretability.
                     </p>
                 </div>
                 
                 <div>
                     <h5 style="color: #0f172a; font-size: 1rem; margin-bottom: 0.75rem;">✓ Identification Strength</h5>
-                    <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
+                    <p style="color: #475569; line-height: 1.7; font-size: 1rem;">
                         Embedding-based donors achieve standardized pre-treatment covariate balance near zero across all six key variables (FRP, Elevation, Canopy Cover, Prior Fires, Precipitation, Temperature), compared to larger imbalances in Random and Manual strategies.
                     </p>
                 </div>
                 
                 <div>
                     <h5 style="color: #0f172a; font-size: 1rem; margin-bottom: 0.75rem;">🛡️ Robustness</h5>
-                    <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
+                    <p style="color: #475569; line-height: 1.7; font-size: 1rem;">
                         ATT estimates stable across pre-period lengths, donor counts (K=25–100), outlier exclusion, and spatial buffers. Worst-case specification (FRP > 500 MW excluded) still yields −2.9% ATT, indicating core inference is not driven by extreme outcomes.
                     </p>
                 </div>
             </div>
 
             <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e2e8f0;">
-                <h5 style="color: #1e40af; font-size: 1rem; margin-bottom: 0.75rem;">Research Design</h5>
-                <ul style="margin-left: 2rem; color: #475569; line-height: 1.8; font-size: 0.95rem;">
+                <h4 style="color: #1e40af; font-size: 1rem; margin-bottom: 0.75rem;">Research Design</h4>
+                <ul style="margin-left: 2rem; color: #475569; line-height: 1.8; font-size: 1rem;">
                     <li><strong>Estimand:</strong> Average treatment effect on the treated (ATT) for VMP-treated pixels (n=3,966) relative to synthetic controls constructed from untreated conifer pixels.</li>
                     <li><strong>Pre-period:</strong> 2003–2011 (9 years); <strong>Post-period:</strong> 2012–2018 (6 years)</li>
                     <li><strong>Outcome:</strong> Maximum Fire Radiative Power (FRP) in MW from MODIS FIRMS, capturing fire intensity at 1 km² resolution.</li>
@@ -1450,9 +1363,9 @@
         </div>
 
         <div class="lab-card">
-            <h3>Policy Transportability in Agricultural Water Management: AWD in Japan</h3>
+            <h3>Spatial Policy Transportability in Agricultural Management: AWD in Japan</h3>
             <div class="lab-meta">
-                <div class="lab-meta-item"><strong>Context:</strong> Vietnam AWD policy → Japan transfer</div>
+                <div class="lab-meta-item"><strong>Context:</strong> Vietnam Alternative Wet Drying (AWD) policy → Japan transfer</div>
                 <div class="lab-meta-item"><strong>Research Base:</strong> Water balance modeling, biophysical constraints, statistical differentiation</div>
                 <div class="lab-meta-item"><strong>Methods:</strong> Composite suitability mapping, spatial heterogeneity analysis, institutional feasibility</div>
             </div>
@@ -1463,7 +1376,7 @@
                 <p style="color: #365f23; margin-bottom: 1rem; font-family: 'Courier New', monospace;">
                     Water Deficit = Precipitation − (Evapotranspiration + Percolation)
                 </p>
-                <p style="color: #475569; font-size: 0.95rem;">
+                <p style="color: #475569; font-size: 1rem;">
                     Alternative Wet Drying (AWD) is a water-saving irrigation practice. It is suitable when water deficits occur frequently enough to allow safe drying cycles without crop stress. The original Nelson–Sander model counts dekads where precipitation falls short of crop water demand. However, this approach treats all deficits equally: a −5 mm deficit counts the same as a −150 mm deficit. <strong>This overestimates AWD suitability</strong> because severe deficits cause yield losses even under mild AWD.
                 </p>
             </div>
@@ -1473,7 +1386,7 @@
                 <label style="font-weight: 600; color: #1e40af; display: block; margin-bottom: 1rem;">
                     Water Deficit Threshold: Slide to explore suitability across precipitation regimes
                 </label>
-                <p style="font-size: 0.85rem; color: #475569; margin-bottom: 1rem;">
+                <p style="font-size: 0.875rem; color: #475569; margin-bottom: 1rem;">
                     Drag to set maximum allowable water deficit. Stricter thresholds classify fewer areas as suitable but reduce crop failure risk.
                 </p>
                 <input type="range" id="awd-deficit-threshold" min="0" max="6" value="1" step="1" onchange="updateDeficitThreshold(this.value)">
@@ -1486,8 +1399,8 @@
                 <div style="text-align: center; margin-top: 1.5rem;">
                     <span id="awd-threshold-label" style="font-weight: 600; color: #1e40af; display: block; margin-bottom: 0.75rem; font-size: 1.1rem;">−50 mm Threshold</span>
                     <img id="awd-threshold-image" src="assets/awd-thresh-50.png" alt="AWD Suitability Map" style="width: 50%; max-width: 520px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem; display: inline-block;">
-                    <p style="color: #475569; font-size: 0.9rem;">
-                        <strong>Why −50mm?</strong> This threshold best aligns with the biophysical suitability layer, providing an optimal balance between capturing suitable areas and minimizing yield risk.
+                    <p style="color: #475569; font-size: 1rem;">
+                        <strong>💡 Choose -50mm as threshold for final composite map: </strong> This threshold best aligns with the biophysical suitability layer, providing an optimal balance between capturing suitable areas and minimizing yield risk.
                     </p>
                 </div>
             </div>
@@ -1512,7 +1425,7 @@
                         <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">ratio</div>
                     </div>
                 </div>
-                <p style="color: #475569; margin-top: 1rem;">
+                <p style="color: #475569; margin-top: 1rem;font-size: 1rem;">
                     <strong>Why?</strong> The original Nelson–Sander model ignores static biophysical constraints: steep slopes prevent water control, poor drainage traps water, extreme pH threatens yields, and low soil moisture creates risk. Integrating these factors reveals that <strong>most "suitable" areas in original maps are actually infeasible</strong> for AWD implementation.
                 </p>
             </div>
@@ -1539,8 +1452,8 @@
                 </div>
 
                 <div style="margin-top: 1.5rem; background: white; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #7c3aed;">
-                    <h5 style="color: #7c3aed; margin-bottom: 0.75rem;">Why This Matters for Policy Transfer</h5>
-                    <ul style="margin-left: 1.5rem; color: #475569; font-size: 0.9rem; line-height: 1.8;">
+                    <h5 style="color: #7c3aed; margin-bottom: 0.75rem;font-size: 1.1rem">Why This Matters for Policy Transfer</h5>
+                    <ul style="margin-left: 1.5rem; color: #475569; font-size: 1rem; line-height: 1.8;">
                         <li><strong>Vietnam:</strong> Contiguous Mekong plains allow single irrigation network, unified extension messaging, farmer peer learning across connected fields</li>
                         <li><strong>Japan:</strong> Fragmented suitable areas (scattered Kanto, Tohoku patches) require separate extension campaigns, increase farmer isolation, complicate water coordination</li>
                         <li><strong>Cost Implication:</strong> Extension costs per hectare ~3.8× higher in Japan due to spatial dispersion</li>
@@ -1550,6 +1463,7 @@
             </div>
 
             <!-- SECTION 8: INSTITUTIONAL FEASIBILITY (MAP-DRIVEN) -->
+            <div style="margin-bottom: 0.5rem; color: #64748b; font-size: 0.875rem; font-weight: 500;">👆 Click tabs to explore different analyses:</div>
             <div class="tab-container" style="margin: 2rem 0;">
                 <button class="tab-btn active" onclick="switchTab('water-tab', this);" style="font-size: 0.9rem;">Water Balance Model</button>
                 <button class="tab-btn" onclick="switchTab('biophysical-tab', this);" style="font-size: 0.9rem;">Spatial Heterogeneity</button>
@@ -1674,7 +1588,7 @@
 
                 <div style="background: #f8fafc; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #2563eb;">
                     <h5 style="color: #1e40af; margin-bottom: 0.75rem;">Expected Outcomes</h5>
-                    <table style="width: 100%; font-size: 0.85rem; border-collapse: collapse;">
+                    <table style="width: 100%; font-size: 0.9rem; border-collapse: collapse;">
                         <tr style="border-bottom: 1px solid #e2e8f0;">
                             <td style="padding: 0.5rem; color: #475569;"><strong>Metric</strong></td>
                             <td style="padding: 0.5rem; color: #475569;"><strong>Phase 1 Impact</strong></td>
@@ -1702,7 +1616,7 @@
             <!-- SECTION 9: KEY TAKEAWAYS -->
             <div style="margin-top: 2rem; padding: 2rem; background: #faf5ff; border-radius: 8px; border: 2px solid #7c3aed;">
                 <h4 style="color: #7c3aed; margin-bottom: 1rem;">Policy Transportability Assessment: Summary</h4>
-                <ul style="margin-left: 1.5rem; color: #475569; line-height: 2; font-size: 0.95rem;">
+                <ul style="margin-left: 1.5rem; color: #475569; line-height: 2; font-size: 1rem;">
                     <li><strong>Biophysical Feasibility:</strong> AWD is technically viable in 18% of Japan (vs. 45% in Vietnam's Mekong delta), concentrated in Kanto and Tohoku plains.</li>
                     <li><strong>Spatial Transportability Failure:</strong> Vietnam's success leveraged contiguous geography + unified extension. Japan's fragmented paddies (3.8× more dispersed) require region-specific institutional design.</li>
                     <li><strong>Institutional Pathways:</strong> High-suitability zones are feasible with training + pilots. Low-suitability zones require policy restructuring (subsidies, insurance), not extension.</li>
@@ -1717,14 +1631,14 @@
         </div>
 
         <div class="lab-card" style="max-width: 1200px; margin: 0 auto;">
-            <h3 style="color: #1e40af; font-size: 1.8rem; margin-bottom: 1rem;">Trade Policy Incidence: Vietnam-China HRC Tariffs (10 Cases)</h3>
+            <h3 style="color: #1e40af; font-size: 1.8rem; margin-bottom: 1rem;">Trade Policy Analysis: Vietnam-China HRC Tariffs</h3>
             
             <!-- NEW INTRODUCTION + STATS COMPARISON -->
             <div class="policy-intro">
-                <div style="font-size: 1.1rem; color: #1e40af; margin-bottom: 1rem; font-weight: 600;">
-                    📊 <strong>Research Question:</strong> Do anti-dumping tariffs protect domestic steel producers or backfire on downstream industries?
+                <div style="font-size: 1.1rem; color: #0f172a; margin-bottom: 1rem; font-weight: 600;">
+                    ❓ <strong>Research Question:</strong> Do anti-dumping tariffs protect domestic steel producers or backfire on downstream industries?
                 </div>
-                <div style="font-size: 0.95rem; color: #4b5563; margin-bottom: 1.5rem; line-height: 1.6;">
+                <div style="font-size: 1rem; color: #475569; margin-bottom: 1.5rem; line-height: 1.6;">
                     Vietnam imposed <strong>23-28% WTO anti-dumping duties</strong> on Chinese Hot-Rolled Coil (HRC) in 2023-2024 across 10 cases. 
                     Analysis of firm-level data reveals <strong>35% tariff exemptions</strong> granted to large importers, creating unintended consequences.
                 </div>
@@ -1732,7 +1646,7 @@
                 <!-- SIDE-BY-SIDE STATS COMPARISON -->
                 <div class="stats-comparison">
                     <div class="stat-card no-tariff">
-                        <h5 style="color: #059669; margin-bottom: 1.25rem; font-size: 1.1rem;">📈 Pre-Tariff Baseline</h5>
+                        <h5 style="color: #059669; margin-bottom: 1.25rem; font-size: 1.1rem;text-align: center;">📈 Pre-Tariff Baseline</h5>
                         <div class="stat-item">
                             <span class="stat-label">HRC Import Price</span>
                             <span class="stat-value">CNY 560/ton</span>
@@ -1752,7 +1666,7 @@
                     </div>
                     
                     <div class="stat-card with-tariff">
-                        <h5 style="color: #dc2626; margin-bottom: 1.25rem; font-size: 1.1rem;">📉 Post-Tariff Reality</h5>
+                        <h5 style="color: #dc2626; margin-bottom: 1.25rem; font-size: 1.1rem;text-align: center;">📉 Post-Tariff Reality</h5>
                         <div class="stat-item">
                             <span class="stat-label">HRC Import Price</span>
                             <span class="stat-value">+22.5%</span>
@@ -1778,21 +1692,21 @@
             <div style="text-align: center; margin: 3rem 0 1rem 0; padding: 1rem; font-size: 1.2rem; color: #3b82f6; font-weight: 700;">
                 ↓ <strong>Why do stats change?</strong>
             </div>
-            <h4 style="color: #1e40af; margin-bottom: 1rem;">Micro Analysis: Different Firms, Different Fates</h4>
-            <p style="color: #6b7280; font-style: italic; margin-bottom: 2rem;">
+            <h4 style="text-align: center;color: #1e40af; margin-bottom: 1rem;">Micro Analysis: Different Firms, Different Fates</h4>
+            <p style="font-size: 1rem; color: #475569; margin-bottom: 1.5rem; line-height: 1.6;">
             <strong>HRC mills profit</strong> because they control 80% market share (duopoly). <strong>Downstream factories lose</strong> because tariffs raise their raw material costs 24%.
             </p>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
                 <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #0ea5e9; text-align: center;">
-                    <h5 style="color: #059669; margin-bottom: 1rem;">🏭 HRC Producers (Duopoly)</h5>
+                    <h5 style="color: #059669; margin-bottom: 1rem;font-size: 17.5px !important;">🏭 HRC Producers (Duopoly)</h5>
                     <img src="assets/HRC_Producers.png" alt="HRC Producers" class="figure-container">
-                    <p style="margin-top: 1rem; color: #6b7280;"><em>Mills have low costs and market control, so they easily handle tariffs.</em></p>
+                    <p style="font-size: 0.8rem; color: #475569; margin-top:1rem; margin-bottom: 1.5rem; line-height: 1.6;"><em>Mills have low costs and market control, so they easily handle tariffs.</em></p>
                 </div>
                 <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #0ea5e9; text-align: center;">
-                    <h5 style="color: #dc2626; margin-bottom: 1rem;">🔩 Downstream (CRC)</h5>
+                    <h5 style="color: #dc2626; margin-bottom: 1rem;font-size: 17.5px !important;">🔩 Downstream (CRC)</h5>
                     <img src="assets/CRC_Producers.png" alt="Downstream CRC" class="figure-container">
-                    <p style="margin-top: 1rem; color: #6b7280;"><em>Factories face higher input costs from tariffs and cannot raise their prices, so profits disappear.</em></p>
+                    <p style="font-size: 0.8rem; color: #475569; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.6;"><em>Factories face higher input costs from tariffs and cannot raise their prices, so profits disappear.</em></p>
                 </div>
             </div>
         
@@ -1800,67 +1714,78 @@
             <div style="text-align: center; margin: 3rem 0 1rem 0; padding: 1rem; font-size: 1.2rem; color: #3b82f6; font-weight: 700;">
                 ↓ <strong>How does this play out across firms?</strong>
             </div>
-            <h4 style="color: #1e40af; margin-bottom: 1.5rem;">Stakeholder Bargaining Dynamics</h4>
+            <h4 style="text-align: center;color: #1e40af; margin-bottom: 1.5rem;">Stakeholder Bargaining Dynamics</h4>
             
             <div class="stakeholder-grid">
                 <div class="stakeholder-card" style="border-left-color: #ef4444;">
                     <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🇨🇳 Chinese Exporters</div>
                     <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">4.1M tons (-32%)</div>
-                    <div style="font-size: 0.875rem; color: #4b5563;">China sells cheap steel but adds price markup after tariffs hit.</div>
+                    <div style="font-size: 0.875rem; color: #475569;">China sells cheap steel but adds price markup after tariffs hit.</div>
                 </div>
                 <div class="stakeholder-card" style="border-left-color: #f59e0b;">
                     <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🇻🇳 VN Importers</div>
                     <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">Cost shock +24%</div>
-                    <div style="font-size: 0.875rem; color: #4b5563;">Vietnam firms pay the full tariff cost, and small firms cannot survive.</div>
+                    <div style="font-size: 0.875rem; color: #475569;">Vietnam firms pay the full tariff cost, and small firms cannot survive.</div>
                 </div>
                 <div class="stakeholder-card" style="border-left-color: #10b981;">
                     <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🏭 Domestic Mills</div>
                     <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">Market share +15%</div>
-                    <div style="font-size: 0.875rem; color: #4b5563;">Hoa Phat and Formosa petition for protection and gain market share.</div>
+                    <div style="font-size: 0.875rem; color: #475569;">Hoa Phat and Formosa petition for protection and gain market share.</div>
                 </div>
                 <div class="stakeholder-card" style="border-left-color: #8b5cf6;">
                     <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🔩 Downstream (CRC)</div>
                     <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">Output -12.4%</div>
-                    <div style="font-size: 0.875rem; color: #4b5563;">Car makers and construction firms face 24% higher steel costs.</div>
+                    <div style="font-size: 0.875rem; color: #475569;">Car makers and construction firms face 24% higher steel costs.</div>
                 </div>
                 <div class="stakeholder-card" style="border-left-color: #ec4899;">
                     <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🏛️ VN Government</div>
                     <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">35% exemptions</div>
-                    <div style="font-size: 0.875rem; color: #4b5563;">Government grants tariff exemptions to 35% of firms.</div>
+                    <div style="font-size: 0.875rem; color: #475569;">Government grants tariff exemptions to 35% of firms.</div>
                 </div>
             </div>
         
             <!-- POLICY INCIDENCE MECHANISM GRAPH (UNCHANGED) -->
             <div style="margin: 3rem 0;">
-                <h4 style="color: #1e40af;">Policy Incidence Mechanism</h4>
-                <svg viewBox="0 0 800 200" style="width: 100%; height: 200px; background: white; border-radius: 8px; border: 2px solid #e5e7eb;">
-                    <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-                        <path d="M0,0 L0,6 L9,3 z" fill="#374151" /></marker></defs>
-                    <rect x="50" y="80" width="120" height="40" rx="5" fill="#ef4444" stroke="#dc2626"/>
-                    <text x="110" y="105" text-anchor="middle" fill="white" font-weight="bold">Tariff (23-28%)</text>
-                    
-                    <rect x="220" y="60" width="100" height="40" rx="5" fill="#f59e0b"/>
-                    <text x="270" y="85" text-anchor="middle" fill="black">CN Exporters</text>
-                    <text x="270" y="95" text-anchor="middle" fill="#666" font-size="12">Markup +12%</text>
-                    
-                    <rect x="220" y="120" width="100" height="40" rx="5" fill="#10b981"/>
-                    <text x="270" y="145" text-anchor="middle" fill="black">VN Importers</text>
-                    <text x="270" y="155" text-anchor="middle" fill="#666" font-size="12">Cost +24%</text>
-                    
-                    <rect x="370" y="80" width="100" height="40" rx="5" fill="#3b82f6"/>
-                    <text x="420" y="105" text-anchor="middle" fill="white">Domestic Mills</text>
-                    <text x="420" y="115" text-anchor="middle" fill="white" font-size="12">Share +15%</text>
-                    
-                    <rect x="520" y="80" width="100" height="40" rx="5" fill="#8b5cf6"/>
-                    <text x="570" y="105" text-anchor="middle" fill="white">Downstream</text>
-                    <text x="570" y="115" text-anchor="middle" fill="white" font-size="12">Output -12%</text>
-                    
-                    <path d="M170 100 L220 80" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
-                    <path d="M170 100 L220 120" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
-                    <path d="M320 100 L370 100" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
-                    <path d="M470 100 L520 100" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+                <h4 style="text-align: center;color: #1e40af;">Policy Incidence Mechanism</h4>
+                <svg viewBox="0 0 900 260" style="width: 100%; height: 260px; background: white; border-radius: 8px; border: 2px solid #e5e7eb;">
+                <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#374151"/>
+                </marker>
+                </defs>
+
+                <!-- Tariff -->
+                <rect x="40" y="90" width="160" height="60" rx="8" fill="#ef4444"/>
+                <text x="120" y="125" text-anchor="middle" fill="white" font-weight="bold">Tariff (23–28%)</text>
+
+                <!-- CN Exporters -->
+                <rect x="250" y="50" width="150" height="60" rx="8" fill="#f59e0b"/>
+                <text x="325" y="85" text-anchor="middle">CN Exporters</text>
+                <text x="325" y="105" text-anchor="middle" font-size="12" fill="#444">Markup +12%</text>
+
+                <!-- VN Importers -->
+                <rect x="250" y="140" width="150" height="60" rx="8" fill="#10b981"/>
+                <text x="325" y="175" text-anchor="middle">VN Importers</text>
+                <text x="325" y="195" text-anchor="middle" font-size="12" fill="#044">Cost +24%</text>
+
+                <!-- Domestic mills -->
+                <rect x="460" y="90" width="160" height="60" rx="8" fill="#3b82f6"/>
+                <text x="540" y="120" text-anchor="middle" fill="white">Domestic Mills</text>
+                <text x="540" y="140" text-anchor="middle" fill="white" font-size="12">Share +15%</text>
+
+                <!-- Downstream -->
+                <rect x="680" y="90" width="160" height="60" rx="8" fill="#8b5cf6"/>
+                <text x="760" y="120" text-anchor="middle" fill="white">Downstream</text>
+                <text x="760" y="140" text-anchor="middle" fill="white" font-size="12">Output −12%</text>
+
+                <!-- Arrows -->
+                <path d="M200 120 L250 80" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+                <path d="M200 120 L250 170" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+                <path d="M400 120 L460 120" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
+                <path d="M620 120 L680 120" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
                 </svg>
-                <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-size: 0.9rem; color: #4b5563;">
+
+                <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-size: 1rem; color: #475569;">
                     Tariffs aim to help local mills. China raises prices on Vietnamese importers. Importers raise prices on local factories. Factories raise consumer prices. Construction slows down. Fewer jobs result.
                 </div>
             </div>
@@ -1869,17 +1794,17 @@
             <div style="text-align: center; margin: 3rem 0 1rem 0; padding: 1rem; font-size: 1.2rem; color: #3b82f6; font-weight: 700;">
                 ↓ <strong>What happens to entire economy?</strong>
             </div>
-            <h4 style="color: #1e40af; margin-bottom: 1rem;">Macro Outcome: AD-AS Model</h4>
+            <h4 style="text-align: center;color: #1e40af; margin-bottom: 1rem;">Macro Outcome: AD-AS Model</h4>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
                 <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #ef4444; text-align: center;">
-                    <h5 style="color: #dc2626; margin-bottom: 1rem;">Scenario 1: Stagflation Risk</h5>
+                    <h5 style="color: #dc2626; margin-bottom: 1rem;font-size: 17.5px !important;">Scenario 1: Stagflation Risk</h5>
                     <img src="assets/Stagflation.png" alt="Stagflation" class="figure-container">
-                    <p style="margin-top: 1rem; color: #6b7280;"><em>Higher prices appear alongside fewer jobs, which hurts Vietnam's economy.</em></p>
+                    <p style="margin-top: 1rem; color: #475569;font-size: 0.8rem;"><em>Higher prices appear alongside fewer jobs, which hurts Vietnam's economy.</em></p>
                 </div>
                 <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #059669; text-align: center;">
-                    <h5 style="color: #059669; margin-bottom: 1rem;">Scenario 2: Intervention Recovery</h5>
+                    <h5 style="color: #059669; margin-bottom: 1rem; font-size: 17.5px !important;">Scenario 2: Intervention Recovery</h5>
                     <img src="assets/Inflation.png" alt="Inflation" class="figure-container">
-                    <p style="margin-top: 1rem; color: #6b7280;"><em>Government spending restores jobs, but causes higher consumer prices.</em></p>
+                    <p style="margin-top: 1rem; color: #475569;font-size: 0.8rem;"><em>Government spending restores jobs, but causes higher consumer prices.</em></p>
                 </div>
             </div>
         
@@ -1917,9 +1842,9 @@
 
             <div class="policy-intro">
                 <div style="font-size: 1.1rem; color: #1e40af; margin-bottom: 1rem; font-weight: 600;">
-                    📊 <strong>Research Question:</strong> How does Argentina's tax revenue growth drive government wage spending?
+                    ❓ <strong>Research Question:</strong> How does Argentina's tax revenue growth drive government wage spending?
                 </div>
-                <div style="font-size: 0.95rem; color: #4b5563; margin-bottom: 1.5rem; line-height: 1.6;">
+                <div style="font-size: 1rem; color: #4b5563; margin-bottom: 1.5rem; line-height: 1.6;">
                     Analysis of <strong>105 months of government finance data (2016-2024)</strong> across 10 revenue streams reveals wages grow <strong>14.5 cents per tax peso collected</strong>, with acceleration above 4 trillion ARS monthly revenue.
                 </div>
             </div>
@@ -2043,7 +1968,7 @@
                         <p><strong>Benefit:</strong> Quantifies fiscal cost before union negotiations begin</p>
                     </div>
                     <div class="bayes-policy-card">
-                        <h5>⚠️ Fiscal Risk Monitoring Dashboard</h5>
+                        <h5>⚠️ Fiscal Risk Monitoring</h5>
                         <p><strong>Indicator:</strong> Revenue-to-wage ratio vs model benchmark</p>
                         <p><strong>Early warning:</strong> 4T threshold where elasticity jumps 0.145 → 0.21</p>
                         <p><strong>Action:</strong> Trigger review when ratio deviates >1σ from prediction</p>
@@ -2564,25 +2489,32 @@
         .tab-btn {
             cursor: pointer;
             padding: 0.75rem 1.25rem;
-            border: 1px solid #e2e8f0;
+            border: 2px solid #e2e8f0;
             background: white;
             color: #475569;
-            border-radius: 6px 6px 0 0;
+            border-radius: 8px 8px 0 0;
             font-size: 0.9rem;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            transition: all 0.3s ease;
             margin-right: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: relative;
         }
 
         .tab-btn:hover {
             background: #f1f5f9;
-            border-color: #1e40af;
+            border-color: #3b82f6;
             color: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(59,130,246,0.2);
         }
 
         .tab-btn.active {
             background: #1e40af;
             color: white;
             border-color: #1e40af;
+            box-shadow: 0 4px 12px rgba(30,64,175,0.3);
+            transform: translateY(-2px);
         }
 
         .tab-content {
@@ -2614,8 +2546,9 @@
 
         .bayes-hero-title {
             color: #1e40af;
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.5rem;
         }
 
         .bayes-hero-text {
@@ -2636,6 +2569,7 @@
             background: #e0f2fe;
             color: #1e3a8a;
             border-radius: 10px;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -2674,7 +2608,7 @@
 
         .bayes-card-label {
             color: #64748b;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             margin-bottom: 0.5rem;
             text-align: center;
         }
@@ -2699,7 +2633,7 @@
 
         .bayes-section-title {
             font-weight: 700;
-            color: #475569;
+            color: #1E293B;
             text-align: center;
             margin-bottom: 0.75rem;
             padding-bottom: 0.5rem;
@@ -2734,9 +2668,9 @@
         }
 
         .bayes-model-elpd {
-            font-size: 0.8rem;
+            font-size: 0.875rem;
             color: #94a3b8;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.5rem;
         }
 
         .bayes-model-elpd.highlight {
@@ -2789,19 +2723,23 @@
         }
 
         .bayes-finding-rank {
-            font-size: 1.2rem;
-            margin-bottom: 0.25rem;
+            font-size: 17.5px !important;
             color: #3b82f6;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
         }
 
         .bayes-finding-title {
             font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 0.25rem;
+            color: #1E293B;
+            margin-bottom: 0.75rem;
+            font-size: 1rem !important;
         }
 
         .bayes-finding-text {
             color: #475569;
+            line-height: 1.6;
+            font-size: 1rem !important;
         }
 
         .bayes-policy {
@@ -2845,9 +2783,14 @@
             color: #3b82f6;
             font-weight: 700;
             margin-bottom: 0.75rem;
-            font-size: 1.2rem;
-            
+            font-size: 17.5px !important;
         }
+        .bayes-policy-card p {
+            font-size: 1rem !important;
+            line-height: 1.6;
+            color: #475569;
+        }    
+        
     </style>
 
 </body>
