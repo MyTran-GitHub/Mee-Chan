@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | My Tran</title>
+    <link rel="stylesheet" href="shared.css">
+    <style>
+        nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0f172a;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: #0f172a;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background: #e0e7ff;
+            color: #1e40af;
+        }
+
+        .projects-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .projects-container h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2.2rem;
+        }
+
+        .projects-intro {
+            text-align: center;
+            color: #475569;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .project-stage {
+            display: inline-block;
+            background: #1e40af;
+            color: white;
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-description {
+            color: #475569;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: #1e40af;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1e3a8a;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #e5e7eb;
+            background: white;
+            color: #1e40af;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #64748b;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        footer a {
+            color: #2563eb;
+            text-decoration: none;
+            border-bottom: none;
+        }
+
+        footer a:hover {
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="brand">Home</a>
+            <div class="nav-links">
+                <a href="projects.html">Projects</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="projects-container">
+        <h1>Research Projects</h1>
+        <p class="projects-intro">
+            Five projects demonstrating the complete policy intelligence pipeline: from satellite measurement, through causal inference, to policy transfer and Bayesian decision-making.
+        </p>
+
+        <div class="projects-grid">
+            
+            <!-- MEASURE -->
+            <div class="project-card">
+                <div class="project-stage">🛰️ MEASURE</div>
+                <h2 class="project-title">Computer Vision & Remote Sensing</h2>
+                <p class="project-description">
+                    Feature extraction from satellite data (Sentinel-2, SMAP, BRIGHT) using computer vision and deep learning. Foundation models create learned representations for ecological similarity and land-use classification.
+                </p>
+                <div class="project-meta">
+                    <span>🔧 Tools: TensorFlow, PyTorch, Vision Transformers</span>
+                </div>
+                <div class="project-links">
+                    <a href="project-measure.html" class="btn-primary">View project →</a>
+                </div>
+            </div>
+
+            <!-- INFER -->
+            <div class="project-card">
+                <div class="project-stage">🔍 INFER</div>
+                <h2 class="project-title">Satellite-based Synthetic Control: Prescribed Burn Evaluation</h2>
+                <p class="project-description">
+                    Embedding-informed donor selection improves causal inference for environmental policy. Shows that embedding-matched controls reduce pre-treatment error 49% (0.45→0.23) and reveal 4.4% wildfire mitigation effect (95% CI: [−5.1%, −3.7%]).
+                </p>
+                <div class="project-meta">
+                    <span>📊 Data: MODIS FIRMS, 3,966 treated pixels, 2003-2018</span>
+                    <span>🔬 Method: Synthetic Control with Embeddings (PrithVi V2)</span>
+                </div>
+                <div class="project-links">
+                    <a href="project-infer.html" class="btn-primary">View project →</a>
+                </div>
+            </div>
+
+            <!-- TRANSFER -->
+            <div class="project-card">
+                <div class="project-stage">🗺️ TRANSFER</div>
+                <h2 class="project-title">Spatial Policy Transportability: AWD in Japan</h2>
+                <p class="project-description">
+                    Vietnam's Alternate Wet Drying (AWD) water-saving policy evaluated for transfer to Japan. Water balance modeling + biophysical constraints reveal AWD feasible in 18% of Japan (vs. 45% Vietnam), concentrated in Kanto/Tohoku. Spatial fragmentation raises extension costs 3.8×.
+                </p>
+                <div class="project-meta">
+                    <span>🌾 Focus: Agricultural policy, spatial heterogeneity, institutional feasibility</span>
+                    <span>📍 Geographies: Vietnam Mekong Delta → Japan paddy systems</span>
+                </div>
+                <div class="project-links">
+                    <a href="project-transfer.html" class="btn-primary">View project →</a>
+                </div>
+            </div>
+
+            <!-- MODEL -->
+            <div class="project-card">
+                <div class="project-stage">📊 MODEL</div>
+                <h2 class="project-title">Trade Policy Incidence: Vietnam–China HRC Tariffs</h2>
+                <p class="project-description">
+                    Vietnam's 23–28% anti-dumping tariffs on Chinese Hot-Rolled Coil steel. Firm-level analysis reveals policy incidence is inverted: domestic mills profit (duopoly control) while downstream factories lose (24% cost increase). 35% tariff exemptions create institutional capture; macro outcome: stagflation risk.
+                </p>
+                <div class="project-meta">
+                    <span>💼 Data: 105 months firm-level trade, supply-chain effects</span>
+                    <span>⚙️ Method: Policy incidence, AD-AS modeling, stakeholder analysis</span>
+                </div>
+                <div class="project-links">
+                    <a href="project-model.html" class="btn-primary">View project →</a>
+                </div>
+            </div>
+
+            <!-- DECIDE -->
+            <div class="project-card">
+                <div class="project-stage">⚖️ DECIDE</div>
+                <h2 class="project-title">Bayesian Model Comparison: Argentina Fiscal Policy</h2>
+                <p class="project-description">
+                    Which model best predicts Argentina's government wage spending response to tax revenue? Bayesian comparison across 6 models. Student-T cubic wins decisively (ELPD 289 vs. Normal Linear 125)—200 million times more likely. Heavy tails capture outliers; cubic captures non-linear thresholds.
+                </p>
+                <div class="project-meta">
+                    <span>📈 Data: 105 months government finance, 10 revenue streams (2016-2024)</span>
+                    <span>🔬 Method: PyMC Bayesian inference, PSIS-LOO model validation</span>
+                </div>
+                <div class="project-links">
+                    <a href="project-decide.html" class="btn-primary">View project →</a>
+                    <a href="https://github.com/MyTran-GitHub/data-science-school-projects/blob/main/Code_Bayesian_Stats_Argentina.ipynb" class="btn-secondary" target="_blank">Code →</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 My Tran. Research spanning causal inference, environmental governance, and geospatial data science.</p>
+        <div style="margin-top: 1rem; font-size: 0.9rem;">
+            <a href="https://github.com/MyTran-GitHub" target="_blank">GitHub</a> &nbsp;|&nbsp;
+            <a href="https://www.linkedin.com/in/mee-tran-34530725b/" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+            <a href="mailto:tran@uni.minerva.edu">Email</a>
+        </div>
+    </footer>
+
+    <script src="shared.js"></script>
+</body>
+</html>
