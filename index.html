@@ -3,2795 +3,1078 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Tran | Political Methodology & Causal Inference</title>
+    <title>My Tran | Policy Intelligence Research</title>
+    <link rel="stylesheet" href="shared.css">
     <style>
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* GLOBAL RESET & TYPOGRAPHY */
-        /* ═══════════════════════════════════════════════════════════════ */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            line-height: 1.7;
-            color: #1a1a1a;
-            background: #ffffff;
+        /* Interactive Story Homepage */
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
             overflow-x: hidden;
         }
         
-        h1, h2, h3, h4 {
-            font-weight: 600;
-            line-height: 1.2;
-            color: #0d0d0d;
+        body {
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), 
+                        url('assets/background.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
-        
-        h1 { font-size: 3.5rem; letter-spacing: -0.02em; }
-        h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
-        h3 { font-size: 1.75rem; margin-bottom: 1rem; }
-        h4 { font-size: 1.25rem; margin-bottom: 0.75rem; }
-        
-        p { 
-            font-size: 1.1rem; 
-            margin-bottom: 1.2rem; 
-            color: #2d2d2d;
-        }
-        
-        a {
-            color: #2563eb;
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s;
-        }
-        
-        a:hover { border-bottom-color: #2563eb; }
-        
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* HERO SECTION - FULL SCREEN IMPACT */
-        /* ═══════════════════════════════════════════════════════════════ */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%);
+
+        /* Hero Section with Photo */
+        .hero-section {
+            min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             position: relative;
             overflow: hidden;
+            padding: 2rem 0;
         }
-        
-        .hero::before {
+
+        .hero-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect fill="rgba(255,255,255,0.03)" width="50" height="50"/></svg>') repeat;
-            opacity: 0.3;
+            background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.15) 0%, transparent 50%);
+            pointer-events: none;
         }
-        
+
         .hero-content {
-            text-align: center;
-            color: white;
-            z-index: 2;
-            padding: 2rem;
-            max-width: 1100px;
-        }
-        
-        .hero h1 {
-            font-size: 4rem;
-            color: white;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
-            animation: fadeInUp 0.8s ease-out;
-        }
-        
-        .hero .subtitle {
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: rgba(255,255,255,0.95);
-            margin-bottom: 2rem;
-            line-height: 1.6;
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        .hero .mission {
-            font-size: 1.15rem;
-            font-style: italic;
-            color: rgba(255,255,255,0.85);
-            max-width: 800px;
-            margin: 0 auto;
-            animation: fadeInUp 1.2s ease-out;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* SECTION LAYOUT */
-        /* ═══════════════════════════════════════════════════════════════ */
-        section {
-            padding: 7rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        section.alt-bg {
-            background: #f8fafc;
-            max-width: 100%;
-            padding: 7rem 2rem;
-        }
-        
-        .section-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .section-header {
-            max-width: 1100px;
             width: 100%;
-            text-align: center;
-        }
-        .section-label {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #2563eb;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* CAPSTONE PROJECT - CENTERPIECE */
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* Full-width background layer */
-        .capstone.alt-bg {
-            width: 100%;
-            background: white;
-            
-            padding: 7rem 0;
-        }
-        
-        /* Centered content column */
-        .section-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        /* Centered header block */
-        .section-header {
-            max-width: 1100px;
-            margin: 0 auto 3rem auto;
-            text-align: center;
-        }
-
-        
-        .section-label {
-            letter-spacing: 0.15em;
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            opacity: 0.6;
-            margin-bottom: 1rem;
-        }
-        
-        .capstone-title {
-            font-size: 2.6rem;
-            line-height: 1.15;
-            margin-bottom: 1.5rem;
-        }
-        
-        .capstone-subtitle {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            max-width: 900px;
-            margin: 0 auto;
-            opacity: 0.85;
-        }
-
-        
-        .comparison-grid {
+            margin: 0;
+            padding: 0 1rem;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-photo {
+            position: relative;
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        .photo-frame {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 6px solid rgba(255,255,255,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-frame:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .hero-text {
+            color: white;
+            animation: fadeInRight 1s ease-out;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 3.5rem;
+            line-height: 1.15;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            letter-spacing: -0.01em;
+            color: #ffffff;
+        }
+        
+        .hero-text .branding {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 2.3rem;
+            color: rgba(255, 255, 255, 0.85);
+            text-transform: uppercase;
+        }
+        
+        .hero-text .tagline {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.7;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            max-width: 550px;
+        }
+
+        .hero-text .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.1rem 3rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+            color: #667eea;
+            font-weight: 700;
+            font-size: 1.05rem;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .hero-text .cta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+            background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: white;
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Story Section */
+        .story-section {
+            padding: 6rem 2rem;
+            background: transparent;
+        }
+
+        .story-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .story-title {
+            font-size: 2.8rem;
+            color: #ffffff;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* Problem Statement */
+        .problem-statement {
+            text-align: center;
             margin-bottom: 4rem;
         }
-        
-        .comparison-panel {
-            background: white;
-            border-radius: 8px;
-            padding: 2.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 10px 15px rgba(0,0,0,0.1);
-        }
-        
-        .comparison-panel h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: #0f172a;
-        }
-        
-        .comparison-panel.status-quo {
-            border-left: 4px solid #dc2626;
-        }
-        
-        .comparison-panel.innovation {
-            border-left: 4px solid #16a34a;
-        }
-        
-        .panel-image {
-            width: 100%;
-            height: 300px;
-            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            color: #64748b;
-            font-style: italic;
-        }
-        
-        .panel-caption {
-            font-size: 1rem;
-            color: #475569;
-            line-height: 1.6;
-        }
-        
-        .capstone-narrative {
-            background: white;
-            padding: 3rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        
-        .narrative-section {
-            margin-bottom: 2.5rem;
-        }
-        
-        .narrative-section h4 {
-            color: #1e40af;
+
+        .large-text {
             font-size: 1.3rem;
+            color: #e2e8f0;
             margin-bottom: 1rem;
         }
-        
-        .narrative-section p {
-            color: #334155;
-            line-height: 1.8;
-        }
-        
-        .narrative-section ul {
-            margin-left: 2rem;
-            color: #334155;
-        }
-        
-        .narrative-section li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .methodology-keywords {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-        
-        .keyword {
-            background: #dbeafe;
-            color: #1e40af;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-        
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* METHODS STACK */
-        /* ═══════════════════════════════════════════════════════════════ */
-        .methods-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .method-card {
-            background: #f8fafc;
-            padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .method-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        .method-card h4 {
-            color: #1e40af;
-            margin-bottom: 0.75rem;
-        }
-        
-        .method-card .problem {
-            font-size: 1rem;
-            color: #64748b;
-            font-style: italic;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e2e8f0;
-        }
-        
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* POLICY LABORATORIES */
-        /* ═══════════════════════════════════════════════════════════════ */
-        .lab-card {
-            background: white;
-            padding: 3rem;
-            margin-bottom: 3rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border-left: 6px solid #2563eb;
-        }
-        
-        .lab-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: #0f172a;
-        }
-        
-        .lab-meta {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .lab-meta-item {
-            font-size: 0.9rem;
-            color: #64748b;
-        }
-        
-        .lab-meta-item strong {
-            color: #1e40af;
-            font-weight: 600;
-        }
-        
-        .lab-content {
-            display: grid;
-            gap: 1.5rem;
-        }
-        
-        .lab-content p {
-            margin-bottom: 0.5rem;
-        }
-        
-        .lab-links {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #e2e8f0;
-        }
-        
-        .lab-links a {
-            margin-right: 1.5rem;
-            font-weight: 500;
-        }
-        
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* TECHNICAL ML SECTION */
-        /* ═══════════════════════════════════════════════════════════════ */
-        .ml-showcase {
-            background: white;
-            padding: 3rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        
-        .ml-showcase h3 {
-            margin-bottom: 1.5rem;
-        }
-        
-        .ml-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .ml-detail {
-            padding: 1.5rem;
-            background: #f8fafc;
-            border-radius: 6px;
-        }
-        
-        .ml-detail h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.75rem;
-            color: #1e40af;
-        }
-        
-        .tech-list {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        .tech-list li {
-            padding: 0.5rem 0;
-            color: #475569;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-        
-        .tech-list li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: #2563eb;
-            font-weight: bold;
-        }
-        
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* PUBLICATIONS */
-        /* ═══════════════════════════════════════════════════════════════ */
-        .publication {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-        }
-        
-        .publication h4 {
-            font-size: 1.15rem;
-            color: #0f172a;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-        
-        .pub-meta {
-            font-size: 1rem;
-            color: #64748b;
-            margin-bottom: 1rem;
-        }
-        
-        .pub-description {
-            font-size: 1rem;
-            color: #475569;
-            line-height: 1.7;
-        }
-        
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* SKILLS SECTION */
-        /* ═══════════════════════════════════════════════════════════════ */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .skill-category {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .skill-category h4 {
-            color: #1e40af;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-        
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        
-        .skill-tag {
-            background: #f1f5f9;
-            color: #334155;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-        }
-        
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* CONTACT & FOOTER */
-        /* ═══════════════════════════════════════════════════════════════ */
-        .contact {
-            text-align: center;
-            padding: 5rem 2rem;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white;
-        }
-        
-        .contact h2 {
-            color: white;
-            margin-bottom: 2rem;
-        }
-        
-        .contact p {
-            color: rgba(255,255,255,0.9);
-            margin: 0 auto 2rem;
-        }
-        
-        .contact-links {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .contact-links a {
-            color: white;
-            font-size: 1.1rem;
-            padding: 0.75rem 2rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 6px;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s;
-        }
-        
-        .contact-links a:hover {
-            background: rgba(255,255,255,0.2);
-            border-color: rgba(255,255,255,0.4);
-        }
-        
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* RESPONSIVE */
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* ═══════════════════════════════════════════════════════════════ */
-        /* INTERACTIVE COMPONENTS */
-        /* ═══════════════════════════════════════════════════════════════ */
-        .interactive-toggle {
-            display: flex;
-            gap: 1rem;
-            margin: 2rem 0;
-            justify-content: center;
-        }
-        
-        .toggle-btn {
-            padding: 0.75rem 1.5rem;
-            border: 2px solid #e2e8f0;
-            background: white;
-            color: #475569;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
-        .toggle-btn.active {
-            background: #2563eb;
-            color: white;
-            border-color: #2563eb;
-        }
-        
-        .toggle-btn:hover {
-            border-color: #2563eb;
-        }
-        
-        .interactive-panel {
-            background: white;
-            border-radius: 8px;
-            padding: 2rem;
-            margin: 1.5rem 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            display: none;
-        }
-        
-        .interactive-panel.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .figure-container {
-            width: 100%;
-            max-width: 640px;     /* limits horizontal size */
-            aspect-ratio: 16 / 9; /* keeps it visually balanced */
-            height: auto;        /* lets aspect-ratio control height */
-        
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-            border-radius: 8px;
-        
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        
-            margin: 1.5rem auto; /* centers the figure */
-            color: #64748b;
-            font-style: italic;
-        
-            position: relative;
-            overflow: hidden;
-        }
-        .figure-label {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-size: 0.875rem;
-            font-style: normal;
-        }
-        
-        .slider-container {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: #f8fafc;
-            border-radius: 8px;
-        }
-        
-        .slider-container label {
-            display: block;
-            font-weight: 600;
-            color: #1e40af;
-            margin-bottom: 1rem;
-        }
-        
-        input[type="range"] {
-            width: 100%;
-            height: 6px;
-            border-radius: 3px;
-            background: #e2e8f0;
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
+
+        .question-highlight {
+            font-size: 2.2rem;
+            color: #ffffff;
+            font-weight: 700;
             margin: 1rem 0;
         }
 
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #2563eb;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(37,99,235,0.4);
-        }
-        
-        input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #2563eb;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 2px 4px rgba(37,99,235,0.4);
-        }
-        
-        .slider-value {
-            display: block;
-            text-align: center;
-            font-weight: 600;
-            color: #2563eb;
-            margin-top: 0.5rem;
-            font-size: 1.2rem;
-        }
-        
-        .tab-container {
-            display: flex;
-            gap: 0.5rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-            border-bottom: 2px solid #e2e8f0;
-        }
-        
-        .tab-btn {
-            padding: 1rem 1.5rem;
-            background: none;
-            border: none;
-            color: #64748b;
-            cursor: pointer;
-            font-weight: 500;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-            position: relative;
-            bottom: -2px;
-        }
-        
-        .tab-btn:hover {
-            color: #1e40af;
-        }
-        
-        .tab-btn.active {
-            color: #2563eb;
-            border-bottom-color: #2563eb;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in;
-        }
-        
-        .node-map {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .node {
-            padding: 1.5rem;
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .node:hover {
-            border-color: #2563eb;
-            box-shadow: 0 4px 12px rgba(37,99,235,0.2);
-            transform: translateY(-2px);
-        }
-        
-        .node.active {
-            background: #dbeafe;
-            border-color: #2563eb;
-        }
-        
-        .node-label {
-            font-weight: 600;
-            color: #1e40af;
-            margin-bottom: 0.5rem;
-        }
-        
-        .node-description {
-            font-size: 0.875rem;
-            color: #64748b;
-            display: none;
-        }
-        
-        .node.active .node-description {
-            display: block;
-        }
-        
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .stat-card {
-            background: #f8fafc;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid #2563eb;
-        }
-        
-        .stat-label {
-            font-size: 0.875rem;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-value {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #1e40af;
-        }
-        .policy-intro { 
-            background: #f8fafc; 
-            padding: 2rem; 
-            border-radius: 12px; 
-            margin-bottom: 2rem;
-            border-left: 6px solid #1e40af;
-        }
-        .HRC-core-grid {
-            display: flex !important; 
-            flex-wrap: nowrap !important; 
-            gap: 1rem !important; 
-            justify-content: space-between !important; 
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-        .HRC-core-card { 
-            flex: 1 !important; 
-            min-width: 220px !important;  /* ✅ FIXED */
-            max-width: 240px !important;
-            background: white; 
-            padding: 1.5rem; 
-            border-radius: 12px; 
-            border-left: 4px solid;
-            box-sizing: border-box !important;  /* ✅ ADDED */
-        }
-        .HRC-core-card p { 
-            font-size: 1rem; 
-            line-height: 1.4; 
-            margin: 0; 
-            overflow-wrap: break-word;  /* ✅ ADDED */
-            color: #475569;
-        }
-        .HRC-core-card h5 { 
-            font-size: 17.5px !important; 
-            line-height: 1.4; 
-            margin: 0; 
-            overflow-wrap: break-word;  /* ✅ ADDED */
-        }
-        .stakeholder-grid { 
-            display: flex !important; 
-            flex-wrap: nowrap !important; 
-            gap: 1rem !important; 
-            justify-content: space-between !important; 
-        }
-        .stakeholder-card { 
-            flex: 1 !important; 
-            min-width: 170px !important; 
-            background: white; 
-            border: 2px solid #e5e7eb; 
-            border-radius: 12px; 
-            padding: 1.25rem; 
-            border-left: 4px solid;
-            box-sizing: border-box;
-        }
-        
-        .blue-container {
-            padding: 2.5rem !important;  /* ✅ SIMPLIFIED */
-        }
-        .stats-comparison {
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 2rem; 
-            margin-top: 1.5rem;
-        }
-        .stat-card {
-            background: white; 
-            padding: 1.5rem; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border-top: 4px solid #3b82f6;
-        }
-        .stat-card.no-tariff { border-top-color: #10b981; }
-        .stat-card.with-tariff { border-top-color: #ef4444; }
-        .stat-item {
-            display: flex; 
-            justify-content: space-between; 
-            margin-bottom: 0.75rem;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .stat-item:last-child { border-bottom: none; margin-bottom: 0; }
-        .stat-label { font-size: 0.9rem; color: #64748b; font-weight: 500; }
-        .stat-value { font-weight: 700; color: #1e293b; font-size: 1rem; }
-        .stat-change { font-size: 0.85rem; color: #ef4444; font-weight: 600; }
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            border-bottom: 1px dotted #2563eb;
-            cursor: help;
-        }
-        
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 250px;
-            background-color: #0f172a;
-            color: white;
-            text-align: center;
-            border-radius: 6px;
-            padding: 0.75rem;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -125px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.85rem;
-        }
-        
-        .tooltip .tooltiptext::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #0f172a transparent transparent transparent;
-        }
-        
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-        
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2rem; }
-            
-            .hero h1 { font-size: 2.5rem; }
-            .hero .subtitle { font-size: 1.2rem; }
-            
-            section { padding: 4rem 1.5rem; }
-            section.alt-bg { padding: 4rem 1.5rem; }
-            
-            .comparison-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .ml-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .capstone-title {
-                font-size: 2rem;
-            }
-            
-            .interactive-toggle {
-                flex-direction: column;
-            }
-            
-            .node-map {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-row {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-    <script>
-    const donorStrategies = {
-    random: {
-        title: 'Random Statewide Donors (500 untreated pixels)',
-        desc: 'Randomly sample 500 untreated conifer pixels statewide. No explicit constraint on ecological similarity; relies on large sample to approximate covariate distributions.',
-        rmspe: '0.45',
-        iqr: '0.15–0.62',
-        embedLabel: 'Random donors: dispersed in embedding space',
-    },
-    manual: {
-        title: 'Manual Covariate Screen (284 untreated pixels)',
-        desc: 'Select donors within ±200 m elevation, ±1°C average temperature, and ±15% canopy cover.',
-        rmspe: '0.36',
-        iqr: '0.12–0.52',
-        embedLabel: 'Manual donors: moderately clustered in embedding space',
-    },
-    embedding: {
-        title: 'Embedding-Based K=50 (top nearest neighbors)',
-        desc: 'Select the 50 nearest neighbors in satellite embedding space.',
-        rmspe: '0.23',
-        iqr: '0.09–0.38',
-        embedLabel: 'Embedding donors: tightly clustered in latent space',
-    }
-    };
-
-    function switchDonorStrategy(strategy) {
-    const strat = donorStrategies[strategy];
-    if (!strat) return;
-
-    document.getElementById('strategy-title').textContent = strat.title;
-    document.getElementById('strategy-desc').textContent = strat.desc;
-    document.getElementById('rmspe-median').textContent = strat.rmspe;
-    document.getElementById('rmspe-iqr').textContent = strat.iqr;
-    document.getElementById('embed-label').textContent = strat.embedLabel;
-
-    document.getElementById('random-donors').style.display = strategy === 'random' ? 'block' : 'none';
-    document.getElementById('manual-donors').style.display = strategy === 'manual' ? 'block' : 'none';
-    document.getElementById('embedding-donors').style.display = strategy === 'embedding' ? 'block' : 'none';
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-    switchDonorStrategy('random'); // default
-    });
-    </script>
-
-</head>
-<body>
-
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <!-- HERO SECTION -->
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Making the Invisible Counterfactual Visible</h1>
-            <p class="subtitle">
-                Political Methodology • Causal Inference • Satellite-Derived Representations<br>
-                Environmental & Economic Policy Evaluation
-            </p>
-            <p class="mission">
-                "I build causal inference systems for environmental and economic policy when the counterfactual is unobservable and the confounders are spatial, latent, and complex."
-            </p>
-        </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <!-- CAPSTONE PROJECT - INTERACTIVE -->
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <section class="capstone alt-bg">
-        <div class="section-inner">
-            <div class="section-header">
-                <div class="section-label">CAPSTONE PROJECT</div>
-    
-                <h2 class="capstone-title">
-                    A Satellite-based Synthetic Control Evaluation of Prescribed Burn Intervention
-                </h2>
-    
-                <p class="capstone-subtitle">
-                    Embedding-informed donor selection improves causal inference in high-dimensional environmental policy evaluation
-                </p>
-            </div>
-
-        <!-- INTERACTIVE DONOR POOL STRATEGY SELECTION -->
-        <div class="donor-strategy-container" style="justify-content: center; margin-bottom: 3rem; flex-wrap: wrap; display: flex;">
-            <button class="toggle-btn active" data-strategy="random">
-                Random Statewide (500)
-            </button>
-            <button class="toggle-btn" data-strategy="manual">
-                Manual Covariate Screen (284)
-            </button>
-            <button class="toggle-btn" data-strategy="embedding">
-                Embedding-Based K=50
-            </button>
-        </div>
-
-        <!-- DONOR STRATEGY COMPARISON PANEL -->
-        <div style="background: white; border-radius: 8px; padding: 2.5rem; margin-bottom: 3rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <h3 id="strategy-title" style="color: #0f172a; margin-bottom: 1.5rem;">Random Statewide Donors (500 untreated pixels)</h3>
-            
-            <div class="comparison-grid">
-                <div style="border-radius: 8px; padding: 2rem; background: #f8fafc; border-left: 4px solid #f59e0b;">
-                    <h4 style="color: #d97706; margin-bottom: 1rem;">Donor Selection Rule</h4>
-                    <p id="strategy-desc" style="color: #64748b; line-height: 1.7;">
-                        Randomly sample 500 untreated conifer pixels statewide. No explicit constraint on ecological similarity; relies on large sample to approximate covariate distributions.
-                    </p>
-                </div>
-                
-                <div style="border-radius: 8px; padding: 2rem; background: #f8fafc;">
-                    <h4 style="color: #1e40af; margin-bottom: 1rem;">Pre-Treatment Fit (2003–2011)</h4>
-                    <div class="stats-row" style="gap: 1rem;">
-                        <div class="stat-card" style="flex: 1;">
-                            <div class="stat-label">Median RMSPE</div>
-                            <div class="stat-value" id="rmspe-median" style="font-size: 2rem;">0.41</div>
-                        </div>
-                        <div class="stat-card" style="flex: 1;">
-                            <div class="stat-label">IQR Range</div>
-                            <div class="stat-value" id="rmspe-iqr" style="font-size: 1.3rem;">0.15–0.62</div>
-                        </div>
-                    </div>
-                    <p style="font-size: 0.875rem; color: #64748b; margin-top: 1rem;">
-                        <span class="tooltip">RMSPE: Root Mean Squared Prediction Error
-                            <span class="tooltiptext">Measures how well synthetic control tracks treated pixels pre-treatment. Lower = better pre-fit.</span>
-                        </span>
-                    </p>
-                </div>
-            </div>
-
-            <!-- EMBEDDING SPACE VISUALIZATION -->
-            <div style="margin-top: 2rem;">
-                <h4 style="color: #1e40af; margin-bottom: 1rem;">Control Pool Similarity (Embedding Space)</h4>
-                <div class="figure-container" style="height: 300px; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);">
-                    <div class="figure-label" id="embed-label">Random donors: dispersed in embedding space</div>
-                    <svg style="width: 80%; height: 80%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                        <!-- Treated pixel -->
-                        <circle cx="50%" cy="50%" r="8" fill="#dc2626" stroke="white" stroke-width="2"/>
-                        <!-- Random donors: dispersed -->
-                        <g id="random-donors" style="display: block;">
-                            <circle cx="20%" cy="30%" r="5" fill="#9ca3af" opacity="0.6"/>
-                            <circle cx="80%" cy="25%" r="5" fill="#9ca3af" opacity="0.6"/>
-                            <circle cx="15%" cy="70%" r="5" fill="#9ca3af" opacity="0.6"/>
-                            <circle cx="85%" cy="75%" r="5" fill="#9ca3af" opacity="0.6"/>
-                            <circle cx="45%" cy="20%" r="5" fill="#9ca3af" opacity="0.6"/>
-                            <circle cx="55%" cy="80%" r="5" fill="#9ca3af" opacity="0.6"/>
-                            <circle cx="30%" cy="60%" r="5" fill="#9ca3af" opacity="0.6"/>
-                            <circle cx="70%" cy="45%" r="5" fill="#9ca3af" opacity="0.6"/>
-                        </g>
-                        <!-- Manual donors: clustered -->
-                        <g id="manual-donors" style="display: none;">
-                            <circle cx="45%" cy="48%" r="5" fill="#f59e0b" opacity="0.7"/>
-                            <circle cx="48%" cy="52%" r="5" fill="#f59e0b" opacity="0.7"/>
-                            <circle cx="52%" cy="50%" r="5" fill="#f59e0b" opacity="0.7"/>
-                            <circle cx="50%" cy="45%" r="5" fill="#f59e0b" opacity="0.7"/>
-                            <circle cx="47%" cy="53%" r="5" fill="#f59e0b" opacity="0.7"/>
-                            <circle cx="53%" cy="48%" r="5" fill="#f59e0b" opacity="0.7"/>
-                        </g>
-                        <!-- Embedding donors: tight cluster -->
-                        <g id="embedding-donors" style="display: none;">
-                            <circle cx="50%" cy="49%" r="5" fill="#16a34a" opacity="0.8"/>
-                            <circle cx="49%" cy="51%" r="5" fill="#16a34a" opacity="0.8"/>
-                            <circle cx="51%" cy="50%" r="5" fill="#16a34a" opacity="0.8"/>
-                            <circle cx="50%" cy="48%" r="5" fill="#16a34a" opacity="0.8"/>
-                            <circle cx="48%" cy="50%" r="5" fill="#16a34a" opacity="0.8"/>
-                            <circle cx="51%" cy="51%" r="5" fill="#16a34a" opacity="0.8"/>
-                        </g>
-                    </svg>
-                </div>
-                <p style="font-size: 0.9rem; color: #64748b; margin-top: 1rem;">
-                    Red: treated pixel. Gray/Orange/Green: donors from Random/Manual/Embedding strategies. Embedding-based selection <strong>yields tighter clusters in latent similarity space</strong>, improving comparability.
-                </p>
-            </div>
-        </div>
-
-        <!-- SYNTHETIC CONTROL RESULTS: TABBED EXPLORATION -->
-        <div style="margin-top: 4rem; padding: 3rem; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <h3>Estimated Treatment Effects (Post-Treatment 2012–2018)</h3>
-            
-            <div style="margin-bottom: 0.5rem; color: #64748b; font-size: 0.875rem; font-weight: 500;">👆 Click tabs to explore different analyses:</div>
-            <div class="tab-container">
-                <button class="tab-btn active" data-target="outcome-tab">Outcome Trajectories</button>
-                <button class="tab-btn" data-target="att-tab">ATT by Strategy</button>
-                <button class="tab-btn" data-target="gap-tab">Gap Plot & Diagnostics</button>
-                <button class="tab-btn" data-target="robustness-tab">Robustness Checks</button>
-            </div>
-
-            <!-- TAB 1: OUTCOME TRAJECTORIES -->
-            <div id="outcome-tab" class="tab-content active">
-                <p style="margin-bottom: 1.5rem; color: #475569;font-size: 1rem;">
-                    <strong>Treated pixels (n=3,966) vs. Synthetic Controls</strong>: Pre-treatment alignment (2003–2011) and post-treatment divergence (2012–2018) by donor strategy. All strategies share identical pre-window and post-window definitions.
-                </p>
-                <div class="figure-container" style="height: 400px;">
-                    <div class="figure-label">Figure 1: Time-Series FRP (Max Fire Radiative Power)</div>
-                    <img src="assets/timeseries_2012.png" style="width: 100%; height: 100%; object-fit: contain;"/>
-                </div>
-                <p style="margin-top: 1.5rem; color: #475569; font-size: 1rem;">
-                    <strong>Interpretation:</strong> All three strategies track pre-treatment trajectories closely, supporting parallel-trends assumption. Post-2012, Embedding-based (green) exhibits the largest and most sustained divergence from synthetic control, followed by Manual (orange), then Random (gray). This ordering aligns with pre-treatment balance quality.
-                </p>
-            </div>
-
-            <!-- TAB 2: ATT BY STRATEGY -->
-            <div id="att-tab" class="tab-content">
-                <p style="margin-bottom: 1.5rem; color: #475569;font-size: 1rem;">
-                    <strong>Average Treatment Effect on the Treated (ATT)</strong>: Post-treatment reduction in FRP (MW) aggregated over 2012–2018. Negative values indicate wildfire mitigation.
-                </p>
-                
-                <div style="overflow-x: auto; margin-bottom: 2rem;">
-                    <table style="width: 100%; border-collapse: collapse; font-size: 1rem;">
-                        <thead>
-                            <tr style="background: #f1f5f9; border-bottom: 2px solid #e2e8f0;">
-                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1e40af;">Strategy</th>
-                                <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1e40af;">Pre-RMSPE</th>
-                                <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1e40af;">ATT (MW)</th>
-                                <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1e40af;">95% CI</th>
-                                <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1e40af;">% ATT</th>
-                                <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1e40af;">95% CI %</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                                <td style="padding: 1rem; font-weight: 600; color: #0f172a;">Random (500)</td>
-                                <td style="padding: 1rem; text-align: center; color: #475569;">0.45</td>
-                                <td style="padding: 1rem; text-align: center; color: #dc2626; font-weight: 600;">−0.53</td>
-                                <td style="padding: 1rem; text-align: center; color: #64748b;">[−0.88, −0.18]</td>
-                                <td style="padding: 1rem; text-align: center; color: #dc2626; font-weight: 600;">−3.2%</td>
-                                <td style="padding: 1rem; text-align: center; color: #64748b;">[−3.9%, −2.5%]</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                                <td style="padding: 1rem; font-weight: 600; color: #0f172a;">Manual (284)</td>
-                                <td style="padding: 1rem; text-align: center; color: #475569;">0.36</td>
-                                <td style="padding: 1rem; text-align: center; color: #dc2626; font-weight: 600;">−0.67</td>
-                                <td style="padding: 1rem; text-align: center; color: #64748b;">[−0.98, −0.36]</td>
-                                <td style="padding: 1rem; text-align: center; color: #dc2626; font-weight: 600;">−3.8%</td>
-                                <td style="padding: 1rem; text-align: center; color: #64748b;">[−4.6%, −3.0%]</td>
-                            </tr>
-                            <tr style="background: #f0fdf4;">
-                                <td style="padding: 1rem; font-weight: 600; color: #0f172a;">Embeddings (K=50)</td>
-                                <td style="padding: 1rem; text-align: center; color: #16a34a; font-weight: 600;">0.23</td>
-                                <td style="padding: 1rem; text-align: center; color: #dc2626; font-weight: 600;">−0.81</td>
-                                <td style="padding: 1rem; text-align: center; color: #16a34a; font-weight: 600;">[−1.08, −0.54]</td>
-                                <td style="padding: 1rem; text-align: center; color: #dc2626; font-weight: 600;">−4.4%</td>
-                                <td style="padding: 1rem; text-align: center; color: #16a34a; font-weight: 600;">[−5.1%, −3.7%]</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div style="background: #f1f5f9; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #1e40af;">
-                    <p style="color: #475569; margin: 0;font-size: 1rem;">
-                        <strong>Key Finding:</strong> Embedding-based donors deliver the largest negative ATT (−0.81 MW) with the smallest uncertainty (SE=0.14). This translates to a −4.4% reduction in post-treatment FRP relative to baseline. The ordering is consistent: Embeddings > Manual > Random, mirroring pre-treatment balance quality.
-                    </p>
-                </div>
-            </div>
-
-            <!-- TAB 3: GAP PLOT & DIAGNOSTICS -->
-            <div id="gap-tab" class="tab-content">
-                <p style="margin-bottom: 1.5rem; color: #475569;font-size: 1rem;">
-                    <strong>Gap Plot</strong>: Median treated − synthetic FRP over time. Zero or near-zero pre-gaps indicate good parallel-trends validity. Sustained negative post-gaps indicate treatment effect credibility.
-                </p>
-                <div class="figure-container" style="height: 400px;">
-                    <div class="figure-label">Figure 2: Treated − Synthetic Gap by Strategy</div>
-                    <img src="assets/figure3_gap.png" style="width: 100%; height: 100%; object-fit: contain;"/>
-                </div>
-                <p style="margin-top: 1.5rem; color: #475569; font-size: 1rem;">
-                    <strong>Interpretation:</strong> All strategies show near-flat pre-trends (flat gray band 2003–2011), supporting the assumption that treated and control outcomes would have followed parallel paths absent treatment. Post-2012, Embeddings (green) exhibits the largest and most stable negative gap, approximately twice the magnitude of Manual and Random strategies. The absence of systematic pre-existing divergence strengthens causal attribution.
-                </p>
-            </div>
-
-            <!-- TAB 4: ROBUSTNESS CHECKS -->
-            <div id="robustness-tab" class="tab-content">
-                <p style="margin-bottom: 1.5rem; color: #475569;font-size: 1rem;">
-                    <strong>Sensitivity Analysis</strong>: ATT estimates under alternative specifications (pre-period length, donor count K, outlier exclusion, spatial buffers). Robustness to design choices supports credibility of main results.
-                </p>
-                
-                <div style="overflow-x: auto; margin-bottom: 2rem;">
-                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-                        <thead>
-                            <tr style="background: #f1f5f9; border-bottom: 2px solid #e2e8f0;">
-                                <th style="padding: 0.8rem; text-align: left; font-weight: 600; color: #1e40af;">Specification</th>
-                                <th style="padding: 0.8rem; text-align: center; font-weight: 600; color: #1e40af;">Pre-RMSPE</th>
-                                <th style="padding: 0.8rem; text-align: center; font-weight: 600; color: #1e40af;">ATT (MW)</th>
-                                <th style="padding: 0.8rem; text-align: center; font-weight: 600; color: #1e40af;">95% CI</th>
-                                <th style="padding: 0.8rem; text-align: center; font-weight: 600; color: #1e40af;">% ATT</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom: 1px solid #e2e8f0; background: #f0fdf4;">
-                                <td style="padding: 0.8rem; font-weight: 600;">Embeddings: Baseline (K=50)</td>
-                                <td style="padding: 0.8rem; text-align: center;">0.23</td>
-                                <td style="padding: 0.8rem; text-align: center;">−0.81</td>
-                                <td style="padding: 0.8rem; text-align: center;">[−1.08, −0.54]</td>
-                                <td style="padding: 0.8rem; text-align: center;">−4.4%</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                                <td style="padding: 0.8rem;">Embeddings: Shorter pre (5y)</td>
-                                <td style="padding: 0.8rem; text-align: center;">0.29</td>
-                                <td style="padding: 0.8rem; text-align: center;">−0.68</td>
-                                <td style="padding: 0.8rem; text-align: center;">[−1.03, −0.33]</td>
-                                <td style="padding: 0.8rem; text-align: center;">−3.7%</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                                <td style="padding: 0.8rem;">Embeddings: K=25</td>
-                                <td style="padding: 0.8rem; text-align: center;">0.26</td>
-                                <td style="padding: 0.8rem; text-align: center;">−0.65</td>
-                                <td style="padding: 0.8rem; text-align: center;">[−1.05, −0.25]</td>
-                                <td style="padding: 0.8rem; text-align: center;">−3.5%</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                                <td style="padding: 0.8rem;">Embeddings: K=100</td>
-                                <td style="padding: 0.8rem; text-align: center;">0.22</td>
-                                <td style="padding: 0.8rem; text-align: center;">−0.85</td>
-                                <td style="padding: 0.8rem; text-align: center;">[−1.11, −0.59]</td>
-                                <td style="padding: 0.8rem; text-align: center;">−4.6%</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                                <td style="padding: 0.8rem;">Embeddings: Exclude FRP > 500 MW</td>
-                                <td style="padding: 0.8rem; text-align: center;">0.24</td>
-                                <td style="padding: 0.8rem; text-align: center;">−0.54</td>
-                                <td style="padding: 0.8rem; text-align: center;">[−0.97, −0.11]</td>
-                                <td style="padding: 0.8rem; text-align: center;">−2.9%</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                                <td style="padding: 0.8rem;">Embeddings: Buffer 5 km</td>
-                                <td style="padding: 0.8rem; text-align: center;">0.23</td>
-                                <td style="padding: 0.8rem; text-align: center;">−0.87</td>
-                                <td style="padding: 0.8rem; text-align: center;">[−1.16, −0.58]</td>
-                                <td style="padding: 0.8rem; text-align: center;">−4.7%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #16a34a;">
-                    <p style="color: #475569; margin: 0;font-size: 1rem;">
-                        <strong>Robustness Finding:</strong> ATT estimates remain stable across design variations. Embedding-based ATT ranges from −0.54 to −0.87 MW across all specifications, with tight confidence intervals. Even when relaxing donor constraints (K=100) or using only 5-year pre-periods, estimates remain consistent. This demonstrates the method's reliability and reduces concerns about design-specific artifacts.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- CONCEPTUAL FRAMEWORK & KEY CONTRIBUTIONS -->
-        <div style="margin-top: 3rem; padding: 2.5rem; background: #f8fafc; border-radius: 8px; border-left: 4px solid #1e40af;">
-            <h4 style="color: #1e40af; margin-bottom: 1rem;">Research Contribution & Methodology</h4>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
-                <div>
-                    <h5 style="color: #0f172a; font-size: 1rem; margin-bottom: 0.75rem;">📊 Core Finding</h5>
-                    <p style="color: #475569; line-height: 1.7; font-size: 1rem;">
-                        Low-intensity prescribed fire reduces subsequent high-intensity wildfire risk by <strong>4.4%</strong> (95% CI: [−5.1%, −3.7%]) over a six-year horizon, with effects concentrated in embedding-matched control pixels that exhibit superior pre-treatment balance.
-                    </p>
-                </div>
-                
-                <div>
-                    <h5 style="color: #0f172a; font-size: 1rem; margin-bottom: 0.75rem;">🔬 Methodological Innovation</h5>
-                    <p style="color: #475569; line-height: 1.7; font-size: 1rem;">
-                        Satellite-derived embeddings from PrithVi V2 foundation model constrain donor pools to latent ecological peers, improving pre-treatment RMSPE from 0.45 (Random) to 0.23 (Embeddings)—a 49% reduction—while preserving synthetic control interpretability.
-                    </p>
-                </div>
-                
-                <div>
-                    <h5 style="color: #0f172a; font-size: 1rem; margin-bottom: 0.75rem;">✓ Identification Strength</h5>
-                    <p style="color: #475569; line-height: 1.7; font-size: 1rem;">
-                        Embedding-based donors achieve standardized pre-treatment covariate balance near zero across all six key variables (FRP, Elevation, Canopy Cover, Prior Fires, Precipitation, Temperature), compared to larger imbalances in Random and Manual strategies.
-                    </p>
-                </div>
-                
-                <div>
-                    <h5 style="color: #0f172a; font-size: 1rem; margin-bottom: 0.75rem;">🛡️ Robustness</h5>
-                    <p style="color: #475569; line-height: 1.7; font-size: 1rem;">
-                        ATT estimates stable across pre-period lengths, donor counts (K=25–100), outlier exclusion, and spatial buffers. Worst-case specification (FRP > 500 MW excluded) still yields −2.9% ATT, indicating core inference is not driven by extreme outcomes.
-                    </p>
-                </div>
-            </div>
-
-            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e2e8f0;">
-                <h4 style="color: #1e40af; font-size: 1rem; margin-bottom: 0.75rem;">Research Design</h4>
-                <ul style="margin-left: 2rem; color: #475569; line-height: 1.8; font-size: 1rem;">
-                    <li><strong>Estimand:</strong> Average treatment effect on the treated (ATT) for VMP-treated pixels (n=3,966) relative to synthetic controls constructed from untreated conifer pixels.</li>
-                    <li><strong>Pre-period:</strong> 2003–2011 (9 years); <strong>Post-period:</strong> 2012–2018 (6 years)</li>
-                    <li><strong>Outcome:</strong> Maximum Fire Radiative Power (FRP) in MW from MODIS FIRMS, capturing fire intensity at 1 km² resolution.</li>
-                    <li><strong>Donor Strategies Compared:</strong> Random statewide (500 pixels), Manual covariate screens (284 pixels), Embedding-based K-nearest neighbors (50 pixels)</li>
-                    <li><strong>Inference:</strong> Block bootstrap over treated units (500 resamples) for SEs and 95% CIs; placebo-based p-values pending additional computation.</li>
-                </ul>
-            </div>
-
-            <div style="margin-top: 2rem;">
-                <div class="methodology-keywords">
-                    <span class="keyword">Synthetic Control</span>
-                    <span class="keyword">Representation Learning</span>
-                    <span class="keyword">Causal Inference</span>
-                    <span class="keyword">Satellite Embeddings (PrithVi V2)</span>
-                    <span class="keyword">Pre-Treatment Balance</span>
-                    <span class="keyword">RMSPE Diagnostics</span>
-                    <span class="keyword">Donor Pool Restriction</span>
-                    <span class="keyword">Environmental Policy Evaluation</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <!-- EMPIRICAL POLICY LABORATORIES -->
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <section>
-        <div class="section-header">
-            <div class="section-label">EMPIRICAL POLICY LABORATORIES</div>
-            <h2>Applied Causal Inference for Policy Evaluation</h2>
-        </div>
-
-        <div class="lab-card">
-            <h3>Spatial Policy Transportability in Agricultural Management: AWD in Japan</h3>
-            <div class="lab-meta">
-                <div class="lab-meta-item"><strong>Context:</strong> Vietnam Alternative Wet Drying (AWD) policy → Japan transfer</div>
-                <div class="lab-meta-item"><strong>Research Base:</strong> Water balance modeling, biophysical constraints, statistical differentiation</div>
-                <div class="lab-meta-item"><strong>Methods:</strong> Composite suitability mapping, spatial heterogeneity analysis, institutional feasibility</div>
-            </div>
-
-            <!-- SECTION 1: WATER BALANCE DYNAMICS -->
-            <div style="margin: 2rem 0; padding: 2rem; background: #f0fdf4; border-radius: 8px; border-left: 4px solid #16a34a;">
-                <h4 style="color: #166534; margin-bottom: 1rem;">Water Balance Model</h4>
-                <p style="color: #365f23; margin-bottom: 1rem; font-family: 'Courier New', monospace;">
-                    Water Deficit = Precipitation − (Evapotranspiration + Percolation)
-                </p>
-                <p style="color: #475569; font-size: 1rem;">
-                    Alternative Wet Drying (AWD) is a water-saving irrigation practice. It is suitable when water deficits occur frequently enough to allow safe drying cycles without crop stress. The original Nelson–Sander model counts dekads where precipitation falls short of crop water demand. However, this approach treats all deficits equally: a −5 mm deficit counts the same as a −150 mm deficit. <strong>This overestimates AWD suitability</strong> because severe deficits cause yield losses even under mild AWD.
-                </p>
-            </div>
-
-            <!-- SECTION 2: WATER DEFICIT THRESHOLD SENSITIVITY -->
-            <div class="slider-container" style="margin: 2rem 0; background: #f1f5f9; padding: 1.5rem; border-radius: 6px;">
-                <label style="font-weight: 600; color: #1e40af; display: block; margin-bottom: 1rem;">
-                    Water Deficit Threshold: Slide to explore suitability across precipitation regimes
-                </label>
-                <p style="font-size: 0.875rem; color: #475569; margin-bottom: 1rem;">
-                    Drag to set maximum allowable water deficit. Stricter thresholds classify fewer areas as suitable but reduce crop failure risk.
-                </p>
-                <input type="range" id="awd-deficit-threshold" min="0" max="6" value="1" step="1" onchange="updateDeficitThreshold(this.value)">
-                <div class="slider-value" style="margin-top: 0.75rem; font-weight: 500;">
-                    Threshold: <span id="deficit-threshold-value">−50</span> mm | 
-                    Suitable Area: <span id="suitable-area-pct">32</span>% | 
-                    Dekads with deficit: <span id="deficit-dekads">48</span>%
-                </div>
-
-                <div style="text-align: center; margin-top: 1.5rem;">
-                    <span id="awd-threshold-label" style="font-weight: 600; color: #1e40af; display: block; margin-bottom: 0.75rem; font-size: 1.1rem;">−50 mm Threshold</span>
-                    <img id="awd-threshold-image" src="assets/awd-thresh-50.png" alt="AWD Suitability Map" style="width: 50%; max-width: 520px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem; display: inline-block;">
-                    <p style="color: #475569; font-size: 1rem;">
-                        <strong>💡 Choose -50mm as threshold for final composite map: </strong> This threshold best aligns with the biophysical suitability layer, providing an optimal balance between capturing suitable areas and minimizing yield risk.
-                    </p>
-                </div>
-            </div>
-
-            <!-- SECTION 4: OVERESTIMATION PROBLEM -->
-            <div style="margin: 2rem 0; padding: 2rem; background: #fef2f2; border-radius: 8px; border-left: 4px solid #dc2626;">
-                <h4 style="color: #dc2626; margin-bottom: 1rem;">The Overestimation Problem</h4>
-                <div class="stats-row">
-                    <div class="stat-card">
-                        <div class="stat-label">Original Water Balance</div>
-                        <div class="stat-value" style="font-size: 1.3rem; color: #dc2626;">62%</div>
-                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">of Japan classified suitable</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">With Biophysical Constraints</div>
-                        <div class="stat-value" style="font-size: 1.3rem; color: #16a34a;">18%</div>
-                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">of Japan classified suitable</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Overestimation Factor</div>
-                        <div class="stat-value" style="font-size: 1.3rem; color: #f97316;">3.4×</div>
-                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">ratio</div>
-                    </div>
-                </div>
-                <p style="color: #475569; margin-top: 1rem;font-size: 1rem;">
-                    <strong>Why?</strong> The original Nelson–Sander model ignores static biophysical constraints: steep slopes prevent water control, poor drainage traps water, extreme pH threatens yields, and low soil moisture creates risk. Integrating these factors reveals that <strong>most "suitable" areas in original maps are actually infeasible</strong> for AWD implementation.
-                </p>
-            </div>
-
-            <!-- SECTION 7: VIETNAM vs JAPAN SPATIAL TRANSPORTABILITY -->
-            <div style="margin: 2rem 0; padding: 2rem; background: #faf5ff; border-radius: 8px;">
-                <h4 style="color: #7c3aed; margin-bottom: 1rem;">Spatial Transportability: Why Vietnam Success ≠ Japan Success</h4>
-                <div class="stats-row">
-                    <div class="stat-card">
-                        <div class="stat-label"><strong>Vietnam</strong> AWD-Suitable Area</div>
-                        <div class="stat-value" style="font-size: 1.3rem; color: #7c3aed;">~45%</div>
-                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">Contiguous Mekong plains</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label"><strong>Japan</strong> AWD-Suitable Area</div>
-                        <div class="stat-value" style="font-size: 1.3rem; color: #7c3aed;">~18%</div>
-                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">Fragmented regions</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Spatial Clustering</div>
-                        <div class="stat-value" style="font-size: 1.3rem; color: #7c3aed;">3.8×</div>
-                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">larger in Vietnam</div>
-                    </div>
-                </div>
-
-                <div style="margin-top: 1.5rem; background: white; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #7c3aed;">
-                    <h5 style="color: #7c3aed; margin-bottom: 0.75rem;font-size: 1.1rem">Why This Matters for Policy Transfer</h5>
-                    <ul style="margin-left: 1.5rem; color: #475569; font-size: 1rem; line-height: 1.8;">
-                        <li><strong>Vietnam:</strong> Contiguous Mekong plains allow single irrigation network, unified extension messaging, farmer peer learning across connected fields</li>
-                        <li><strong>Japan:</strong> Fragmented suitable areas (scattered Kanto, Tohoku patches) require separate extension campaigns, increase farmer isolation, complicate water coordination</li>
-                        <li><strong>Cost Implication:</strong> Extension costs per hectare ~3.8× higher in Japan due to spatial dispersion</li>
-                        <li><strong>Risk Implication:</strong> Farmer defection higher when AWD neighbors are rare; social learning weaker</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- SECTION 8: INSTITUTIONAL FEASIBILITY (MAP-DRIVEN) -->
-            <div style="margin-bottom: 0.5rem; color: #64748b; font-size: 0.875rem; font-weight: 500;">👆 Click tabs to explore different analyses:</div>
-            <div class="tab-container" style="margin: 2rem 0;">
-                <button class="tab-btn active" onclick="switchTab('water-tab', this);" style="font-size: 0.9rem;">Water Balance Model</button>
-                <button class="tab-btn" onclick="switchTab('biophysical-tab', this);" style="font-size: 0.9rem;">Spatial Heterogeneity</button>
-                <button class="tab-btn" onclick="switchTab('institutional-tab', this);" style="font-size: 0.9rem;">Institutional Feasibility</button>
-                <button class="tab-btn" onclick="switchTab('deployment-tab', this);" style="font-size: 0.9rem;">Deployment Strategy</button>
-            </div>
-
-            <div id="water-tab" class="tab-content" style="display: block;">
-                <h4 style="color: #1e40af; margin: 1rem 0;">Temporal Dynamics: Deficit Frequency & Severity</h4>
-                <p style="color: #475569; margin-bottom: 1rem;">
-                    Water balance varies across dekads (10-day periods) during Japan's rice growing season (April–October). AWD feasibility depends on having enough low-deficit dekads to allow safe drying without triggering crop stress.
-                </p>
-                <div class="stats-row">
-                    <div class="stat-card">
-                        <div class="stat-label">Deficit Dekads (−50 mm threshold)</div>
-                        <div class="stat-value" style="font-size: 1.3rem;">48%</div>
-                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">of season allows drying</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Mean Water Deficit</div>
-                        <div class="stat-value" style="font-size: 1.3rem;">−38 mm</div>
-                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">where deficit occurs</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Dry Period Duration</div>
-                        <div class="stat-value" style="font-size: 1.3rem;">6–14 days</div>
-                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">average drying cycle</div>
-                    </div>
-                </div>
-                <p style="color: #475569; margin-top: 1rem; font-size: 0.9rem;">
-                    <strong>Key finding:</strong> Japan's monsoon patterns produce sufficient water deficits to enable AWD, but spatial distribution is highly uneven. Central and northern plains show reliable deficits; southwestern regions (Kyushu, Shikoku) have excessive rainfall, making AWD infeasible.
-                </p>
-            </div>
-
-            <div id="biophysical-tab" class="tab-content">
-                <h4 style="color: #1e40af; margin: 1rem 0;">Spatial Distribution of Constraints</h4>
-                <p style="color: #475569; margin-bottom: 1rem;">
-                    Biophysical suitability is not uniform. Kanto and Tohoku plains (flat, clay-rich soils, moderate moisture) are highly suitable. Southwestern regions (high percolation, poor drainage) and elevated areas (rapid drying, moisture stress) are poorly suited.
-                </p>
-                <div class="stats-row">
-                    <div class="stat-card">
-                        <div class="stat-label">Kanto Plain</div>
-                        <div class="stat-value" style="font-size: 1.2rem; color: #16a34a;">High</div>
-                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">Clay soils, flat, good drainage</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Tohoku</div>
-                        <div class="stat-value" style="font-size: 1.2rem; color: #eab308;">Moderate</div>
-                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">Mixed soils, moderate slope</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Kyushu/Shikoku</div>
-                        <div class="stat-value" style="font-size: 1.2rem; color: #dc2626;">Low</div>
-                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">High percolation, poor drainage</div>
-                    </div>
-                </div>
-                <p style="color: #475569; margin-top: 1rem; font-size: 0.9rem;">
-                    <strong>Implication:</strong> Unlike Vietnam's uniform delta, Japan's rice system spans distinct agroecological zones. Extension strategy cannot be one-size-fits-all. High-suitability zones (Kanto, parts of Tohoku) are good targets; scattered suitable paddies in unfavorable regions should be deprioritized.
-                </p>
-            </div>
-
-            <div id="institutional-tab" class="tab-content">
-                <h4 style="color: #1e40af; margin: 1rem 0;">Institutional Barriers: Conditional on Spatial Feasibility</h4>
-                <p style="color: #475569; margin-bottom: 1rem;">
-                    Policy transportability fails not because of biophysical impossibility, but because institutional capacity is mismatched to geography. The barriers differ by region:
-                </p>
-                <div style="background: white; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #1e40af; margin-bottom: 1.5rem;">
-                    <h5 style="color: #0f172a; margin-bottom: 0.75rem;">In Clustered High-Suitability Zones (Kanto, N. Tohoku)</h5>
-                    <ul style="margin-left: 1.5rem; color: #475569; line-height: 1.8; font-size: 0.9rem;">
-                        <li><strong>Extension Service Gap:</strong> Japan's prefectural extension system has expertise in soil management but no AWD training. Vietnam's IRRI-led programs trained 10,000+ farmers over 15 years. <em>Cost to address:</em> 2–3 year training program, pilot farms</li>
-                        <li><strong>Farm Structure Advantage:</strong> Kanto region has larger, mechanized operations (avg. 5–10 ha) vs. Filipino/Vietnamese smallholders (0.5–1 ha). <em>Benefit:</em> Technology adoption faster in larger farms</li>
-                        <li><strong>Water Coordination:</strong> Established irrigation districts with canal networks. <em>Leverage point:</em> Existing governance can manage shared water reduction</li>
-                    </ul>
-                </div>
-
-                <div style="background: white; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #dc2626; margin-bottom: 1.5rem;">
-                    <h5 style="color: #0f172a; margin-bottom: 0.75rem;">In Fragmented Low-Suitability Zones (Southwest, Hills)</h5>
-                    <ul style="margin-left: 1.5rem; color: #475569; line-height: 1.8; font-size: 0.9rem;">
-                        <li><strong>Information Asymmetry (High):</strong> Farmers skeptical of unproven water-saving claims when local neighbors do not adopt. Lack of "proof sites" in low-suitability regions. <em>Cost to address:</em> High—requires managed pilot failures</li>
-                        <li><strong>Risk Concentration:</strong> Isolated suitable paddies surrounded by unsuitable land. Water coordination across mixed systems is complex. <em>Implication:</em> Early adopters face yield risk without peer support</li>
-                        <li><strong>Subsidy Misalignment:</strong> Japanese agricultural subsidies favor rice production volume, not resource efficiency. No incentive to reduce water use. <em>Implication:</em> Policy requires new subsidy design, NOT extension alone</li>
-                    </ul>
-                </div>
-
-                <p style="color: #475569; margin-top: 1rem; font-size: 0.9rem; background: #f8fafc; padding: 1rem; border-radius: 6px;">
-                    <strong>Critical insight:</strong> Institutional barriers are not uniform. High-suitability zones are institutionally feasible with training + pilot programs. Low-suitability zones require structural policy change (subsidies, risk insurance) that extension alone cannot solve. <strong>Forcing AWD in fragmented, unsuitable regions wastes resources and erodes farmer trust.</strong>
-                </p>
-            </div>
-
-            <div id="deployment-tab" class="tab-content">
-                <h4 style="color: #1e40af; margin: 1rem 0;">Evidence-Based Deployment Strategy</h4>
-                <p style="color: #475569; margin-bottom: 1.5rem;">
-                    Transportability assessment: AWD is technically feasible in 18% of Japan's paddies, concentrated in Kanto and Tohoku. However, success requires strategic sequencing and institutional alignment.
-                </p>
-
-                <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #16a34a; margin-bottom: 1.5rem;">
-                    <h5 style="color: #166534; margin-bottom: 0.75rem;">✓ Phase 1: High-Priority Zones (3–5 years)</h5>
-                    <p style="color: #475569; font-size: 0.9rem; margin-bottom: 0.75rem;">
-                        <strong>Target:</strong> Kanto Plain + northern Tohoku (≈6% of national rice area)
-                    </p>
-                    <ul style="margin-left: 1.5rem; color: #475569; line-height: 1.7; font-size: 0.9rem;">
-                        <li>Establish IRRI-style training centers in 2–3 prefectures</li>
-                        <li>Create 50–100 demonstration farms (4–5 ha each)</li>
-                        <li>Develop prefectural extension curriculum for irrigation management</li>
-                        <li>Negotiate with irrigation districts for water accounting systems</li>
-                        <li><strong>Expected GHG mitigation:</strong> 15–20% CH₄ reduction from target paddies</li>
-                    </ul>
-                </div>
-
-                <div style="background: #fef2f2; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #dc2626; margin-bottom: 1.5rem;">
-                    <h5 style="color: #dc2626; margin-bottom: 0.75rem;">✗ Phase 2: Fragmented Zones (deprioritize)</h5>
-                    <p style="color: #475569; font-size: 0.9rem; margin-bottom: 0.75rem;">
-                        <strong>Regions:</strong> Southwest (Kyushu, Shikoku), scattered upland areas (≈12% of national rice area)
-                    </p>
-                    <ul style="margin-left: 1.5rem; color: #475569; line-height: 1.7; font-size: 0.9rem;">
-                        <li>AWD physically infeasible due to high rainfall or poor drainage</li>
-                        <li>Spatial fragmentation makes extension cost-prohibitive</li>
-                        <li><strong>Alternative strategy:</strong> Invest in alternative mitigation (midseason drainage, organic amendments, alternative crops)</li>
-                        <li><strong>Why not force it:</strong> Yield losses + farmer defection + damaged credibility for Phase 1</li>
-                    </ul>
-                </div>
-
-                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #2563eb;">
-                    <h5 style="color: #1e40af; margin-bottom: 0.75rem;">Expected Outcomes</h5>
-                    <table style="width: 100%; font-size: 0.9rem; border-collapse: collapse;">
-                        <tr style="border-bottom: 1px solid #e2e8f0;">
-                            <td style="padding: 0.5rem; color: #475569;"><strong>Metric</strong></td>
-                            <td style="padding: 0.5rem; color: #475569;"><strong>Phase 1 Impact</strong></td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e2e8f0; background: #f1f5f9;">
-                            <td style="padding: 0.5rem;">Area under AWD</td>
-                            <td style="padding: 0.5rem;">180,000–220,000 ha</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e2e8f0;">
-                            <td style="padding: 0.5rem;">CH₄ emissions avoided</td>
-                            <td style="padding: 0.5rem;">0.8–1.2 Mt CO₂eq/year</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e2e8f0; background: #f1f5f9;">
-                            <td style="padding: 0.5rem;">Water savings</td>
-                            <td style="padding: 0.5rem;">25–35% in target regions</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e2e8f0;">
-                            <td style="padding: 0.5rem;">Extension cost per hectare</td>
-                            <td style="padding: 0.5rem;">$150–200 (3–5 year amortized)</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <!-- SECTION 9: KEY TAKEAWAYS -->
-            <div style="margin-top: 2rem; padding: 2rem; background: #faf5ff; border-radius: 8px; border: 2px solid #7c3aed;">
-                <h4 style="color: #7c3aed; margin-bottom: 1rem;">Policy Transportability Assessment: Summary</h4>
-                <ul style="margin-left: 1.5rem; color: #475569; line-height: 2; font-size: 1rem;">
-                    <li><strong>Biophysical Feasibility:</strong> AWD is technically viable in 18% of Japan (vs. 45% in Vietnam's Mekong delta), concentrated in Kanto and Tohoku plains.</li>
-                    <li><strong>Spatial Transportability Failure:</strong> Vietnam's success leveraged contiguous geography + unified extension. Japan's fragmented paddies (3.8× more dispersed) require region-specific institutional design.</li>
-                    <li><strong>Institutional Pathways:</strong> High-suitability zones are feasible with training + pilots. Low-suitability zones require policy restructuring (subsidies, insurance), not extension.</li>
-                    <li><strong>Overestimation Risk:</strong> Ignoring biophysical constraints leads to deployment in unsuitable regions → farmer defection + wasted subsidies.</li>
-                    <li><strong>Realistic Mitigation Potential:</strong> Phase 1 targeting can achieve 0.8–1.2 Mt CO₂eq/year, meaningful but not transformative. Multi-pathway approach needed for climate targets.</li>
-                </ul>
-            </div>
-
-            <div class="lab-links" style="margin-top: 2rem;">
-                <a href="https://github.com/MyTran-GitHub/data-science-school-projects" target="_blank">Project Repository</a>
-            </div>
-        </div>
-
-        <div class="lab-card" style="max-width: 1200px; margin: 0 auto;">
-            <h3 style="color: #1e40af; font-size: 1.8rem; margin-bottom: 1rem;">Trade Policy Analysis: Vietnam-China HRC Tariffs</h3>
-            
-            <!-- NEW INTRODUCTION + STATS COMPARISON -->
-            <div class="policy-intro">
-                <div style="font-size: 1.1rem; color: #0f172a; margin-bottom: 1rem; font-weight: 600;">
-                    ❓ <strong>Research Question:</strong> Do anti-dumping tariffs protect domestic steel producers or backfire on downstream industries?
-                </div>
-                <div style="font-size: 1rem; color: #475569; margin-bottom: 1.5rem; line-height: 1.6;">
-                    Vietnam imposed <strong>23-28% WTO anti-dumping duties</strong> on Chinese Hot-Rolled Coil (HRC) in 2023-2024 across 10 cases. 
-                    Analysis of firm-level data reveals <strong>35% tariff exemptions</strong> granted to large importers, creating unintended consequences.
-                </div>
-                
-                <!-- SIDE-BY-SIDE STATS COMPARISON -->
-                <div class="stats-comparison">
-                    <div class="stat-card no-tariff">
-                        <h5 style="color: #059669; margin-bottom: 1.25rem; font-size: 1.1rem;text-align: center;">📈 Pre-Tariff Baseline</h5>
-                        <div class="stat-item">
-                            <span class="stat-label">HRC Import Price</span>
-                            <span class="stat-value">CNY 560/ton</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Import Volume</span>
-                            <span class="stat-value">6.0M tons</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Domestic Market Share</span>
-                            <span class="stat-value">26%</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">CRC Producer Costs</span>
-                            <span class="stat-value">Stable</span>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card with-tariff">
-                        <h5 style="color: #dc2626; margin-bottom: 1.25rem; font-size: 1.1rem;text-align: center;">📉 Post-Tariff Reality</h5>
-                        <div class="stat-item">
-                            <span class="stat-label">HRC Import Price</span>
-                            <span class="stat-value">+22.5%</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Import Volume</span>
-                            <span class="stat-value">4.1M tons (-32%) </span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Domestic Market Share</span>
-                            <span class="stat-value">+15.2%</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">CRC Producer Costs</span>
-                            <span class="stat-value">+24%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-        
-            <!-- MICRO FOUNDATIONS → FIGURE 2 & 3 -->
-            <div style="text-align: center; margin: 3rem 0 1rem 0; padding: 1rem; font-size: 1.2rem; color: #3b82f6; font-weight: 700;">
-                ↓ <strong>Why do stats change?</strong>
-            </div>
-            <h4 style="text-align: center;color: #1e40af; margin-bottom: 1rem;">Micro Analysis: Different Firms, Different Fates</h4>
-            <p style="font-size: 1rem; color: #475569; margin-bottom: 1.5rem; line-height: 1.6;">
-            <strong>HRC mills profit</strong> because they control 80% market share (duopoly). <strong>Downstream factories lose</strong> because tariffs raise their raw material costs 24%.
-            </p>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
-                <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #0ea5e9; text-align: center;">
-                    <h5 style="color: #059669; margin-bottom: 1rem;font-size: 17.5px !important;">🏭 HRC Producers (Duopoly)</h5>
-                    <img src="assets/HRC_Producers.png" alt="HRC Producers" class="figure-container">
-                    <p style="font-size: 0.8rem; color: #475569; margin-top:1rem; margin-bottom: 1.5rem; line-height: 1.6;"><em>Mills have low costs and market control, so they easily handle tariffs.</em></p>
-                </div>
-                <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #0ea5e9; text-align: center;">
-                    <h5 style="color: #dc2626; margin-bottom: 1rem;font-size: 17.5px !important;">🔩 Downstream (CRC)</h5>
-                    <img src="assets/CRC_Producers.png" alt="Downstream CRC" class="figure-container">
-                    <p style="font-size: 0.8rem; color: #475569; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.6;"><em>Factories face higher input costs from tariffs and cannot raise their prices, so profits disappear.</em></p>
-                </div>
-            </div>
-        
-            <!-- STAKEHOLDER NODES - SINGLE ROW, NO POPUPS -->
-            <div style="text-align: center; margin: 3rem 0 1rem 0; padding: 1rem; font-size: 1.2rem; color: #3b82f6; font-weight: 700;">
-                ↓ <strong>How does this play out across firms?</strong>
-            </div>
-            <h4 style="text-align: center;color: #1e40af; margin-bottom: 1.5rem;">Stakeholder Bargaining Dynamics</h4>
-            
-            <div class="stakeholder-grid">
-                <div class="stakeholder-card" style="border-left-color: #ef4444;">
-                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🇨🇳 Chinese Exporters</div>
-                    <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">4.1M tons (-32%)</div>
-                    <div style="font-size: 0.875rem; color: #475569;">China sells cheap steel but adds price markup after tariffs hit.</div>
-                </div>
-                <div class="stakeholder-card" style="border-left-color: #f59e0b;">
-                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🇻🇳 VN Importers</div>
-                    <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">Cost shock +24%</div>
-                    <div style="font-size: 0.875rem; color: #475569;">Vietnam firms pay the full tariff cost, and small firms cannot survive.</div>
-                </div>
-                <div class="stakeholder-card" style="border-left-color: #10b981;">
-                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🏭 Domestic Mills</div>
-                    <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">Market share +15%</div>
-                    <div style="font-size: 0.875rem; color: #475569;">Hoa Phat and Formosa petition for protection and gain market share.</div>
-                </div>
-                <div class="stakeholder-card" style="border-left-color: #8b5cf6;">
-                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🔩 Downstream (CRC)</div>
-                    <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">Output -12.4%</div>
-                    <div style="font-size: 0.875rem; color: #475569;">Car makers and construction firms face 24% higher steel costs.</div>
-                </div>
-                <div class="stakeholder-card" style="border-left-color: #ec4899;">
-                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🏛️ VN Government</div>
-                    <div style="font-size: 0.9rem; color: #059669; font-weight: 600; margin-bottom: 0.5rem;">35% exemptions</div>
-                    <div style="font-size: 0.875rem; color: #475569;">Government grants tariff exemptions to 35% of firms.</div>
-                </div>
-            </div>
-        
-            <!-- POLICY INCIDENCE MECHANISM GRAPH (UNCHANGED) -->
-            <div style="margin: 3rem 0;">
-                <h4 style="text-align: center;color: #1e40af;">Policy Incidence Mechanism</h4>
-                <svg viewBox="0 0 900 260" style="width: 100%; height: 260px; background: white; border-radius: 8px; border: 2px solid #e5e7eb;">
-                <defs>
-                <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                    <path d="M0,0 L0,6 L9,3 z" fill="#374151"/>
-                </marker>
-                </defs>
-
-                <!-- Tariff -->
-                <rect x="40" y="90" width="160" height="60" rx="8" fill="#ef4444"/>
-                <text x="120" y="125" text-anchor="middle" fill="white" font-weight="bold">Tariff (23–28%)</text>
-
-                <!-- CN Exporters -->
-                <rect x="250" y="50" width="150" height="60" rx="8" fill="#f59e0b"/>
-                <text x="325" y="85" text-anchor="middle">CN Exporters</text>
-                <text x="325" y="105" text-anchor="middle" font-size="12" fill="#444">Markup +12%</text>
-
-                <!-- VN Importers -->
-                <rect x="250" y="140" width="150" height="60" rx="8" fill="#10b981"/>
-                <text x="325" y="175" text-anchor="middle">VN Importers</text>
-                <text x="325" y="195" text-anchor="middle" font-size="12" fill="#044">Cost +24%</text>
-
-                <!-- Domestic mills -->
-                <rect x="460" y="90" width="160" height="60" rx="8" fill="#3b82f6"/>
-                <text x="540" y="120" text-anchor="middle" fill="white">Domestic Mills</text>
-                <text x="540" y="140" text-anchor="middle" fill="white" font-size="12">Share +15%</text>
-
-                <!-- Downstream -->
-                <rect x="680" y="90" width="160" height="60" rx="8" fill="#8b5cf6"/>
-                <text x="760" y="120" text-anchor="middle" fill="white">Downstream</text>
-                <text x="760" y="140" text-anchor="middle" fill="white" font-size="12">Output −12%</text>
-
-                <!-- Arrows -->
-                <path d="M200 120 L250 80" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
-                <path d="M200 120 L250 170" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
-                <path d="M400 120 L460 120" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
-                <path d="M620 120 L680 120" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
-                </svg>
-
-                <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-size: 1rem; color: #475569;">
-                    Tariffs aim to help local mills. China raises prices on Vietnamese importers. Importers raise prices on local factories. Factories raise consumer prices. Construction slows down. Fewer jobs result.
-                </div>
-            </div>
-        
-            <!-- MACRO IMPACT → FIGURE 5 & 6 -->
-            <div style="text-align: center; margin: 3rem 0 1rem 0; padding: 1rem; font-size: 1.2rem; color: #3b82f6; font-weight: 700;">
-                ↓ <strong>What happens to entire economy?</strong>
-            </div>
-            <h4 style="text-align: center;color: #1e40af; margin-bottom: 1rem;">Macro Outcome: AD-AS Model</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
-                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #ef4444; text-align: center;">
-                    <h5 style="color: #dc2626; margin-bottom: 1rem;font-size: 17.5px !important;">Scenario 1: Stagflation Risk</h5>
-                    <img src="assets/Stagflation.png" alt="Stagflation" class="figure-container">
-                    <p style="margin-top: 1rem; color: #475569;font-size: 0.8rem;"><em>Higher prices appear alongside fewer jobs, which hurts Vietnam's economy.</em></p>
-                </div>
-                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #059669; text-align: center;">
-                    <h5 style="color: #059669; margin-bottom: 1rem; font-size: 17.5px !important;">Scenario 2: Intervention Recovery</h5>
-                    <img src="assets/Inflation.png" alt="Inflation" class="figure-container">
-                    <p style="margin-top: 1rem; color: #475569;font-size: 0.8rem;"><em>Government spending restores jobs, but causes higher consumer prices.</em></p>
-                </div>
-            </div>
-        
-            <!-- FINAL TAKEAWAY - SINGLE ROW, PLAIN TEXT -->
-             <div style="text-align: center; margin: 3rem 0 1rem 0; padding: 1rem; font-size: 1.2rem; color: #3b82f6; font-weight: 700;">
-                ↓ <strong>Policy takeaway + PhD extension</strong>
-            </div>
-            
-            <div class="blue-container" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 16px; border-left: 6px solid #0ea5e9; margin-bottom: 2rem; overflow: hidden;">
-                <h4 style="color: #1e40af; text-align: center; margin-bottom: 2rem;">🎯 Core Findings: Why Anti-Dumping Fails</h4>
-        
-                <div class="HRC-core-grid">
-                    <div class="HRC-core-card" style="border-left-color: #d97706;">
-                        <h5 style="color: #b45309; margin-bottom: 0.75rem;">1. Institutional Capture</h5>
-                        <p><strong>35% tariff exemptions</strong> via Part 20 procedures. Large firms (Hoa Phat) bypass policy intent.</p>
-                    </div>
-                    <div class="HRC-core-card" style="border-left-color: #ef4444;">
-                        <h5 style="color: #dc2626; margin-bottom: 0.75rem;">2. Incidence Mismatch</h5>
-                        <p>Tariff should protect mills but actually crushes <strong>CRC producers</strong> (profit margin drops to 0).</p>
-                    </div>
-                    <div class="HRC-core-card" style="border-left-color: #10b981;">
-                        <h5 style="color: #059669; margin-bottom: 0.75rem;">3. Macro Risk</h5>
-                        <p>SRAS shifts left. Stagflation dominates without aggressive monetary intervention.</p>
-                    </div>
-                    <div class="HRC-core-card" style="border-left-color: #8b5cf6;">
-                        <h5 style="color: #7c3aed; margin-bottom: 0.75rem;">4. PhD Research Gap</h5>
-                        <p><strong>Synthetic controls:</strong> VN tariff effects vs ASEAN donors.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="lab-card" id="argentina-bayes-card">
-            <h3>Bayesian Model Comparison: Argentina Fiscal Policy</h3>
-
-            <div class="policy-intro">
-                <div style="font-size: 1.1rem; color: #1e40af; margin-bottom: 1rem; font-weight: 600;">
-                    ❓ <strong>Research Question:</strong> How does Argentina's tax revenue growth drive government wage spending?
-                </div>
-                <div style="font-size: 1rem; color: #4b5563; margin-bottom: 1.5rem; line-height: 1.6;">
-                    Analysis of <strong>105 months of government finance data (2016-2024)</strong> across 10 revenue streams reveals wages grow <strong>14.5 cents per tax peso collected</strong>, with acceleration above 4 trillion ARS monthly revenue.
-                </div>
-            </div>
-
-            <div class="bayes-tab-bar">
-                <button class="bayes-tab-btn" data-target="bayes-prior">Prior Distributions</button>
-                <button class="bayes-tab-btn" data-target="bayes-posterior">Posterior + Model Comparison</button>
-            </div>
-
-            <div id="bayes-prior" class="bayes-tab-content">
-                <div class="bayes-prior-grid">
-                    <div class="bayes-card">
-                        <div class="bayes-card-label">Intercept Prior (HalfNormal μ=0, σ=0.1)</div>
-                        <img src="assets/prior_intercept.png" alt="Intercept prior" class="bayes-image">
-                    </div>
-                    <div class="bayes-card">
-                        <div class="bayes-card-label">Slope Prior (Normal μ=0.6, σ=0.3)</div>
-                        <img src="assets/prior_slope.png" alt="Slope prior" class="bayes-image">
-                    </div>
-                </div>
-            </div>
-
-            <div id="bayes-posterior" class="bayes-tab-content" hidden>
-                <div class="bayes-section">
-                    <div class="bayes-section-title">🟡 Normal Likelihood Models</div>
-                    <div class="bayes-model-grid">
-                        <div class="bayes-model-card">
-                            <div class="bayes-model-name">6️⃣ Normal Linear</div>
-                            <div class="bayes-model-elpd">ELPD: 125.26 (6th)</div>
-                            <img src="assets/normal_linear_posterior.png" alt="Normal linear posterior" class="bayes-image small">
-                        </div>
-                        <div class="bayes-model-card">
-                            <div class="bayes-model-name">4️⃣ Normal Quadratic</div>
-                            <div class="bayes-model-elpd">ELPD: 134.87</div>
-                            <img src="assets/normal_quadratic_posterior.png" alt="Normal quadratic posterior" class="bayes-image small">
-                        </div>
-                        <div class="bayes-model-card">
-                            <div class="bayes-model-name">5️⃣ Normal Cubic</div>
-                            <div class="bayes-model-elpd">ELPD: 130.65</div>
-                            <img src="assets/normal_cubic_posterior.png" alt="Normal cubic posterior" class="bayes-image small">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bayes-section">
-                    <div class="bayes-section-title winner">🟢 Student-T Likelihood Models (Winners)</div>
-                    <div class="bayes-model-grid">
-                        <div class="bayes-model-card">
-                            <div class="bayes-model-name">3️⃣ Student-T Linear</div>
-                            <div class="bayes-model-elpd">ELPD: 262.4</div>
-                            <img src="assets/student_t_linear_posterior.png" alt="Student-T linear posterior" class="bayes-image small">
-                        </div>
-
-                        <div class="bayes-model-card">
-                            <div class="bayes-model-name">2️⃣ Student-T Quad</div>
-                            <div class="bayes-model-elpd">ELPD: 270.17</div>
-                            <img src="assets/student_t_quad_posterior.png" alt="Student-T quadratic posterior" class="bayes-image small">
-                        </div>
-                        <div class="bayes-model-card">
-                            <div class="bayes-model-name highlight">1️⃣ Student-T Cubic</div>
-                            <div class="bayes-model-elpd highlight">ELPD: 289.28</div>
-                            <img src="assets/student_t_cubic_posterior.png" alt="Student-T cubic posterior" class="bayes-image small">
-                        </div>
-
-                    </div>
-                </div>
-                <div style="background: #f8fafc; padding: 2rem; border-radius: 12px; margin: 2rem 0; border-left: 6px solid #10b981;">
-                    <h6 style="color: #059669; font-weight: 700; margin-bottom: 1.5rem; font-size: 1.1rem; text-align: center;">
-                        🔍 Why Student-T Cubic is the Best Model
-                    </h6>
-                    
-                    <div style="font-size: 1rem; line-height: 1.7; color: #374151; max-width: 800px; margin: 0 auto;">
-                        <strong>Visual Fit (Posterior Predictive Check):</strong> The Student-T Cubic model generates data that <em>perfectly matches</em> the observed revenue-wage relationship. Its predictive distribution overlays the real data points, capturing both the main trend and the lower-right outlier cluster that simpler models miss. Normal models pull away from high-revenue observations due to outlier sensitivity.<br><br>
-                        
-                        <strong>Quantitative Superiority (PSIS-LOO):</strong> Student-T Cubic scores <strong>289.28 ELPD points</strong> - 164 points ahead of Normal Linear (125.26), making it <em>e<sup>19.1</sup> (200 million times) more likely</em> to generate the observed data. The Student-T distribution's heavy tails (ν≈0.6) provide outlier resistance (σ=0.01 vs Normal σ=0.07), while cubic polynomial captures non-linear curvature across the 0.1-8.7T revenue range.<br><br>
-                        
-                    </div>
-                </div>
-                <div class="bayes-elpd">
-                    <div class="bayes-elpd-title">📊 PSIS-LOO Model Comparison</div>
-                    <img src="assets/elpd_comparison.png" alt="ELPD comparison" class="bayes-image">
-                </div>
-            </div>
-
-           
-
-            <div class="bayes-findings">
-                <div class="bayes-policy-title">Statistical Discovery</div>
-                <div class="bayes-findings-grid">
-                    <div class="bayes-finding-card">
-                        <div class="bayes-finding-rank">🥇 #1</div>
-                        <div class="bayes-finding-title">Student-T Cubic Model</div>
-                        <div class="bayes-finding-text">Top scoring model (ELPD 289) beating 5 alternatives (125-270).</div>
-                    </div>
-                    <div class="bayes-finding-card">
-                        <div class="bayes-finding-rank">🛡️ Outlier Detection</div>
-                        <div class="bayes-finding-title">Strange Data Points Contained</div>
-                        <div class="bayes-finding-text">Baseline error 7%; robust Student-T drops error to 1% (7× stability).</div>
-                    </div>
-                    <div class="bayes-finding-card">
-                        <div class="bayes-finding-rank">📈 Better Fit</div>
-                        <div class="bayes-finding-title">Cubic Captures Curvature</div>
-                        <div class="bayes-finding-text">Captures the revenue-to-wage bend; straight-line models miss it.</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bayes-policy">
-                <div class="bayes-policy-title">Policy Applications: Argentina Ministry of Finance</div>
-                <div class="bayes-policy-grid">
-                    <div class="bayes-policy-card">
-                        <h5>📊 Revenue-Contingent Budget Forecasting</h5>
-                        <p><strong>Equation:</strong> Wage Bill = 0.145 × Revenue + cubic adjustment</p>
-                        <p><strong>Replace:</strong> Static projections with revenue-linked forecasts</p>
-                        <p><strong>Validated:</strong> Predicted 2017/2022 wage responses within 8% accuracy</p>
-                    </div>
-                    <div class="bayes-policy-card">
-                        <h5>🏛️ Wage Negotiation Framework</h5>
-                        <p><strong>Threshold:</strong> Revenue > 4T ARS/month = accelerated wage pressure</p>
-                        <p><strong>Strategy:</strong> Pre-emptive negotiation planning at the 4T barrier</p>
-                        <p><strong>Benefit:</strong> Quantifies fiscal cost before union negotiations begin</p>
-                    </div>
-                    <div class="bayes-policy-card">
-                        <h5>⚠️ Fiscal Risk Monitoring</h5>
-                        <p><strong>Indicator:</strong> Revenue-to-wage ratio vs model benchmark</p>
-                        <p><strong>Early warning:</strong> 4T threshold where elasticity jumps 0.145 → 0.21</p>
-                        <p><strong>Action:</strong> Trigger review when ratio deviates >1σ from prediction</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lab-links" style="margin-top: 1rem;">
-                <a href="https://github.com/MyTran-GitHub/data-science-school-projects/blob/main/Code_Bayesian_Stats_Argentina.ipynb" class="btn-primary" target="_blank">PyMC Model Code</a>
-                <a href="https://github.com/MyTran-GitHub/data-science-school-projects/blob/main/Bayesian%20Stats%202.pdf" class="btn-secondary" target="_blank">Technical Documentation</a>
-            </div>
-        </div>
-
-    </section>
-
-
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <!-- PUBLICATIONS -->
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <section>
-        <div class="section-header">
-            <div class="section-label">SCHOLARLY CREDIBILITY</div>
-            <h2>Publications & Research Output</h2>
-        </div>
-
-        <div class="publication">
-            <h4>
-                Stakeholders' Attitudes towards the Installations of Closed-Circuit Television Cameras in Reducing School Violence
-            </h4>
-            <p class="pub-meta">
-                <strong>Authors:</strong> Tran, Khoa, Tuyet Nguyen, Linh Phan, My Tran, Mai Trinh, and Linh Pham<br>
-                <strong>Journal:</strong> <em>Heliyon</em>, Volume 8, Issue 9 (2022): e10645<br>
-                <strong>DOI:</strong> <a href="https://doi.org/10.1016/j.heliyon.2022.e10645" target="_blank">10.1016/j.heliyon.2022.e10645</a>
-            </p>
-            <p class="pub-description">
-                <strong>Research Pipeline:</strong> Conducted systematic literature review and qualitative analysis of stakeholder interviews to evaluate public opinion and institutional barriers to the implementation of school-violence reduction policy.
-            </p>
-            <p class="pub-description">
-                <strong>Policy Relevance:</strong> Informed Vietnamese education policymakers about stakeholder concerns (privacy, surveillance, trust) that must be addressed for successful CCTV implementation.
-            </p>
-        </div>
-
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <!-- SKILLS & TOOLS -->
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <section class="alt-bg">
-        <div class="section-inner">
-            <div class="section-header">
-                <div class="section-label">TECHNICAL EXPERTISE</div>
-                <h2>Methods, Tools & Technologies</h2>
-            </div>
-
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h4>Causal Inference</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Synthetic Control</span>
-                        <span class="skill-tag">Difference-in-Differences</span>
-                        <span class="skill-tag">Causal Forests (grf)</span>
-                        <span class="skill-tag">Instrumental Variables</span>
-                        <span class="skill-tag">Regression Discontinuity</span>
-                        <span class="skill-tag">Matching (Propensity Score)</span>
-                        <span class="skill-tag">CausalImagesR</span>
-                        <span class="skill-tag">DoWhy (Python)</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h4>Statistical Modeling</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Bayesian Inference (PyMC, Stan)</span>
-                        <span class="skill-tag">Hierarchical Models</span>
-                        <span class="skill-tag">Mixed Effects</span>
-                        <span class="skill-tag">Spatial Statistics</span>
-                        <span class="skill-tag">Time Series</span>
-                        <span class="skill-tag">Panel Data</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h4>Machine Learning</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">TensorFlow / PyTorch</span>
-                        <span class="skill-tag">Scikit-learn</span>
-                        <span class="skill-tag">XGBoost</span>
-                        <span class="skill-tag">Vision Transformers (ViT)</span>
-                        <span class="skill-tag">CNNs (ResNet, U-Net)</span>
-                        <span class="skill-tag">Foundation Models</span>
-                        <span class="skill-tag">Representation Learning</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h4>Remote Sensing & Geospatial</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Google Earth Engine</span>
-                        <span class="skill-tag">GDAL / Rasterio</span>
-                        <span class="skill-tag">QGIS</span>
-                        <span class="skill-tag">Landsat / Sentinel-2</span>
-                        <span class="skill-tag">MODIS / CHIRPS / SMAP</span>
-                        <span class="skill-tag">Panopticon / Clay / Prithvi</span>
-                        <span class="skill-tag">AQUAWAT (Water Balance)</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h4>Programming & Data</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">R</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">Git / GitHub</span>
-                        <span class="skill-tag">Pandas / NumPy</span>
-                        <span class="skill-tag">Tidyverse / Data.table</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h4>Policy Analysis</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Policy Transportability</span>
-                        <span class="skill-tag">Institutional Analysis</span>
-                        <span class="skill-tag">Political Economy</span>
-                        <span class="skill-tag">Public Finance</span>
-                        <span class="skill-tag">Environmental Governance</span>
-                        <span class="skill-tag">Trade Policy</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <!-- CONTACT -->
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <section class="contact">
-        <h2>Let's Connect</h2>
-        <p>
-            I'm actively seeking opportunities to contribute to research at the intersection of causal inference,<br>
-            environmental policy, and geospatial data science.
-        </p>
-        <div class="contact-links">
-            <a href="mailto:tran@uni.minerva.edu">Email</a>
-            <a href="https://github.com/MyTran-GitHub" target="_blank">GitHub</a>
-            <a href="https://www.linkedin.com/in/mee-tran-34530725b/" target="_blank">LinkedIn</a>
-        </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <!-- JAVASCRIPT: AWD INTERACTIVITY -->
-    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-    <script>
-        // AWD Threshold images and data
-        const awdThresholds = [
-            {idx: 0, value: 25, src: "assets/awd-thresh-25.png", label: "-25 mm", suitableArea: 18, dekads: 22},
-            {idx: 1, value: 50, src: "assets/awd-thresh-50.png", label: "-50 mm", suitableArea: 32, dekads: 48},
-            {idx: 2, value: 70, src: "assets/awd-thresh-70.png", label: "-70 mm", suitableArea: 42, dekads: 60},
-            {idx: 3, value: 90, src: "assets/awd-thresh-90.png", label: "-90 mm", suitableArea: 52, dekads: 68},
-            {idx: 4, value: 110, src: "assets/awd-thresh-110.png", label: "-110 mm", suitableArea: 62, dekads: 75},
-            {idx: 5, value: 130, src: "assets/awd-thresh-130.png", label: "-130 mm", suitableArea: 66, dekads: 80},
-            {idx: 6, value: 150, src: "assets/awd-thresh-150.png", label: "-150 mm", suitableArea: 69, dekads: 85}
-        ];
-
-        function updateDeficitThreshold(value) {
-            const idx = parseInt(value);
-            const threshold = awdThresholds[idx];
-            
-            // Update label and image
-            document.getElementById('deficit-threshold-value').textContent = threshold.label;
-            document.getElementById('awd-threshold-label').textContent = threshold.label + ' Threshold';
-            document.getElementById('awd-threshold-image').src = threshold.src;
-            
-            // Update statistics
-            document.getElementById('suitable-area-pct').textContent = threshold.suitableArea + '%';
-            document.getElementById('deficit-dekads').textContent = threshold.dekads + '%';
-            
-            updateMapDisplay();
-        }
-
-        // Map Layer Toggle
-        let currentMapLayer = 'water-balance';
-        
-        function setMapLayer(layer) {
-            currentMapLayer = layer;
-        }
-
-        function updateMapDisplay() {
-            const layerLabels = {
-                'water-balance': 'Water Balance Suitability (threshold-based)',
-                'biophysical': 'Biophysical Constraints Layer',
-                'composite': 'Composite AWD Suitability Map (Actual Result)'
-            };
-
-            const layerDescriptions = {
-                'water-balance': 'Shows areas with sufficient precipitation deficit to allow safe drying. Red = persistent surplus; Yellow = occasional deficit; Green = frequent deficit. Note: This layer overestimates suitability—ignores slope, drainage, pH constraints.',
-                'biophysical': 'Shows physical capacity of land to support AWD. Green = flat clay-rich soils with good drainage; Yellow = mixed conditions; Red = steep slopes, poor drainage, or extreme pH. Biophysical constraints override water balance.',
-                'composite': 'Integration of water balance AND biophysical constraints. Only areas that are BOTH water-deficit AND biophysically favorable are suitable. This is the realistic, deployable map.'
-            };
-
-            document.getElementById('map-layer-label').textContent = layerLabels[currentMapLayer];
-            document.getElementById('map-layer-description').textContent = layerDescriptions[currentMapLayer];
-
-            // Update gradient based on layer
-            const mapElement = document.getElementById('awd-map-canvas');
-            if (mapElement) {
-                const gradients = {
-                    'water-balance': 'linear-gradient(135deg, #ef4444 0%, #fbbf24 33%, #86efac 100%)',
-                    'biophysical': 'linear-gradient(135deg, #dc2626 0%, #fbbf24 50%, #22c55e 100%)',
-                    'composite': 'linear-gradient(135deg, #991b1b 0%, #ea580c 25%, #eab308 50%, #84cc16 75%, #16a34a 100%)'
-                };
-                mapElement.style.background = gradients[currentMapLayer];
-            }
-        }
-
-        // Donor Strategy Switching (mirrors tab behavior)
-        function switchDonorStrategy(strategy) {
-            const strategies = {
-                'random': {
-                    title: 'Random Statewide Donors (500 untreated pixels)',
-                    desc: 'Randomly sample 500 untreated conifer pixels statewide. No explicit constraint on ecological similarity; relies on large sample to approximate covariate distributions.',
-                    rmspe: '0.45',
-                    iqr: '0.15–0.62',
-                    randomDisplay: 'block',
-                    manualDisplay: 'none',
-                    embeddingDisplay: 'none',
-                    embedLabel: 'Random donors: dispersed in embedding space'
-                },
-                'manual': {
-                    title: 'Manual Covariate Screen (284 untreated pixels)',
-                    desc: 'Filter statewide pixels using explicit covariate thresholds: slope < 15°, elevation 400–2000m, forest type in [DF, PP]. Tighter ecological similarity constraints.',
-                    rmspe: '0.36',
-                    iqr: '0.18–0.58',
-                    randomDisplay: 'none',
-                    manualDisplay: 'block',
-                    embeddingDisplay: 'none',
-                    embedLabel: 'Manual donors: moderately clustered in embedding space'
-                },
-                'embedding': {
-                    title: 'Embedding-Based K=50 (50 nearest neighbors)',
-                    desc: 'Select K=50 untreated pixels nearest to treated pixel in learned embedding space. Highest ecological and spectral similarity; trade-off between balance and sample size.',
-                    rmspe: '0.23',
-                    iqr: '0.10–0.41',
-                    randomDisplay: 'none',
-                    manualDisplay: 'none',
-                    embeddingDisplay: 'block',
-                    embedLabel: 'Embedding donors: tightly clustered in latent space'
-                }
-            };
-
-            const strat = strategies[strategy];
-            if (!strat) return;
-            const titleEl = document.getElementById('strategy-title');
-            const descEl = document.getElementById('strategy-desc');
-            const rmspeEl = document.getElementById('rmspe-median');
-            const iqrEl = document.getElementById('rmspe-iqr');
-            const randomGroup = document.getElementById('random-donors');
-            const manualGroup = document.getElementById('manual-donors');
-            const embeddingGroup = document.getElementById('embedding-donors');
-            const embedLabelEl = document.getElementById('embed-label');
-
-            if (titleEl) titleEl.textContent = strat.title;
-            if (descEl) descEl.textContent = strat.desc;
-            if (rmspeEl) rmspeEl.textContent = strat.rmspe;
-            if (iqrEl) iqrEl.textContent = strat.iqr;
-            if (randomGroup) randomGroup.style.display = strat.randomDisplay;
-            if (manualGroup) manualGroup.style.display = strat.manualDisplay;
-            if (embeddingGroup) embeddingGroup.style.display = strat.embeddingDisplay;
-            if (embedLabelEl) embedLabelEl.textContent = strat.embedLabel;
-        }
-
-        // Tab Switching
-        function switchTab(tabId, buttonElement) {
-            // Hide all tabs
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => {
-                tab.style.display = 'none';
-            });
-
-            // Remove active class from all buttons
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            // Show selected tab and mark button active
-            const selectedTab = document.getElementById(tabId);
-            if (selectedTab) {
-                selectedTab.style.display = 'block';
-            }
-            buttonElement.classList.add('active');
-        }
-
-        const argentinaBayesData = {
-            x: [0.1, 0.3, 0.5, 0.8, 1.2, 1.5, 2.1, 2.8, 3.5, 4.2, 5.1, 6.3, 7.2, 8.7],
-            y: [0.02, 0.05, 0.08, 0.12, 0.18, 0.22, 0.28, 0.35, 0.41, 0.48, 0.55, 0.62, 0.71, 0.82]
-        };
-
-        const argentinaBayesLines = {
-            prior: [
-                { color: '#64748b', width: 3, dash: [], func: (x) => 0.135 + 0.6 * x * 0.12 }
-            ],
-            posterior: [
-                { color: '#3b82f6', width: 4, dash: [], func: (x) => 0.135 + 0.145 * x - 0.02 * x * x + 0.002 * x * x * x },
-                { color: '#10b981', width: 3, dash: [], func: (x) => 0.135 + 0.14 * x - 0.015 * x * x },
-                { color: '#f59e0b', width: 2, dash: [6, 6], func: (x) => 0.135 + 0.13 * x }
-            ]
-        };
-
-        function drawArgentinaBayesPlot(canvas, viewKey) {
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const bounds = canvas.getBoundingClientRect();
-            canvas.width = bounds.width;
-            canvas.height = 420;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // grid
-            ctx.strokeStyle = '#e5e7eb';
-            ctx.lineWidth = 1;
-            for (let i = 0; i <= 10; i++) {
-                const x = (i / 10) * canvas.width;
-                ctx.beginPath();
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height);
-                ctx.stroke();
-
-                const y = (i / 10) * canvas.height;
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
-                ctx.stroke();
-            }
-
-            // data points
-            argentinaBayesData.x.forEach((xVal, i) => {
-                const px = (xVal / 9) * canvas.width * 0.8 + canvas.width * 0.1;
-                const py = canvas.height - (argentinaBayesData.y[i] * canvas.height * 0.7 + canvas.height * 0.15);
-                ctx.fillStyle = xVal > 7 ? '#fbbf24' : '#ef4444';
-                ctx.beginPath();
-                ctx.arc(px, py, 6, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.strokeStyle = '#1e293b';
-                ctx.lineWidth = 1.5;
-                ctx.stroke();
-            });
-
-            // model lines
-            const lines = argentinaBayesLines[viewKey] || [];
-            lines.forEach((line) => {
-                ctx.strokeStyle = line.color;
-                ctx.lineWidth = line.width;
-                ctx.setLineDash(line.dash || []);
-                ctx.beginPath();
-                for (let x = 0; x <= 9; x += 0.1) {
-                    const y = line.func(x);
-                    const px = (x / 9) * canvas.width * 0.8 + canvas.width * 0.1;
-                    const py = canvas.height - (y * canvas.height * 0.7 + canvas.height * 0.15);
-                    if (x === 0) {
-                        ctx.moveTo(px, py);
-                    } else {
-                        ctx.lineTo(px, py);
-                    }
-                }
-                ctx.stroke();
-                ctx.setLineDash([]);
-            });
-
-            // axes
-            ctx.strokeStyle = '#1f2937';
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.moveTo(canvas.width * 0.1, canvas.height * 0.85);
-            ctx.lineTo(canvas.width * 0.9, canvas.height * 0.85);
-            ctx.lineTo(canvas.width * 0.9, canvas.height * 0.15);
-            ctx.stroke();
-
-            ctx.fillStyle = '#1f2937';
-            ctx.font = 'bold 14px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText('Total Revenue (Trillions ARS)', canvas.width * 0.5, canvas.height * 0.94);
-            ctx.save();
-            ctx.translate(canvas.width * 0.95, canvas.height * 0.5);
-            ctx.rotate(-Math.PI / 2);
-            ctx.fillText('Wage Expenditure (Trillions ARS)', 0, 0);
-            ctx.restore();
-        }
-
-        function initArgentinaBayes() {
-            const card = document.getElementById('argentina-bayes-card');
-            if (!card) return;
-
-            const buttons = card.querySelectorAll('.bayes-tab-btn');
-            const tabs = card.querySelectorAll('.bayes-tab-content');
-            const canvas = card.querySelector('#bayes-plot');
-            let currentView = 'bayes-prior';
-
-            const setView = (targetId) => {
-                currentView = targetId;
-                buttons.forEach((btn) => btn.classList.toggle('active', btn.dataset.target === targetId));
-                tabs.forEach((tab) => {
-                    const isActive = tab.id === targetId;
-                    tab.hidden = !isActive;
-                    tab.style.display = isActive ? 'block' : 'none';
-                });
-                const viewKey = targetId === 'bayes-posterior' ? 'posterior' : 'prior';
-                drawArgentinaBayesPlot(canvas, viewKey);
-            };
-
-            buttons.forEach((btn) => {
-                btn.addEventListener('click', () => {
-                    const targetId = btn.dataset.target;
-                    if (targetId) {
-                        setView(targetId);
-                    }
-                });
-            });
-
-            window.addEventListener('resize', () => {
-                const viewKey = currentView === 'bayes-posterior' ? 'posterior' : 'prior';
-                drawArgentinaBayesPlot(canvas, viewKey);
-            });
-
-            setView(currentView);
-        }
-
-        // Initialize tab display and donor strategy switching
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabButtons = document.querySelectorAll('.tab-container .tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            const activateTab = (targetId) => {
-                tabButtons.forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.target === targetId);
-                });
-
-                tabContents.forEach(tab => {
-                    const isTarget = tab.id === targetId;
-                    tab.classList.toggle('active', isTarget);
-                    tab.style.display = isTarget ? 'block' : 'none';
-                });
-            };
-
-            tabButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const targetId = btn.dataset.target;
-                    if (targetId) {
-                        activateTab(targetId);
-                    }
-                });
-            });
-
-            if (tabButtons.length > 0) {
-                const defaultTarget = tabButtons[0].dataset.target;
-                activateTab(defaultTarget);
-            }
-
-            // Donor strategy buttons
-            const strategyButtons = document.querySelectorAll('.donor-strategy-container .toggle-btn');
-            strategyButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const strategy = btn.dataset.strategy;
-                    if (strategy) {
-                        // Update active button styling
-                        strategyButtons.forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        // Call the strategy switch function
-                        switchDonorStrategy(strategy);
-                    }
-                });
-            });
-
-            initArgentinaBayes();
-        });
-
-        // Node selection for institutional analysis
-        function selectNode(nodeId) {
-            const nodes = document.querySelectorAll('.node');
-            nodes.forEach(node => {
-                node.classList.remove('selected');
-            });
-            const selectedNode = document.getElementById(nodeId);
-            if (selectedNode) {
-                selectedNode.classList.add('selected');
-            }
-        }
-
-        function toggleScenario(scenario) {
-            const descriptions = {
-                'vietnam': 'Vietnam baseline: AWD adoption in Mekong delta with established farmer networks and IRRI extension infrastructure. 45% of paddies biophysically suitable; contiguous geography enables unified extension campaigns.',
-                'japan': 'Japan transfer scenario: AWD implementation challenge with fragmented geography, steeper slopes, and lower baseline extension capacity. 18% of paddies biophysically suitable; spatial clustering 3.8× weaker than Vietnam. Institutional feasibility varies by region.'
-            };
-            
-            document.getElementById('scenario-description').textContent = descriptions[scenario];
-        }
-    </script>
-
-    <style>
-        /* AWD-specific styling additions */
-        .node {
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .node:hover {
-            transform: scale(1.05);
-            border-color: #1e40af;
-        }
-
-        .node.selected {
-            background-color: #e0e7ff !important;
-            border-color: #1e40af;
-            box-shadow: 0 0 12px rgba(30, 64, 175, 0.3);
-        }
-
-        .tab-btn {
-            cursor: pointer;
-            padding: 0.75rem 1.25rem;
-            border: 2px solid #e2e8f0;
-            background: white;
-            color: #475569;
-            border-radius: 8px 8px 0 0;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin-right: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            position: relative;
-        }
-
-        .tab-btn:hover {
-            background: #f1f5f9;
-            border-color: #3b82f6;
-            color: #1e40af;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(59,130,246,0.2);
-        }
-
-        .tab-btn.active {
-            background: #1e40af;
-            color: white;
-            border-color: #1e40af;
-            box-shadow: 0 4px 12px rgba(30,64,175,0.3);
-            transform: translateY(-2px);
-        }
-
-        .tab-content {
-            display: none;
-            padding: 1.5rem;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-top: none;
-            border-radius: 0 6px 6px 6px;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Argentina Bayesian card styling */
-        #argentina-bayes-card {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .bayes-hero {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            padding: 1.5rem;
-            border-radius: 14px;
-            border-left: 6px solid #0ea5e9;
-        }
-
-        .bayes-hero-title {
-            color: #1e40af;
+        .sub-text {
             font-size: 1.1rem;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        /* My Approach */
+        .my-approach {
+            text-align: center;
+            margin: 4rem 0;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+        }
+
+        .my-question {
+            font-size: 2rem;
+            color: #ffffff;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            line-height: 1.4;
         }
 
-        .bayes-hero-text {
+        /* Insight Cards */
+        .insight-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .insight-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        .insight-card.problem {
+            border-top: 4px solid #dc2626;
+        }
+
+        .insight-card.gap {
+            border-top: 4px solid #f59e0b;
+        }
+
+        .insight-card.solution {
+            border-top: 4px solid #10b981;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .insight-card h4 {
+            font-size: 1.3rem;
             color: #0f172a;
-            font-size: 1rem;
+            margin-bottom: 1rem;
         }
 
-        .bayes-tab-bar {
+        .insight-card p {
+            font-size: 1rem;
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-detail {
+            font-size: 0.9rem !important;
+            color: #94a3b8 !important;
+            font-style: italic;
+        }
+
+        /* Method Stack */
+        .method-stack {
+            margin: 4rem 0;
+        }
+
+        .method-intro {
+            font-size: 1.4rem;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .method-item {
             display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: rgba(248, 250, 252, 0.85);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .method-item:hover {
+            background: #eef2ff;
+            transform: translateX(10px);
+        }
+
+        .method-number {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
             justify-content: center;
         }
 
-        .bayes-tab-btn {
-            padding: 0.75rem 1.25rem;
-            border: 2px solid #3b82f6;
-            background: #e0f2fe;
-            color: #1e3a8a;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .bayes-tab-btn:hover:not(.active) {
-            background: #dbeafe;
-            transform: translateY(-1px);
-        }
-
-        .bayes-tab-btn.active {
-            background: #3b82f6;
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
-        }
-
-        .bayes-tab-content {
-            background: #f8fafc;
-            padding: 1.25rem;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .bayes-prior-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1rem;
-        }
-
-        .bayes-card {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
-            padding: 0.75rem;
-        }
-
-        .bayes-card-label {
-            color: #64748b;
-            font-size: 0.875rem;
+        .method-content h4 {
+            font-size: 1.4rem;
+            color: #0f172a;
             margin-bottom: 0.5rem;
+        }
+
+        .method-content p {
+            font-size: 1.05rem;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        /* Closing Statement */
+        .closing-statement {
             text-align: center;
+            margin: 5rem 0 3rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-radius: 20px;
+            color: white;
         }
 
-        .bayes-image {
-            width: 100%;
-            height: auto;
-            max-height: 360px;
-            object-fit: contain;
-            border-radius: 10px;
-            background: #f8fafc;
-            display: block;
+        .big-idea {
+            font-size: 1.8rem;
+            line-height: 1.5;
+            margin: 1rem 0;
         }
 
-        .bayes-image.small {
-            max-height: 240px;
+        .big-idea em {
+            color: #94a3b8;
+            font-style: normal;
         }
 
-        .bayes-section {
+        .big-idea strong {
+            color: #60a5fa;
+            font-weight: 700;
+        }
+
+        @media (max-width: 968px) {
+            .insight-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .question-highlight {
+                font-size: 1.6rem;
+            }
+
+            .my-question {
+                font-size: 1.5rem;
+            }
+        }
+
+        .story-content h2 {
+            font-size: 2.5rem;
+            color: #0f172a;
             margin-bottom: 1.5rem;
         }
 
-        .bayes-section-title {
-            font-weight: 700;
-            color: #1E293B;
+        .story-content .lead {
+            font-size: 1.3rem;
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        /* Interactive Pipeline */
+        .pipeline-intro {
+            background: transparent;
+            padding: 5rem 2rem;
             text-align: center;
-            margin-bottom: 0.75rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e2e8f0;
         }
 
-        .bayes-section-title.winner {
-            color: #0f766e;
-            border-color: #0f766e;
+        .pipeline-intro h2 {
+            font-size: 2.8rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
         }
 
-        .bayes-model-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        .pipeline-intro p {
+            font-size: 1.2rem;
+            color: #e2e8f0;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .pipeline-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             gap: 1rem;
+            flex-wrap: wrap;
+            margin: 2rem auto;
+            max-width: 1000px;
         }
 
-        .bayes-model-card {
-            background: #fff;
+        .pipeline-step {
+            background: white;
+            padding: 1.5rem 2rem;
             border-radius: 12px;
-            padding: 0.75rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            font-weight: 700;
+            color: #1e40af;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .bayes-model-name {
-            font-weight: 600;
-            color: #334155;
+        .pipeline-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(30,64,175,0.15);
         }
 
-        .bayes-model-name.highlight {
-            color: #0f766e;
-        }
-
-        .bayes-model-elpd {
-            font-size: 0.875rem;
+        .pipeline-arrow {
+            font-size: 1.5rem;
             color: #94a3b8;
+        }
+
+        /* Stage Cards - Reveal on Scroll */
+        .stages-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .stage-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stage-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stage-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+        }
+
+        .stage-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stage-icon {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stage-info h3 {
+            font-size: 2rem;
+            color: #0f172a;
             margin-bottom: 0.5rem;
         }
 
-        .bayes-model-elpd.highlight {
-            color: #0ea5e9;
-        }
-
-        .bayes-elpd {
-            background: #fff;
-            padding: 1rem;
-            border-radius: 12px;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
-        }
-
-        .bayes-elpd-title {
-            font-weight: 700;
-            color: #dc2626;
-            text-align: center;
-            margin-bottom: 0.75rem;
-        }
-
-        .bayes-plot-wrapper {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 1rem;
-        }
-
-        .bayes-plot-wrapper canvas {
-            width: 100%;
-            display: block;
-        }
-
-        .bayes-findings h5 {
-            color: #1e40af;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .bayes-findings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1rem;
-        }
-
-        .bayes-finding-card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 1rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .bayes-finding-rank {
-            font-size: 17.5px !important;
-            color: #3b82f6;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-
-        .bayes-finding-title {
-            font-weight: 700;
-            color: #1E293B;
-            margin-bottom: 0.75rem;
-            font-size: 1rem !important;
-        }
-
-        .bayes-finding-text {
-            color: #475569;
-            line-height: 1.6;
-            font-size: 1rem !important;
-        }
-
-        .bayes-policy {
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            padding: 1.5rem;
-            border-radius: 14px;
-            border-left: 6px solid #1e293b;
-        }
-
-        .bayes-policy-title {
-            color: #1e40af;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 1rem;
+        .stage-question {
             font-size: 1.2rem;
+            color: #7c3aed;
+            font-weight: 600;
         }
 
-        .bayes-policy-grid {
+        .stage-body {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .bayes-policy-card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 1rem;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
-            border-top: 5px solid #3b82f6;
+        .stage-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #0f172a;
         }
 
-        .bayes-policy-card:nth-child(2) {
-            border-top-color: #10b981;
+        .stage-project-card {
+            background: rgba(248, 250, 252, 0.9);
+            padding: 2rem;
+            border-radius: 16px;
+            transition: all 0.3s ease;
         }
 
-        .bayes-policy-card:nth-child(3) {
-            border-top-color: #f59e0b;
+        .stage-project-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(102,126,234,0.2);
         }
 
-        .bayes-policy-card h5 {
-            color: #3b82f6;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            font-size: 17.5px !important;
+        .stage-project-card h4 {
+            font-size: 1.3rem;
+            color: #0f172a;
+            margin-bottom: 1rem;
         }
-        .bayes-policy-card p {
-            font-size: 1rem !important;
-            line-height: 1.6;
+
+        .stage-project-card p {
+            font-size: 1rem;
             color: #475569;
-        }    
-        
-    </style>
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
 
+        .project-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            font-weight: 700;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .project-btn:hover {
+            background: #764ba2;
+            transform: translateX(5px);
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #667eea;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .brand:hover {
+            color: #764ba2;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: #0f172a;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: #eef2ff;
+            color: #667eea;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(15, 23, 42, 0.95);
+            color: #94a3b8;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #764ba2;
+        }
+        .story-section {
+            background: transparent;
+            padding: 6rem 2rem;
+        }
+
+        .story-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .story-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #1e293b;
+        }
+
+        .story-line {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            color: #334155;
+        }
+
+        .highlighted-question {
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .story-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .story-card.accent {
+            border-left: 4px solid #2563eb;
+        }
+
+        .hover-term {
+            position: relative;
+            color: #2563eb;
+            cursor: pointer;
+            border-bottom: 1px dashed #2563eb;
+        }
+
+        .hover-box {
+            position: absolute;
+            bottom: 130%;
+            left: 0;
+            background: #0f172a;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            width: 260px;
+        }
+
+        .hover-term:hover .hover-box {
+            opacity: 1;
+        }
+
+        .story-closing {
+            margin-top: 3rem;
+            font-size: 1.4rem;
+            color: #020617;
+        }
+
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .photo-frame {
+                margin: 0 auto;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .stage-body {
+                grid-template-columns: 1fr;
+            }
+
+            .pipeline-visual {
+                flex-direction: column;
+            }
+
+            .pipeline-arrow {
+                transform: rotate(90deg);
+            }
+            .pipeline {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            margin-top: 6rem;
+        }
+
+            .pipeline-stage {
+                display: grid;
+                grid-template-columns: 220px 1fr 380px;
+                gap: 2rem;
+                align-items: center;
+                position: relative;
+            }
+
+            .pipeline-stage::before {
+                content: "";
+                position: absolute;
+                left: 110px;
+                top: -60px;
+                bottom: -60px;
+                width: 2px;
+                background: linear-gradient(to bottom, transparent, #c7d2fe, transparent);
+            }
+
+            .pipeline-left h3 {
+                font-size: 1.6rem;
+                margin-bottom: .25rem;
+            }
+
+            .pipeline-question {
+                color: #2563eb;
+                font-size: 0.95rem;
+            }
+
+            .pipeline-icon {
+                font-size: 2.2rem;
+                margin-bottom: .5rem;
+            }
+
+            .pipeline-center {
+                font-size: 1.1rem;
+                color: #334155;
+            }
+
+            .pipeline-tools {
+                display: block;
+                margin-top: .75rem;
+                font-size: .85rem;
+                color: #64748b;
+            }
+
+            .pipeline-project {
+                background: white;
+                border-radius: 14px;
+                padding: 1.5rem;
+                box-shadow: 0 15px 40px rgba(0,0,0,.08);
+                transform: translateX(40px);
+                opacity: .8;
+                transition: all .4s ease;
+            }
+
+            .pipeline-stage:hover .pipeline-project {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="brand">My Tran</a>
+            <div class="nav-links">
+                <a href="/projects.html">Projects</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Photo -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-photo">
+                <div class="photo-frame">
+                    <img src="assets/profile.png" alt="My Tran" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+            </div>
+            <div class="hero-text">
+                <h1>Causal Inference in Environmental Policy</h1>
+                <div class="branding">Satellite Embeddings • Causal Inference • Policy Evaluation</div>
+                <p class="tagline">
+                    From space to counterfactuals: I bring satellite data into causal policy analysis to reveal the physical world behind policy outcomes.
+                </p>
+                <a href="#story" class="cta">Explore My Research →</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="story-section">
+        <div class="story-content">
+
+            <div class="problem-statement">
+                <p class="large-text">Most environmental policy studies stop at</p>
+                <h3 class="question-highlight">"Did it work there?"</h3>
+            </div>
+
+            <div class="my-approach">
+                <p class="intro-text">I ask a different question:</p>
+                <h3 class="my-question">"What physical and social conditions made it work, and where else do those conditions exist?"</h3>
+            </div>
+
+            <div class="insight-cards">
+                <div class="insight-card problem">
+                    <div class="card-icon">⚠️</div>
+                    <h4>The Problem</h4>
+                    <p>Policies fail when deployed in the wrong environments.</p>
+                </div>
+
+                <div class="insight-card gap">
+                    <div class="card-icon">📊</div>
+                    <h4>What Policy Sees</h4>
+                    <p>GDP, yields, prices, enrollment, emissions.</p>
+                </div>
+
+                <div class="insight-card solution">
+                    <div class="card-icon">🛰️</div>
+                    <h4>What Matters</h4>
+                    <p>Soil moisture, vegetation stress, heat, water flow.</p>
+                </div>
+            </div>
+
+            <div class="method-stack">
+                <p class="method-intro">My research uses three tools:</p>
+                
+                <div class="method-item">
+                    <div class="method-number">1</div>
+                    <div class="method-content">
+                        <h4>Satellites</h4>
+                        <p>Direct observation of land, climate, infrastructure, and human activity</p>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <div class="method-number">2</div>
+                    <div class="method-content">
+                        <h4>Causal Inference</h4>
+                        <p>Isolate what would have happened without the policy</p>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <div class="method-number">3</div>
+                    <div class="method-content">
+                        <h4>Bayesian Decision Theory</h4>
+                        <p>Choose policies under uncertainty across space</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Interactive Pipeline Introduction -->
+    <section class="pipeline-intro">
+        <h2>My Methodological Pipeline</h2>
+        <p>Not just "Did it work?" but "Where in the physical world will it work again?"</p>
+        <div class="pipeline-visual">
+            <div class="pipeline-step">🛰️ Measure</div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step">🔍 Infer</div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step">🗺️ Transfer</div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step">📊 Stakeholders</div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step">⚖️ Decide</div>
+        </div>
+    </section>
+
+    <!-- Stage Cards with Scroll Animation -->
+    <div class="stages-container">
+        
+        <!-- STAGE 1: MEASURE -->
+        <div class="stage-card" data-stage="measure">
+            <div class="stage-header">
+                <div class="stage-icon">🛰️</div>
+                <div class="stage-info">
+                    <h3>Measure</h3>
+                    <p class="stage-question">What is happening on the ground?</p>
+                </div>
+            </div>
+            <div class="stage-body">
+                <div class="stage-description">
+                    <p>Satellite remote sensing, computer vision, and geospatial data processing extract ground truth from high-dimensional imagery: damage maps, spectral signatures, temporal dynamics across complex landscapes.</p>
+                    <p><strong>Tools:</strong> Sentinel-2, SMAP, BRIGHT, TensorFlow, PyTorch, Vision Transformers, Google Earth Engine</p>
+                </div>
+                <div class="stage-project-card">
+                    <h4>Computer Vision & Remote Sensing</h4>
+                    <p>Feature extraction from satellite data to detect changes and classify land-use transitions. Foundation models (PrithVi, CLIP) create learned representations for ecological similarity.</p>
+                    <a href="/project-measure.html" class="project-btn">View Project →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 2: INFER -->
+        <div class="stage-card" data-stage="infer">
+            <div class="stage-header">
+                <div class="stage-icon">🔍</div>
+                <div class="stage-info">
+                    <h3>Infer</h3>
+                    <p class="stage-question">What changed because of the intervention?</p>
+                </div>
+            </div>
+            <div class="stage-body">
+                <div class="stage-description">
+                    <p>Causal inference via synthetic control, embedding-based matching, and pre-treatment balance diagnostics isolates treatment effects when randomization is impossible and confounding is latent and spatial.</p>
+                    <p><strong>Methods:</strong> Synthetic Control, PrithVi V2 embeddings, MODIS FIRMS, Spatial Statistics</p>
+                </div>
+                <div class="stage-project-card">
+                    <h4>Prescribed Burn Evaluation via Satellite-Based Synthetic Control</h4>
+                    <p>Embedding-informed donor selection improves causal inference. Embedding-matched controls reduce pre-treatment error by 49%, revealing that low-intensity prescribed fire reduces wildfire risk by 4.4%.</p>
+                    <a href="/project-infer.html" class="project-btn">View Project →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 3: TRANSFER -->
+        <div class="stage-card" data-stage="transfer">
+            <div class="stage-header">
+                <div class="stage-icon">🗺️</div>
+                <div class="stage-info">
+                    <h3>Transfer</h3>
+                    <p class="stage-question">Where else should this policy be applied?</p>
+                </div>
+            </div>
+            <div class="stage-body">
+                <div class="stage-description">
+                    <p>Policy transportability assessment combines biophysical suitability mapping, spatial heterogeneity analysis, and institutional feasibility to reveal where evidence-based interventions can credibly be scaled.</p>
+                    <p><strong>Framework:</strong> Water balance modeling, spatial statistics, institutional analysis</p>
+                </div>
+                <div class="stage-project-card">
+                    <h4>Spatial Policy Transportability: AWD in Japan</h4>
+                    <p>Vietnam's water-saving agricultural policy evaluated for Japan transfer. Water balance modeling reveals AWD is feasible in only 18% of Japan's paddies. Spatial fragmentation raises extension costs 3.8×.</p>
+                    <a href="/project-transfer.html" class="project-btn">View Project →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 4: MODEL -->
+        <div class="stage-card" data-stage="model">
+            <div class="stage-header">
+                <div class="stage-icon">📊</div>
+                <div class="stage-info">
+                    <h3>Stakeholders</h3>
+                    <p class="stage-question">How do different stakeholders respond to policy?</p>
+                </div>
+            </div>
+            <div class="stage-body">
+                <div class="stage-description">
+                    <p>Economic modeling of policy incidence, firm-level distributional effects, and general equilibrium dynamics reveals unintended consequences and identifies which stakeholders bear the true cost.</p>
+                    <p><strong>Tools:</strong> Firm-level econometrics, general equilibrium modeling, trade policy analysis</p>
+                </div>
+                <div class="stage-project-card">
+                    <h4>Trade Policy Incidence: Vietnam–China HRC Tariffs</h4>
+                    <p>Vietnam's 23–28% anti-dumping tariffs on Chinese steel. Firm-level analysis reveals inverted incidence: mills profit, manufacturers lose. 35% exemptions create institutional capture.</p>
+                    <a href="/project-model.html" class="project-btn">View Project →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 5: DECIDE -->
+        <div class="stage-card" data-stage="decide">
+            <div class="stage-header">
+                <div class="stage-icon">⚖️</div>
+                <div class="stage-info">
+                    <h3>Decide</h3>
+                    <p class="stage-question">Which policy should be chosen under uncertainty?</p>
+                </div>
+            </div>
+            <div class="stage-body">
+                <div class="stage-description">
+                    <p>Bayesian model comparison, posterior predictive checks, and PSIS-LOO validation select among competing policy mechanisms when data are limited and outliers violate normality assumptions.</p>
+                    <p><strong>Framework:</strong> PyMC, PSIS-LOO, Bayesian inference, heavy-tailed distributions</p>
+                </div>
+                <div class="stage-project-card">
+                    <h4>Bayesian Model Comparison: Argentina Fiscal Policy</h4>
+                    <p>Which model best predicts Argentina's government wage spending? Student-T cubic model wins decisively—200 million times more likely. Heavy tails capture outliers; cubic captures non-linear thresholds.</p>
+                    <a href="/project-decide.html" class="project-btn">View Project →</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p style="color: white">© 2025 My Tran | <a href="mailto:tran@uni.minerva.edu">Email</a> · <a href="https://github.com/MyTran-GitHub">GitHub</a> · <a href="https://www.linkedin.com/in/mee-tran-34530725b/">LinkedIn</a></p>
+    </footer>
+
+    <script src="shared.js"></script>
+    <script>
+        // Scroll-triggered animation for stage cards
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stage-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Smooth scroll for CTA button
+        document.querySelector('.cta').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('#story').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>
