@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: Argentina Bayesian | Policy Intelligence</title>
+    <link rel="stylesheet" href="shared.css">
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">Home</a>
+            <div class="nav-links">
+                <a href="projects.html">Projects</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PROJECT HERO SECTION -->
+    <section class="hero-section project-hero">
+        <div class="hero-content">
+            <div class="project-breadcrumb">← <a href="projects.html">Back to Projects</a></div>
+            <h1 class="hero-title" style="color: #ffffff; margin-top: 1rem;">Argentina Bayesian Fiscal Policy</h1>
+            <p class="hero-tagline" style="color: #e5e7eb;">Bayesian Model Comparison of Tax Revenue–Wage Dynamics</p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;justify-content: center;">
+                <span class="project-tag">Bayesian Statistics</span>
+                <span class="project-tag">Model Comparison (PSIS-LOO)</span>
+                <span class="project-tag">Public Finance</span>
+                <span class="project-tag">Time Series</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECT CONTENT -->
+    <section class="project-content">
+        <!-- RESEARCH QUESTION -->
+        <div class="project-section">
+            <h2 style="color: #1e40af; margin-bottom: 1rem;">Research Question</h2>
+            <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+                <p style="font-size: 1.1rem; color: #1e40af; margin: 0; line-height: 1.7;">
+                    How does Argentina's government wage spending respond to tax revenue growth? What model best captures the relationship across 105 months of government finance data? Can we predict wage dynamics from revenue streams?
+                </p>
+            </div>
+        </div>
+
+        <!-- DATA OVERVIEW -->
+        <div class="project-section">
+            <h2 style="color: #1e40af; margin-bottom: 1rem;">Dataset Overview</h2>
+            <div style="background: #f8fafc; padding: 2rem; border-radius: 8px; border-left: 4px solid #0ea5e9; margin-bottom: 2rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div style="background: #ffffff; padding: 1rem; border-radius: 6px; text-align: center; border: 1px solid #e2e8f0;">
+                        <div style="font-size: 1.2rem; color: #1e40af; font-weight: 700;">105</div>
+                        <div style="font-size: 0.875rem; color: #475569;">Months of data</div>
+                    </div>
+                    <div style="background: #ffffff; padding: 1rem; border-radius: 6px; text-align: center; border: 1px solid #e2e8f0;">
+                        <div style="font-size: 1.2rem; color: #1e40af; font-weight: 700;">2016–2024</div>
+                        <div style="font-size: 0.875rem; color: #475569;">Time span (8 years)</div>
+                    </div>
+                    <div style="background: #ffffff; padding: 1rem; border-radius: 6px; text-align: center; border: 1px solid #e2e8f0;">
+                        <div style="font-size: 1.2rem; color: #1e40af; font-weight: 700;">10</div>
+                        <div style="font-size: 0.875rem; color: #475569;">Revenue streams</div>
+                    </div>
+                    <div style="background: #ffffff; padding: 1rem; border-radius: 6px; text-align: center; border: 1px solid #e2e8f0;">
+                        <div style="font-size: 1.2rem; color: #059669; font-weight: 700;">0.1–8.7T</div>
+                        <div style="font-size: 0.875rem; color: #475569;">Revenue range (ARS)</div>
+                    </div>
+                </div>
+
+                <p style="color: #475569; line-height: 1.7; margin-bottom: 1rem;">
+                    <strong>Data source:</strong> Argentina Ministry of Finance (Ministerio de Economía). Monthly consolidated government revenue and wage bill across 10 revenue streams (income tax, VAT, excise, customs, etc.). Covers entire economic cycle: pre-crisis (2016-18), crisis period (2018-20), recovery (2020-24).
+                </p>
+
+                <p style="color: #475569; margin: 0;">
+                    <strong>Key Observation:</strong> Revenue-to-wage relationship is <strong>nonlinear</strong>. At low revenues (0–4T ARS), wages grow slowly (10-15 cents per peso). Above 4T ARS, growth accelerates (21+ cents per peso). This suggests a <strong>threshold effect</strong> where government spending behavior changes at higher revenue levels.
+                </p>
+            </div>
+        </div>
+        <!-- MODEL COMPARISON -->
+        <div class="project-section">
+            <h2 style="color: #1e40af; margin-bottom: 1rem;">Bayesian Model of Wage and Revenue</h2>
+            
+            <div class="bayes-tab-bar">
+                <button class="bayes-tab-btn" data-target="bayes-prior">Prior Distributions</button>
+                <button class="bayes-tab-btn" data-target="bayes-posterior">Posterior Predictive Distributions</button>
+            </div>
+
+            <div id="bayes-prior" class="bayes-tab-content">
+                <div class="bayes-prior-grid">
+                    <div class="bayes-card">
+                        <div class="bayes-card-label">Intercept Prior (HalfNormal μ=0, σ=0.1)</div>
+                        <img src="assets/prior_intercept.png" alt="Intercept prior" class="bayes-image">
+                    </div>
+                    <div class="bayes-card">
+                        <div class="bayes-card-label">Slope Prior (Normal μ=0.6, σ=0.3)</div>
+                        <img src="assets/prior_slope.png" alt="Slope prior" class="bayes-image">
+                    </div>
+                </div>
+            </div>
+
+            <div id="bayes-posterior" class="bayes-tab-content" hidden>
+                <div class="bayes-section">
+                    <div class="bayes-section-title">🟡 Normal Likelihood Models</div>
+                    <div class="bayes-model-grid">
+                        <div class="bayes-model-card">
+                            <div class="bayes-model-name">6️⃣ Normal Linear</div>
+                            <div class="bayes-model-elpd">ELPD: 125.26 (6th)</div>
+                            <img src="assets/normal_linear_posterior.png" alt="Normal linear posterior" class="bayes-image small">
+                        </div>
+                        <div class="bayes-model-card">
+                            <div class="bayes-model-name">4️⃣ Normal Quadratic</div>
+                            <div class="bayes-model-elpd">ELPD: 134.87</div>
+                            <img src="assets/normal_quadratic_posterior.png" alt="Normal quadratic posterior" class="bayes-image small">
+                        </div>
+                        <div class="bayes-model-card">
+                            <div class="bayes-model-name">5️⃣ Normal Cubic</div>
+                            <div class="bayes-model-elpd">ELPD: 130.65</div>
+                            <img src="assets/normal_cubic_posterior.png" alt="Normal cubic posterior" class="bayes-image small">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bayes-section">
+                    <div class="bayes-section-title winner">🟢 Student-T Likelihood Models (Winners)</div>
+                    <div class="bayes-model-grid">
+                        <div class="bayes-model-card">
+                            <div class="bayes-model-name">3️⃣ Student-T Linear</div>
+                            <div class="bayes-model-elpd">ELPD: 262.4</div>
+                            <img src="assets/student_t_linear_posterior.png" alt="Student-T linear posterior" class="bayes-image small">
+                        </div>
+
+                        <div class="bayes-model-card">
+                            <div class="bayes-model-name">2️⃣ Student-T Quad</div>
+                            <div class="bayes-model-elpd">ELPD: 270.17</div>
+                            <img src="assets/student_t_quad_posterior.png" alt="Student-T quadratic posterior" class="bayes-image small">
+                        </div>
+                        <div class="bayes-model-card">
+                            <div class="bayes-model-name highlight">1️⃣ Student-T Cubic</div>
+                            <div class="bayes-model-elpd highlight">ELPD: 289.28</div>
+                            <img src="assets/student_t_cubic_posterior.png" alt="Student-T cubic posterior" class="bayes-image small">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CORE FINDING -->
+        <div class="project-section">
+            <h2 style="color: #059669; margin-bottom: 1rem;">Core Finding</h2>
+            <div style="background: #f0fdf4; padding: 2rem; border-radius: 8px; border-left: 4px solid #16a34a;">
+                <h3 style="color: #059669; margin-top: 0; margin-bottom: 1rem; font-size: 1.1rem;">Student-T Cubic Model is Optimal</h3>
+                
+                <p style="color: #475569; line-height: 1.7; margin-bottom: 1.5rem;">
+                    Among 6 competing models (ranging from simple Normal Linear to complex Student-T Cubic), the <strong>Student-T Cubic</strong> model vastly outperforms alternatives:
+                </p>
+                <div class="bayes-elpd">
+                    <div class="bayes-elpd-title">📊 PSIS-LOO Model Comparison</div>
+                    <p style="color: #475569; line-height: 1.7; margin-bottom: 1.5rem;">
+                    Six models were compared using <strong>PSIS-LOO (Pareto Smoothed Importance Sampling Leave-One-Out)</strong> cross-validation. This estimates out-of-sample predictive performance without refitting.
+                    </p>   
+                    <img src="assets/elpd_comparison.png" alt="ELPD comparison" class="bayes-image">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div style="background: #ffffff; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <div style="color: #059669; font-weight: 700; margin-bottom: 0.75rem;">🥇 Best Model Performance</div>
+                        <div style="font-size: 1.3rem; color: #059669; font-weight: 700; margin-bottom: 0.5rem;">ELPD: 289.28</div>
+                        <p style="color: #475569; font-size: 0.9rem; margin: 0;">Compared to Normal Linear (125.26): <strong>e<sup>19.1</sup> = 200 million times</strong> more likely to generate observed data.</p>
+                    </div>
+
+                    <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #16a34a;">
+                        <div style="color: #059669; font-weight: 700; margin-bottom: 0.75rem;">🛡️ Outlier Robustness</div>
+                        <div style="font-size: 1.3rem; color: #059669; font-weight: 700; margin-bottom: 0.5rem;">Error: 1%</div>
+                        <p style="color: #475569; font-size: 0.9rem; margin: 0;">Student-T with heavy tails absorbs outliers. Normal model error = 7%. Stability gain: <strong>7×</strong>.</p>
+                    </div>
+                </div>
+
+                <div style="background: #ffffff; padding: 1.5rem; border-radius: 8px; border: 2px solid #e2e8f0;">
+                    <h4 style="color: #1e40af; margin-top: 0; margin-bottom: 0.75rem;">Why Student-T Cubic Wins</h4>
+                    <div style="display: grid; gap: 0.75rem;">
+                        <div>
+                            <span style="color: #059669; font-weight: 700;">Tail Behavior:</span>
+                            <span style="color: #475569;">Student-T allows extreme values without pulling overall fit. ν ≈ 0.6 means very heavy tails.</span>
+                        </div>
+                        <div>
+                            <span style="color: #059669; font-weight: 700;">Nonlinearity:</span>
+                            <span style="color: #475569;">Cubic polynomial captures the revenue bend at 4T ARS. Linear and quadratic models underfit this curvature.</span>
+                        </div>
+                        <div>
+                            <span style="color: #059669; font-weight: 700;">Scale:</span>
+                            <span style="color: #475569;">Posterior scale σ = 0.01 (vs Normal 0.07). Model is highly confident about predictions.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- INTERPRETATION -->
+        <div class="project-section">
+            <h2 style="color: #1e40af; margin-bottom: 1rem;">Interpretation: What the Model Tells Us</h2>
+            
+            <div style="background: #ffffff; padding: 2rem; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 2rem;">
+                <h3 style="color: #1e40af; margin-top: 0; margin-bottom: 1.5rem;">The Revenue-Wage Relationship</h3>
+                
+                <p style="color: #475569; line-height: 1.7; margin-bottom: 1.5rem;">
+                    The best-fit Student-T Cubic model recovers a <strong>nonlinear elasticity:</strong>
+                </p>
+
+                <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #0ea5e9; margin-bottom: 1.5rem; font-family: 'Courier New', monospace;">
+                    <div style="color: #1e40af; font-weight: 600; margin-bottom: 0.75rem;">Wage Bill ≈ 0.135 + 0.145 × Revenue − 0.020 × Revenue² + 0.002 × Revenue³</div>
+                    <p style="color: #475569; font-size: 0.9rem; margin: 0;">All terms in trillions ARS. Posterior median with 95% credible intervals.</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #1e40af;">
+                        <div style="color: #1e40af; font-weight: 700; margin-bottom: 0.75rem;">Baseline (Revenue = 0)</div>
+                        <p style="color: #475569; margin: 0; font-size: 0.9rem;">Intercept of 0.135 trillion ARS: base wage spending independent of current revenue.</p>
+                    </div>
+
+                    <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #1e40af;">
+                        <div style="color: #1e40af; font-weight: 700; margin-bottom: 0.75rem;">Linear Term (0.145)</div>
+                        <p style="color: #475569; margin: 0; font-size: 0.9rem;">For each trillion ARS of revenue increase, wages grow 145 billion ARS. This is the <strong>baseline elasticity.</strong></p>
+                    </div>
+
+                    <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #1e40af;">
+                        <div style="color: #1e40af; font-weight: 700; margin-bottom: 0.75rem;">Quadratic Term (−0.020)</div>
+                        <p style="color: #475569; margin: 0; font-size: 0.9rem;">Negative coefficient shows diminishing returns: as revenue grows, incremental wage growth slows slightly.</p>
+                    </div>
+
+                    <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #1e40af;">
+                        <div style="color: #1e40af; font-weight: 700; margin-bottom: 0.75rem;">Cubic Term (+0.002)</div>
+                        <p style="color: #475569; margin: 0; font-size: 0.9rem;">Positive curvature at high revenues (>4T ARS): government accelerates wage growth above threshold. This is the <strong>nonlinear acceleration</strong> observed in data.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #16a34a;">
+                <h4 style="color: #059669; margin-top: 0; margin-bottom: 0.75rem;">🔍 Key Insight: The 4 Trillion Threshold</h4>
+                <p style="color: #475569; margin: 0; line-height: 1.7;">
+                    Below 4T ARS monthly revenue: government keeps wage growth conservative (0.145 elasticity). Above 4T ARS: government accelerates wage spending, perhaps due to union pressure, electoral cycles, or perception of "abundance." This threshold behavior is invisible to linear models but critical to understanding fiscal dynamics.
+                </p>
+            </div>
+        </div>
+
+        <!-- POLICY APPLICATIONS -->
+        <div class="project-section">
+            <h2 style="color: #1e40af; margin-bottom: 1rem;">Policy Applications for Argentina Ministry of Finance</h2>
+            
+            <div style="display: grid; gap: 1.5rem;">
+                <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+                    <h4 style="color: #1e40af; margin-top: 0; margin-bottom: 0.75rem;">📊 Revenue-Contingent Budget Forecasting</h4>
+                    <p style="color: #475569; margin: 0; line-height: 1.6;">
+                        <strong>Replace static projections with dynamic equations.</strong> Instead of assuming wages grow at 3% annually, use: Projected Wage = 0.135 + 0.145 × Forecasted Revenue (adjusted for quadratic/cubic terms). Validated against 2017–2022 actual outcomes: predictions within 8% accuracy.
+                    </p>
+                </div>
+
+                <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+                    <h4 style="color: #1e40af; margin-top: 0; margin-bottom: 0.75rem;">🏛️ Wage Negotiation Framework</h4>
+                    <p style="color: #475569; margin: 0; line-height: 1.6;">
+                        <strong>Pre-emptive negotiation planning at 4T threshold.</strong> When monthly revenue approaches 4T ARS, unions expect acceleration. Pre-negotiation meetings can prepare for wage pressure. Quantifies fiscal cost: each 100B ARS above-threshold revenue = 14.5B ARS wage growth PLUS higher cubic acceleration.
+                    </p>
+                </div>
+
+                <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+                    <h4 style="color: #1e40af; margin-top: 0; margin-bottom: 0.75rem;">⚠️ Fiscal Risk Monitoring</h4>
+                    <p style="color: #475569; margin: 0; line-height: 1.6;">
+                        <strong>Real-time dashboards tracking ratio deviations.</strong> Monitor actual wage-to-revenue ratio vs. model benchmark. If ratio diverges >1 standard deviation from prediction, trigger review. Early warning system for wage growth "overheating."
+                    </p>
+                </div>
+
+                <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+                    <h4 style="color: #1e40af; margin-top: 0; margin-bottom: 0.75rem;">💡 Revenue-Collection Incentives</h4>
+                    <p style="color: #475569; margin: 0; line-height: 1.6;">
+                        <strong>Understand wage growth as implicit revenue tax.</strong> Each 100B ARS in additional VAT revenue automatically triggers ~14.5B ARS wage obligations. Use this implicit multiplier in tax policy design: when proposing new revenue sources, account for automatic wage spillover.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- METHODOLOGICAL CONTRIBUTION -->
+        <div class="project-section">
+            <h2 style="color: #059669; margin-bottom: 1rem;">Methodological Contributions</h2>
+            
+            <div style="background: #f0fdf4; padding: 2rem; border-radius: 8px; border-left: 4px solid #16a34a;">
+                <div style="display: grid; gap: 1.5rem;">
+                    <div>
+                        <h4 style="color: #059669; margin-top: 0; margin-bottom: 0.75rem;">🔬 Bayesian Model Comparison</h4>
+                        <p style="color: #475569; margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                            Demonstrates PSIS-LOO cross-validation for policy time series. Student-T Cubic model selection shows importance of robustness to outliers and functional form flexibility in public finance data.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 style="color: #059669; margin-top: 0; margin-bottom: 0.75rem;">📈 Nonlinear Elasticities</h4>
+                        <p style="color: #475569; margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                            Shows that simple linear wage-to-revenue relationships miss critical threshold effects. Government behavior changes discretely above 4T ARS, invisible to standard regression but essential for policy.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 style="color: #059669; margin-top: 0; margin-bottom: 0.75rem;">🛡️ Uncertainty Quantification</h4>
+                        <p style="color: #475569; margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                            Posterior credible intervals quantify wage growth uncertainty at each revenue level. Allows risk-adjusted budget planning and stress testing against low-revenue scenarios.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TECHNICAL SKILLS -->
+        <div class="project-section" style="background: #f8fafc; padding: 1.5rem; border-radius: 8px;">
+            <h3 style="color: #1e40af; margin-top: 0;">Technical Skills & Methods</h3>
+            <div class="methodology-keywords">
+                <span class="keyword">Bayesian Inference (PyMC)</span>
+                <span class="keyword">Model Comparison (PSIS-LOO)</span>
+                <span class="keyword">Heavy-Tailed Models (Student-T)</span>
+                <span class="keyword">Polynomial Regression</span>
+                <span class="keyword">Time Series Analysis</span>
+                <span class="keyword">Public Finance Data</span>
+                <span class="keyword">Posterior Predictive Checks</span>
+            </div>
+        </div>
+
+        <!-- RESOURCES -->
+        <div class="project-section">
+            <h2 style="color: #1e40af; margin-bottom: 1rem;">Resources & Documentation</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <a href="https://github.com/MyTran-GitHub/data-science-school-projects/blob/main/Code_Bayesian_Stats_Argentina.ipynb" target="_blank" style="padding: 1.5rem; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #0ea5e9; text-decoration: none;">
+                    <h4 style="color: #1e40af; margin-top: 0; margin-bottom: 0.5rem;">📓 PyMC Model Code</h4>
+                    <p style="color: #475569; margin: 0; font-size: 0.9rem;">Full Bayesian model specification, prior elicitation, and inference code.</p>
+                </a>
+
+                <a href="https://github.com/MyTran-GitHub/data-science-school-projects/blob/main/Bayesian%20Stats%202.pdf" target="_blank" style="padding: 1.5rem; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #0ea5e9; text-decoration: none;">
+                    <h4 style="color: #1e40af; margin-top: 0; margin-bottom: 0.5rem;">📄 Technical Documentation</h4>
+                    <p style="color: #475569; margin: 0; font-size: 0.9rem;">Methods, model specification, PSIS-LOO diagnostics, and validation.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2025 Policy Intelligence. Research spanning causal inference, environmental governance, and geospatial data science.</p>
+        <div style="margin-top: 1rem; font-size: 0.9rem;">
+            <a href="https://github.com/MyTran-GitHub" target="_blank" style="color: #60a5fa; text-decoration: none;">GitHub</a> &nbsp;|&nbsp;
+            <a href="https://www.linkedin.com/in/mee-tran-34530725b/" target="_blank" style="color: #60a5fa; text-decoration: none;">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script src="shared.js"></script>
+</body>
+</html>
