@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: AWD in Japan | Policy Intelligence</title>
+    <link rel="stylesheet" href="shared.css">
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">Home</a>
+            <div class="nav-links">
+                <a href="projects.html">Projects</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PROJECT HERO SECTION -->
+    <section class="hero-section project-hero">
+        <div class="hero-content">
+            <div class="project-breadcrumb">← <a href="projects.html">Back to Projects</a></div>
+            <h1 class="hero-title" style="color: #ffffff; margin-top: 1rem;">AWD Policy Transportability</h1>
+            <p class="hero-tagline" style="color: #e5e7eb;">Spatial Feasibility Analysis of Vietnam's Water-Saving Agricultural Policy in Japan</p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;justify-content: center;">
+                <span class="project-tag">Policy Transportability</span>
+                <span class="project-tag">Geospatial Analysis</span>
+                <span class="project-tag">Water Balance Modeling</span>
+                <span class="project-tag">Institutional Feasibility</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECT CONTENT -->
+    <section class="project-content">
+        <!-- RESEARCH QUESTION -->
+        <div class="project-section">
+            <h2 style="color: #1e40af; margin-bottom: 1rem;">Research Question</h2>
+            <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+                <p style="font-size: 1.1rem; color: #1e40af; margin: 0; line-height: 1.7;">
+                    Vietnam's Alternative Wet Drying (AWD) is an effective water-saving irrigation practice. Can this policy be transported to Japan? What biophysical and institutional constraints determine feasibility?
+                </p>
+            </div>
+        </div>
+
+        <!-- CORE PROBLEM -->
+        <div class="project-section">
+            <h2 style="color: #059669; margin-bottom: 1rem;">Core Problem</h2>
+            <div style="background: #f0fdf4; padding: 2rem; border-radius: 8px; border-left: 4px solid #16a34a;">
+                <p style="color: #475569; line-height: 1.7; margin-bottom: 1.5rem;">
+                    AWD is a water-saving practice that allows rice paddies to periodically dry between growing stages, reducing irrigation water demand while maintaining yields. It works well in Vietnam due to humid monsoons and established farmer networks. However, traditional water balance models does not account for biophysical constraints. When we add biophysical constraints (slope, soil drainage, pH), suitable area drops from 62% to 18%.
+                </p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: #ffffff; padding: 1.5rem; border-radius: 6px; margin-bottom: 1.5rem;">
+                    <div>
+                        <div style="color: #dc2626; font-weight: 700; margin-bottom: 0.5rem;">❌ Traditional Water Balance Approach</div>
+                        <div style="font-size: 1.3rem; color: #dc2626; font-weight: 700; margin-bottom: 0.5rem;">62% of Japan</div>
+                        <p style="font-size: 0.875rem; color: #475569; margin: 0;">classified as suitable</p>
+                    </div>
+                    <div>
+                        <div style="color: #059669; font-weight: 700; margin-bottom: 0.5rem;">✅ With Biophysical Constraints</div>
+                        <div style="font-size: 1.3rem; color: #059669; font-weight: 700; margin-bottom: 0.5rem;">18% of Japan</div>
+                        <div style="font-size: 1.1rem; color: #dc2626; font-weight: 700;">3.4× Overestimation</div>
+                    </div>
+                </div>
+
+                <p style="color: #475569; margin: 0; font-size: 0.95rem;">
+                    
+            </div>
+        </div>
+
+        <!-- WATER BALANCE MODEL -->
+        <div class="project-section">
+            <h2 style="color: #0c96ec; margin-bottom: 1rem;">Address Critical Gap in Water Balance Model</h2>
+            <div style="background: #f8fafc; padding: 2rem; border-radius: 8px;">
+                <p style="color: #475569; margin-bottom: 1.5rem; line-height: 1.7;">
+                    AWD suitability depends on whether water deficits occur <strong>frequently enough</strong> to allow safe drying cycles without crop stress. The water balance equation is:
+                </p>
+                
+                <div style="background: #ffffff; padding: 1.5rem; border-radius: 6px; text-align: center; margin-bottom: 2rem; border: 2px solid #e2e8f0;">
+                    <div style="font-family: 'Courier New', monospace; font-size: 1rem; color: #0f172a; font-weight: 600;">
+                        Water Deficit = Precipitation − (Evapotranspiration + Percolation)
+                    </div>
+                </div>
+
+                <p style="color: #475569; margin-bottom: 1.5rem; line-height: 1.7;">
+                    <strong>The overestimation problem:</strong> The Nelson–Sander model counts dekads (10-day periods) with precipitation deficit, treating all deficits equally. A −5 mm deficit counts the same as a −150 mm deficit, which is not realistic since major precipitation deficits push fields past critical soil-moisture thresholds, flipping them from AWD-suitable into extreme AWD conditions where crop stress and yield loss occur. This leads to inflated suitability estimates that misguide policy decisions.
+                </p>
+
+                <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #0ea5e9;">
+                    <div style="color: #1e40af; font-weight: 700; margin-bottom: 0.75rem;">💡 The Solution</div>
+                    <p style="color: #475569; margin: 0;">Rather than counting dekads with any level of precipitation deficit, we implement a <strong>threshold-based approach</strong>. Areas are suitable only when water deficits does not exceed the safe threshold (<strong>−50 mm</strong>) that doesn't trigger stress-free drying cycles.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: WATER DEFICIT THRESHOLD SENSITIVITY -->
+        <div class="project-section">
+            <div class="slider-container" style="margin: 2rem 0; background: #f1f5f9; padding: 1.5rem; border-radius: 6px;">
+                <label style="font-weight: 600; color: #1e40af; display: block; margin-bottom: 1rem;">
+                    Water Deficit Threshold: Slide to explore suitability across precipitation regimes
+                </label>
+                <p style="font-size: 0.875rem; color: #475569; margin-bottom: 1rem;">
+                    Drag to set maximum allowable water deficit. Stricter thresholds classify fewer areas as suitable but reduce crop failure risk.
+                </p>
+                <input type="range" id="awd-deficit-threshold" min="0" max="6" value="1" step="1" onchange="updateDeficitThreshold(this.value)" style="width: 100%; cursor: pointer;">
+                <div class="slider-value" style="margin-top: 0.75rem; font-weight: 500;">
+                    Threshold: <span id="deficit-threshold-value">−50</span> mm | 
+                    Suitable Area: <span id="suitable-area-pct">32</span>% | 
+                    Dekads with deficit: <span id="deficit-dekads">48</span>%
+                </div>
+
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <span id="awd-threshold-label" style="font-weight: 600; color: #1e40af; display: block; margin-bottom: 0.75rem; font-size: 1.1rem;">−50 mm Threshold</span>
+                    <img id="awd-threshold-image" src="assets/awd-thresh-50.png" alt="AWD Suitability Map" style="width: 50%; max-width: 520px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem; display: inline-block;">
+                    <p style="color: #475569; font-size: 1rem;">
+                        <strong>💡 Choose -50mm as threshold for final composite map: </strong> This threshold best aligns with the biophysical suitability layer, providing an optimal balance between capturing suitable areas and minimizing yield risk.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- COMPOSITE SUITABILITY MAP -->
+        <div class="project-section">
+            <h2 style="color: #16a34a; margin-bottom: 1rem;">Spatial Transportability: Why Vietnam Success ≠ Japan Success</h2>
+            <div style="background: #ffffff; padding: 2rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <p style="color: #475569; line-height: 1.7; margin-bottom: 1.5rem;">
+                    The final AWD suitability map integrates both water balance and biophysical factors. Only areas that are BOTH water-deficit AND biophysically favorable are classified as suitable.
+                </p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                    <div style="text-align: center;">
+                        <div style="font-weight: 700; color: #16a34a; margin-bottom: 1rem;">Vietnam Baseline</div>
+                        <img src="assets/VN_suitability.jpg" alt="Vietnam AWD Suitability Map" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.875rem;">
+                            <div>
+                                <div style="color: #059669; font-weight: 700;">45%</div>
+                                <div style="color: #475569;">biophysically suitable</div>
+                            </div>
+                            <div>
+                                <div style="color: #059669; font-weight: 700;">Contiguous</div>
+                                <div style="color: #475569;">geography</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <div style="font-weight: 700; color: #16a34a; margin-bottom: 1rem;">Japan Transfer Scenario</div>
+                        <img src="assets/Japan_suitability.png" alt="Japan AWD Suitability Map" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.875rem;">
+                            <div>
+                                <div style="color: #059669; font-weight: 700;">18%</div>
+                                <div style="color: #475569;">biophysically suitable</div>
+                            </div>
+                            <div>
+                                <div style="color: #dc2626; font-weight: 700;">3.8× Fragmented</div>
+                                <div style="color: #475569;">geography</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #16a34a;">
+                    <p style="color: #475569; margin: 0; line-height: 1.7;">
+                        <strong>Suitability Reduction:</strong> Japan's biophysical constraints (terrain, soil properties, latitude-driven climate) limit suitable area to 18% compared to Vietnam's 45%. Additionally, suitable paddies are far more dispersed, making coordinated extension and farmer networks harder to implement—a critical institutional feasibility issue.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- SECTION 8: INSTITUTIONAL FEASIBILITY (MAP-DRIVEN) -->
+        <div class="project-section">
+            <div style="margin-bottom: 0.5rem; color: #64748b; font-size: 0.875rem; font-weight: 500;">👆 Click tabs to explore different analyses:</div>
+            <div class="tab-container" style="margin: 2rem 0;">
+                <button class="tab-btn active" onclick="switchTab('biophysical-tab', this);" style="font-size: 0.9rem;">Spatial Heterogeneity</button>
+                <button class="tab-btn" onclick="switchTab('institutional-tab', this);" style="font-size: 0.9rem;">Institutional Feasibility</button>
+                <button class="tab-btn" onclick="switchTab('deployment-tab', this);" style="font-size: 0.9rem;">Deployment Strategy</button>
+            </div>
+
+            <div id="biophysical-tab" class="tab-content" style="display: block;">
+                <h4 style="color: #1e40af; margin: 1rem 0;">Spatial Distribution of Constraints</h4>
+                <p style="color: #475569; margin-bottom: 1rem;">
+                    Biophysical suitability is not uniform. Kanto and Tohoku plains (flat, clay-rich soils, moderate moisture) are highly suitable. Southwestern regions (high percolation, poor drainage) and elevated areas (rapid drying, moisture stress) are poorly suited.
+                </p>
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-label">Kanto Plain</div>
+                        <div class="stat-value" style="font-size: 1.2rem; color: #16a34a;">High</div>
+                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">Clay soils, flat, good drainage</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Tohoku</div>
+                        <div class="stat-value" style="font-size: 1.2rem; color: #eab308;">Moderate</div>
+                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">Mixed soils, moderate slope</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Kyushu/Shikoku</div>
+                        <div class="stat-value" style="font-size: 1.2rem; color: #dc2626;">Low</div>
+                        <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">High percolation, poor drainage</div>
+                    </div>
+                </div>
+                <p style="color: #475569; margin-top: 1rem; font-size: 0.9rem;">
+                    <strong>Implication:</strong> Unlike Vietnam's uniform delta, Japan's rice system spans distinct agroecological zones. Extension strategy cannot be one-size-fits-all. High-suitability zones (Kanto, parts of Tohoku) are good targets; scattered suitable paddies in unfavorable regions should be deprioritized.
+                </p>
+            </div>
+
+            <div id="institutional-tab" class="tab-content">
+                <h4 style="color: #1e40af; margin: 1rem 0;">Institutional Barriers: Conditional on Spatial Feasibility</h4>
+                <p style="color: #475569; margin-bottom: 1rem;">
+                    Policy transportability fails not because of biophysical impossibility, but because institutional capacity is mismatched to geography. The barriers differ by region:
+                </p>
+                <div style="background: white; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #1e40af; margin-bottom: 1.5rem;">
+                    <h5 style="color: #0f172a; margin-bottom: 0.75rem;font-size: 1rem;">In Clustered High-Suitability Zones (Kanto, N. Tohoku)</h5>
+                    <ul style="margin-left: 1.5rem; color: #475569; line-height: 1.8; font-size: 0.9rem;">
+                        <li><strong>Extension Service Gap:</strong> Japan's prefectural extension system has expertise in soil management but no AWD training. Vietnam's IRRI-led programs trained 10,000+ farmers over 15 years. <em>Cost to address:</em> 2–3 year training program, pilot farms</li>
+                        <li><strong>Farm Structure Advantage:</strong> Kanto region has larger, mechanized operations (avg. 5–10 ha) vs. Filipino/Vietnamese smallholders (0.5–1 ha). <em>Benefit:</em> Technology adoption faster in larger farms</li>
+                        <li><strong>Water Coordination:</strong> Established irrigation districts with canal networks. <em>Leverage point:</em> Existing governance can manage shared water reduction</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #dc2626; margin-bottom: 1.5rem;">
+                    <h5 style="color: #0f172a; margin-bottom: 0.75rem;font-size: 1rem;">In Fragmented Low-Suitability Zones (Southwest, Hills)</h5>
+                    <ul style="margin-left: 1.5rem; color: #475569; line-height: 1.8; font-size: 0.9rem;">
+                        <li><strong>Information Asymmetry (High):</strong> Farmers skeptical of unproven water-saving claims when local neighbors do not adopt. Lack of "proof sites" in low-suitability regions. <em>Cost to address:</em> High—requires managed pilot failures</li>
+                        <li><strong>Risk Concentration:</strong> Isolated suitable paddies surrounded by unsuitable land. Water coordination across mixed systems is complex. <em>Implication:</em> Early adopters face yield risk without peer support</li>
+                        <li><strong>Subsidy Misalignment:</strong> Japanese agricultural subsidies favor rice production volume, not resource efficiency. No incentive to reduce water use. <em>Implication:</em> Policy requires new subsidy design, NOT extension alone</li>
+                    </ul>
+                </div>
+
+                <p style="color: #475569; margin-top: 1rem; font-size: 1.1rem; background: #f8fafc; padding: 1rem; border-radius: 6px;">
+                    <strong>Critical insight:</strong> Institutional barriers are not uniform. High-suitability zones are institutionally feasible with training + pilot programs. Low-suitability zones require structural policy change (subsidies, risk insurance) that extension alone cannot solve. <strong>Forcing AWD in fragmented, unsuitable regions wastes resources and erodes farmer trust.</strong>
+                </p>
+            </div>
+
+            <div id="deployment-tab" class="tab-content">
+                <h4 style="color: #1e40af; margin: 1rem 0;">Evidence-Based Deployment Strategy</h4>
+                <p style="color: #475569; margin-bottom: 1.5rem;">
+                    Transportability assessment: AWD is technically feasible in 18% of Japan's paddies, concentrated in Kanto and Tohoku. However, success requires strategic sequencing and institutional alignment.
+                </p>
+
+                <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #16a34a; margin-bottom: 1.5rem;">
+                    <h5 style="color: #166534; margin-bottom: 0.75rem;font-size: 1rem;">✓ Phase 1: High-Priority Zones (3–5 years)</h5>
+                    <p style="color: #475569; font-size: 0.9rem; margin-bottom: 0.75rem;">
+                        <strong>Target:</strong> Kanto Plain + northern Tohoku (≈6% of national rice area)
+                    </p>
+                    <ul style="margin-left: 1.5rem; color: #475569; line-height: 1.7; font-size: 0.9rem;">
+                        <li>Establish IRRI-style training centers in 2–3 prefectures</li>
+                        <li>Create 50–100 demonstration farms (4–5 ha each)</li>
+                        <li>Develop prefectural extension curriculum for irrigation management</li>
+                        <li>Negotiate with irrigation districts for water accounting systems</li>
+                        <li><strong>Expected GHG mitigation:</strong> 15–20% CH₄ reduction from target paddies</li>
+                    </ul>
+                </div>
+
+                <div style="background: #fef2f2; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #dc2626; margin-bottom: 1.5rem;">
+                    <h5 style="color: #dc2626; margin-bottom: 0.75rem;font-size: 1rem;">✗ Phase 2: Fragmented Zones (deprioritize)</h5>
+                    <p style="color: #475569; font-size: 0.9rem; margin-bottom: 0.75rem;">
+                        <strong>Regions:</strong> Southwest (Kyushu, Shikoku), scattered upland areas (≈12% of national rice area)
+                    </p>
+                    <ul style="margin-left: 1.5rem; color: #475569; line-height: 1.7; font-size: 0.9rem;">
+                        <li>AWD physically infeasible due to high rainfall or poor drainage</li>
+                        <li>Spatial fragmentation makes extension cost-prohibitive</li>
+                        <li><strong>Alternative strategy:</strong> Invest in alternative mitigation (midseason drainage, organic amendments, alternative crops)</li>
+                        <li><strong>Why not force it:</strong> Yield losses + farmer defection + damaged credibility for Phase 1</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #2563eb;">
+                    <h5 style="color: #1e40af; margin-bottom: 0.75rem;font-size: 1rem;">Expected Outcomes</h5>
+                    <table style="width: 100%; font-size: 0.9rem; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 0.5rem; color: #475569;"><strong>Metric</strong></td>
+                            <td style="padding: 0.5rem; color: #475569;"><strong>Phase 1 Impact</strong></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0; background: #f1f5f9;">
+                            <td style="padding: 0.5rem;">Area under AWD</td>
+                            <td style="padding: 0.5rem;">180,000–220,000 ha</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 0.5rem;">CH₄ emissions avoided</td>
+                            <td style="padding: 0.5rem;">0.8–1.2 Mt CO₂eq/year</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0; background: #f1f5f9;">
+                            <td style="padding: 0.5rem;">Water savings</td>
+                            <td style="padding: 0.5rem;">25–35% in target regions</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 0.5rem;">Extension cost per hectare</td>
+                            <td style="padding: 0.5rem;">$150–200 (3–5 year amortized)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 9: KEY TAKEAWAYS -->
+        <div class="project-section"></div>
+            <div style="margin: 0 auto 4rem auto; padding: 2rem; background: #faf5ff; border-radius: 8px; border: 2px solid #7c3aed;">
+                <h4 style="color: #7c3aed; margin-bottom: 1rem;">Policy Transportability Assessment: Summary</h4>
+                <ul style="margin-left: 1.5rem; color: #475569; line-height: 2; font-size: 1rem;">
+                    <li><strong>Biophysical Feasibility:</strong> AWD is technically viable in 18% of Japan (vs. 45% in Vietnam's Mekong delta), concentrated in Kanto and Tohoku plains.</li>
+                    <li><strong>Spatial Transportability Failure:</strong> Vietnam's success leveraged contiguous geography + unified extension. Japan's fragmented paddies (3.8× more dispersed) require region-specific institutional design.</li>
+                    <li><strong>Institutional Pathways:</strong> High-suitability zones are feasible with training + pilots. Low-suitability zones require policy restructuring (subsidies, insurance), not extension.</li>
+                    <li><strong>Overestimation Risk:</strong> Ignoring biophysical constraints leads to deployment in unsuitable regions → farmer defection + wasted subsidies.</li>
+                    <li><strong>Realistic Mitigation Potential:</strong> Phase 1 targeting can achieve 0.8–1.2 Mt CO₂eq/year, meaningful but not transformative. Multi-pathway approach needed for climate targets.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- KEY CONTRIBUTIONS -->
+        <div class="project-section">
+            <h2 style="color: #059669; margin-bottom: 1rem;">Research Contributions</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #16a34a;">
+                    <h4 style="color: #059669; margin-top: 0; margin-bottom: 0.75rem;">🔬 Methods</h4>
+                    <p style="color: #475569; margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                        Demonstrates how threshold-based water balance models improve suitability assessment, correcting 3.4× overestimation of traditional approaches.
+                    </p>
+                </div>
+
+                <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+                    <h4 style="color: #1e40af; margin-top: 0; margin-bottom: 0.75rem;">🌍 Transportability</h4>
+                    <p style="color: #475569; margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                        Operationalizes policy transportability concept using composite suitability mapping integrating biophysical and institutional factors.
+                    </p>
+                </div>
+
+                <div style="background: #fef2f2; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #dc2626;">
+                    <h4 style="color: #dc2626; margin-top: 0; margin-bottom: 0.75rem;">⚖️ Policy Relevance</h4>
+                    <p style="color: #475569; margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                        Informs Japanese Ministry of Agriculture on realistic AWD implementation scope and geographic prioritization for climate adaptation.
+                    </p>
+                </div>
+
+                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #1e40af;">
+                    <h4 style="color: #1e40af; margin-top: 0; margin-bottom: 0.75rem;">📊 Geospatial</h4>
+                    <p style="color: #475569; margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                        Integrates satellite data (slope, soil), climate data (CHIRPS precipitation), and soil properties into unified suitability framework.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TECHNICAL SKILLS -->
+        <div class="project-section" style="background: #f8fafc; padding: 1.5rem; border-radius: 8px;">
+            <h3 style="color: #1e40af; margin-top: 0;">Technical Skills & Data Sources</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <div style="color: #1e40af; font-weight: 700; margin-bottom: 0.75rem;">Geospatial Methods</div>
+                    <div class="methodology-keywords" style="margin-top: 0.5rem;">
+                        <span class="keyword" style="font-size: 0.85rem;">GIS Analysis</span>
+                        <span class="keyword" style="font-size: 0.85rem;">Suitability Mapping</span>
+                        <span class="keyword" style="font-size: 0.85rem;">Raster Analysis</span>
+                        <span class="keyword" style="font-size: 0.85rem;">Composite Indicators</span>
+                    </div>
+                </div>
+
+                <div>
+                    <div style="color: #1e40af; font-weight: 700; margin-bottom: 0.75rem;">Data Sources</div>
+                    <div class="methodology-keywords" style="margin-top: 0.5rem;">
+                        <span class="keyword" style="font-size: 0.85rem;">CHIRPS Precipitation</span>
+                        <span class="keyword" style="font-size: 0.85rem;">SRTM Elevation</span>
+                        <span class="keyword" style="font-size: 0.85rem;">Soil pH Database</span>
+                        <span class="keyword" style="font-size: 0.85rem;">Google Earth Engine</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2025 My Tran. Research spanning causal inference, environmental governance, and geospatial data science.</p>
+        <div style="margin-top: 1rem; font-size: 0.9rem;">
+            <a href="https://github.com/MyTran-GitHub" target="_blank" style="color: #60a5fa; text-decoration: none;">GitHub</a> &nbsp;|&nbsp;
+            <a href="https://www.linkedin.com/in/mee-tran-34530725b/" target="_blank" style="color: #60a5fa; text-decoration: none;">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script src="shared.js"></script>
+</body>
+</html>
