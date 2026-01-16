@@ -8,10 +8,11 @@
 
 Most environmental policy evaluations stop at *“Did it work there?”*  
 I ask: *“What physical and social conditions made it work — and where else do those conditions exist?”*
+
 I develop methods that embed satellite observations directly into causal inference pipelines, enabling **credible counterfactual construction** and **policy transportability analysis**, the systematic evaluation of where interventions can scale based on biophysical similarity.
 
-Specifically, my work focuses on:
-
+<h3 align="left">Research Interest</h3>
+<p align="left"> 
 - Causal inference with satellite data: Embedding satellite-derived representations into causal pipelines to improve donor selection for synthetic control and reduce spatial confounding.
 
 - Policy transportability: Mapping biophysical constraints, assessing spatial heterogeneity in treatment effects, and evaluating institutional feasibility to determine where evidence-based interventions can credibly transfer across regions.
@@ -21,6 +22,7 @@ Specifically, my work focuses on:
 - Bayesian decision theory under uncertainty: Hierarchical modeling of spatial heterogeneity, model comparison under heavy-tailed uncertainty, posterior predictive checks, and PSIS-LOO cross-validation to support policy decisions under uncertainty.
 
 - Applied domains: Climate-smart agriculture (e.g., Alternate Wetting and Drying irrigation), prescribed fire management.
+</p>
 
 <h3 align="left">Publications & Preprints *(In preparation for submission)*</h3>
 <p align="left"> 
@@ -46,7 +48,10 @@ Specifically, my work focuses on:
 
 <h3 align="left">Contact</h3>
 <p align="left">
+  
 - **Email:** tran@uni.minerva.edu  
-- **LinkedIn:** https://www.linkedin.com/in/mee-tran-34530725b/  
+  
+- **LinkedIn:** https://www.linkedin.com/in/mee-tran-34530725b/
+
 - **Portfolio:** https://mytran-github.github.io/Mee-Chan/
 </p>
