@@ -7,12 +7,14 @@
 ## Research Statement
 
 Most environmental policy evaluations stop at *“Did it work there?”*  
+
 I ask: *“What physical and social conditions made it work — and where else do those conditions exist?”*
 
 I develop methods that embed satellite observations directly into causal inference pipelines, enabling **credible counterfactual construction** and **policy transportability analysis**, the systematic evaluation of where interventions can scale based on biophysical similarity.
 
 <h3 align="left">Research Interest</h3>
 <p align="left"> 
+
 - Causal inference with satellite data: Embedding satellite-derived representations into causal pipelines to improve donor selection for synthetic control and reduce spatial confounding.
 
 - Policy transportability: Mapping biophysical constraints, assessing spatial heterogeneity in treatment effects, and evaluating institutional feasibility to determine where evidence-based interventions can credibly transfer across regions.
