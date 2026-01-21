@@ -75,36 +75,47 @@
 
 // AWD Threshold images and data
         const awdThresholds = [
-            {idx: 0, value: 25, src: "assets/awd-thresh-25.png", label: "-25 mm", suitableArea: 18, dekads: 22},
-            {idx: 1, value: 50, src: "assets/awd-thresh-50.png", label: "-50 mm", suitableArea: 32, dekads: 48},
-            {idx: 2, value: 70, src: "assets/awd-thresh-70.png", label: "-70 mm", suitableArea: 42, dekads: 60},
-            {idx: 3, value: 90, src: "assets/awd-thresh-90.png", label: "-90 mm", suitableArea: 52, dekads: 68},
-            {idx: 4, value: 110, src: "assets/awd-thresh-110.png", label: "-110 mm", suitableArea: 62, dekads: 75},
-            {idx: 5, value: 130, src: "assets/awd-thresh-130.png", label: "-130 mm", suitableArea: 66, dekads: 80},
-            {idx: 6, value: 150, src: "assets/awd-thresh-150.png", label: "-150 mm", suitableArea: 69, dekads: 85}
+            { idx: 0, value: 25,  src: "assets/awd-thresh-25.png",  label: "−25 mm",  suitableArea: 18, dekads: 22 },
+            { idx: 1, value: 50,  src: "assets/awd-thresh-50.png",  label: "−50 mm",  suitableArea: 32, dekads: 48 },
+            { idx: 2, value: 70,  src: "assets/awd-thresh-70.png",  label: "−70 mm",  suitableArea: 42, dekads: 60 },
+            { idx: 3, value: 90,  src: "assets/awd-thresh-90.png",  label: "−90 mm",  suitableArea: 52, dekads: 68 },
+            { idx: 4, value: 110, src: "assets/awd-thresh-110.png", label: "−110 mm", suitableArea: 62, dekads: 75 },
+            { idx: 5, value: 130, src: "assets/awd-thresh-130.png", label: "−130 mm", suitableArea: 66, dekads: 80 },
+            { idx: 6, value: 150, src: "assets/awd-thresh-150.png", label: "−150 mm", suitableArea: 69, dekads: 85 }
         ];
 
+        // ================================
+        // Unified AWD Threshold Updater
+        // ================================
         function updateDeficitThreshold(value) {
-            const idx = parseInt(value);
+            const idx = parseInt(value, 10);
             const threshold = awdThresholds[idx];
-            
-            // Update label and image
-            document.getElementById('deficit-threshold-value').textContent = threshold.label;
-            document.getElementById('awd-threshold-label').textContent = threshold.label + ' Threshold';
-            document.getElementById('awd-threshold-image').src = threshold.src;
-            
-            // Update statistics
-            document.getElementById('suitable-area-pct').textContent = threshold.suitableArea + '%';
-            document.getElementById('deficit-dekads').textContent = threshold.dekads + '%';
-            
-            updateMapDisplay();
-        }
-
-        // Map Layer Toggle
-        let currentMapLayer = 'water-balance';
         
-        function setMapLayer(layer) {
-            currentMapLayer = layer;
+            if (!threshold) return;
+        
+            // Update numeric displays
+            const deficitValueEl = document.getElementById('deficit-threshold-value');
+            const suitableAreaEl = document.getElementById('suitable-area-pct');
+            const dekadsEl = document.getElementById('deficit-dekads');
+        
+            if (deficitValueEl) deficitValueEl.textContent = threshold.label;
+            if (suitableAreaEl) suitableAreaEl.textContent = threshold.suitableArea + '%';
+            if (dekadsEl) dekadsEl.textContent = threshold.dekads + '%';
+        
+            // Update image and label
+            const img = document.getElementById('awd-threshold-image');
+            const labelSpan = document.getElementById('awd-threshold-label');
+        
+            if (img) {
+                img.src = threshold.src;
+                img.alt = threshold.label + ' Threshold';
+            }
+        
+            if (labelSpan) {
+                labelSpan.textContent = threshold.label + ' Threshold';
+            }
+        
+            updateMapDisplay();
         }
 
         function updateMapDisplay() {
@@ -399,53 +410,7 @@
             initArgentinaBayes();
         });
 
-        // AWD Water Deficit Threshold Slider
-        function updateDeficitThreshold(value) {
-            const thresholds = [0, -10, -30, -50, -75, -100, -150];
-            const suitableAreas = [8, 15, 22, 32, 42, 48, 62];
-            const deficitDekads = [12, 22, 32, 48, 62, 72, 90];
-            const mapImages = [
-                'assets/awd-thresh-0.png',
-                'assets/awd-thresh-10.png',
-                'assets/awd-thresh-30.png',
-                'assets/awd-thresh-50.png',
-                'assets/awd-thresh-75.png',
-                'assets/awd-thresh-100.png',
-                'assets/awd-thresh-150.png'
-            ];
-            const labels = [
-                '0 mm Threshold',
-                '−10 mm Threshold',
-                '−30 mm Threshold',
-                '−50 mm Threshold',
-                '−75 mm Threshold',
-                '−100 mm Threshold',
-                '−150 mm Threshold'
-            ];
 
-            const threshold = thresholds[value];
-            const suitableArea = suitableAreas[value];
-            const dekads = deficitDekads[value];
-            const mapImage = mapImages[value];
-            const label = labels[value];
-
-            // Update display values
-            document.getElementById('deficit-threshold-value').textContent = threshold;
-            document.getElementById('suitable-area-pct').textContent = suitableArea;
-            document.getElementById('deficit-dekads').textContent = dekads;
-
-            // Update image and label
-            const img = document.getElementById('awd-threshold-image');
-            const labelSpan = document.getElementById('awd-threshold-label');
-            
-            if (img) {
-                img.src = mapImage;
-                img.alt = label;
-            }
-            if (labelSpan) {
-                labelSpan.textContent = label;
-            }
-        }
 
         // Node selection for institutional analysis
         function selectNode(nodeId) {
